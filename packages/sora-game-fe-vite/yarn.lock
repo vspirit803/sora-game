@@ -489,11 +489,6 @@ util-deprecate@^1.0.2:
   resolved "http://192.168.1.131:8782/repository/npm-group/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-vite-plugin-env-compatible@^0.1.0:
-  version "0.1.0"
-  resolved "http://192.168.1.131:8782/repository/npm-group/vite-plugin-env-compatible/-/vite-plugin-env-compatible-0.1.0.tgz#b15b38c27783c165621fc4b7fe052644f64bb80d"
-  integrity sha512-/PJcVX6O2QtLBDvQ9IjKGXdlu2lGehd4Li5E9t50juzNsdWHY2eFbjLrBdH+odMOTQL5bxq7MbfMCPYRDNxYlQ==
-
 vite@^2.0.5:
   version "2.0.5"
   resolved "http://192.168.1.131:8782/repository/npm-group/vite/-/vite-2.0.5.tgz#ac46857a3fa8686d077921e61bd48a986931df1d"
@@ -505,6 +500,11 @@ vite@^2.0.5:
     rollup "^2.38.5"
   optionalDependencies:
     fsevents "~2.3.1"
+
+vue-router@^4.0.4:
+  version "4.0.4"
+  resolved "http://192.168.1.131:8782/repository/npm-group/vue-router/-/vue-router-4.0.4.tgz#ad9b4b7bbdad622407b4ff189b1646f48c1e9053"
+  integrity sha512-uN6PDEaYdU9aRO7mU+Dkr1uaY49hV3fucEDG/Vre/Qj8ct3RoJS16vcPrvKVzn69zDDjBV5b9Xw7fZA9r6b/Iw==
 
 vue@^3.0.5:
   version "3.0.7"

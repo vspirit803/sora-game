@@ -1,6 +1,4 @@
 <template>
-  <h1>{{ msg }}</h1>
-
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
@@ -22,7 +20,7 @@
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
   </p>
 
-  <button @click="count++">count is: {{ count }}</button>
+  <v-btn @click="count++">count is: {{ count }}</v-btn>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.

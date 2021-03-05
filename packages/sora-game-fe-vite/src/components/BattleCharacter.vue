@@ -1,19 +1,29 @@
 <template>
   <div ref="characterElement" class="character">
-    <!-- <img class="img" :src="imgUrl" /> -->
-    <div>{{ character.name }}</div>
-    <progress class="hp-bar" :max="character.properties.hp.battleValue" :value="currHp"></progress>
+    <div class="img-container">
+      <!-- <img class="img" :src="imgUrl" /> -->
+    </div>
+    <div class="name">{{ character.name }}</div>
+    <progress class="hp-bar" :max="hpMax" :value="currHp"></progress>
   </div>
 </template>
 
 <script lang="ts">
-import { CharacterBattle, EventDataDamaged } from 'sora-game-core';
-import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { CharacterBattle, EventDataDamaged } from "sora-game-core";
+import {
+  defineComponent,
+  onMounted,
+  PropType,
+  Ref,
+  ref,
+  toRefs,
+  watch,
+} from "vue";
 
-import { useLabel } from '@/use';
+import { useLabel } from "@/use";
 
 export default defineComponent({
-  name: 'BattleCharacter',
+  name: "BattleCharacter",
   props: {
     character: {
       required: true,
@@ -23,6 +33,7 @@ export default defineComponent({
   setup(props) {
     const { character } = toRefs(props);
     const currHp = ref(character.value.currHp);
+    const hpMax = ref(character.value.properties.hp.battleValue);
     const characterElement: Ref<HTMLElement | undefined> = ref(undefined);
     let addLabel: (damage: number, color?: string) => void;
     onMounted(() => {
@@ -33,24 +44,30 @@ export default defineComponent({
       character,
       () => {
         character.value.battle.eventCenter.listen({
-          eventType: 'Damaged',
+          eventType: "Damaged",
           priority: 1,
           filter: character.value,
           callback: async (eventData: EventDataDamaged) => {
             const { isCrit, finalDamage } = eventData;
-            addLabel(finalDamage!, isCrit ? 'red' : undefined);
-            currHp.value = character.value.currHp
+            addLabel(finalDamage!, isCrit ? "red" : undefined);
+            currHp.value = character.value.currHp;
+            hpMax.value = character.value.properties.hp.battleValue;
 
             return new Promise((resolve) => {
-              setTimeout(resolve, 500);
+              setTimeout(resolve, 50);
             });
           },
         });
       },
-      { immediate: true },
+      { immediate: true }
     );
 
-    return { currHp, characterElement, imgUrl: `/images/${character.value.id}.png` };
+    return {
+      currHp,
+      hpMax,
+      characterElement,
+      imgUrl: `/images/${character.value.id}.png`,
+    };
   },
 });
 </script>
@@ -62,6 +79,17 @@ export default defineComponent({
   border: double aquamarine;
   position: relative;
 
+  .name {
+    position: relative;
+    font-weight: bold;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(128, 128, 128, 0.8),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
   .hp-bar {
     position: absolute;
     left: 0;
@@ -69,24 +97,26 @@ export default defineComponent({
     width: 100%;
     height: 2rem;
   }
-
-  .img {
+  .img-container {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
-}
 
-.character >>> .damage-span {
-  position: absolute;
-  font-size: x-large;
-  font-weight: bolder;
-  bottom: 20px;
-  text-align: center;
-  left: 0;
-  right: 0;
+    .img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  ::v-deep(.damage-span) {
+    position: absolute;
+    font-size: x-large;
+    font-weight: bolder;
+    bottom: 20px;
+    text-align: center;
+    left: 0;
+    right: 0;
+  }
 }
 </style>

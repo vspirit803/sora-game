@@ -1,10 +1,21 @@
+<!--
+ * @Author: vspirit803
+ * @Date: 2021-03-04 09:50:15
+ * @Description: 
+ * @LastEditTime: 2021-03-05 11:50:23
+ * @LastEditors: vspirit803
+-->
 <template>
-  <v-btn @click="onBattleStart">开始战斗</v-btn>
+  <v-btn style="position: absolute" @click="onBattleStart">开始战斗</v-btn>
   <div class="battle" v-if="battle">
     {{ battle.name }}
-    <BattleFaction class="faction1" :faction="battle.factions[0]" reverse />
-    <BattleFaction class="faction2" :faction="battle.factions[1]" />
-    <BattleFaction v-if="battle.factions[2]" class="faction3" :faction="battle.factions[2]" />
+    <BattleFaction class="faction faction1" :faction="battle.factions[0]" reverse />
+    <BattleFaction class="faction faction2" :faction="battle.factions[1]" />
+    <BattleFaction
+      v-if="battle.factions[2]"
+      class="faction faction3"
+      :faction="battle.factions[2]"
+    />
   </div>
 </template>
 
@@ -53,9 +64,10 @@ export default defineComponent({
     async function onBattleStart() {
       battle.value = await game.battleCenter.generateBattle('Battle00001', team);
       battle.value.autoMode = true;
+      console.clear();
       console.log(battle.value)
       // nextTick(() => {
-        battle.value!.start();
+      battle.value!.start();
       // })
     }
 
@@ -64,27 +76,27 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.faction1 {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
+.battle {
+  width: 100%;
 
-  border: dashed #32a1ce;
-}
+  .faction {
+    position: absolute;
+    border: dashed #32a1ce;
+  }
 
-.faction2 {
-  position: absolute;
-  left: 20px;
-  top: 20px;
+  .faction1 {
+    right: 20px;
+    bottom: 20px;
+  }
 
-  border: dashed #32a1ce;
-}
+  .faction2 {
+    left: 20px;
+    top: 20px;
+  }
 
-.faction3 {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-
-  border: dashed #32a1ce;
+  .faction3 {
+    right: 20px;
+    top: 20px;
+  }
 }
 </style>

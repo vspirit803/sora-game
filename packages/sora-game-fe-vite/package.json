@@ -1,5 +1,5 @@
 {
-  "name": "vite-vuetify",
+  "name": "sora-game-fe-vite",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

@@ -7,6 +7,7 @@
 -->
 <template>
   <v-btn style="position: absolute" @click="onBattleStart">开始战斗</v-btn>
+  <v-btn style="position: absolute; right: 0;" @click="$router.push({ name: 'Home' })">退出</v-btn>
   <div class="battle" v-if="battle">
     {{ battle.name }}
     <BattleFaction class="faction faction1" :faction="battle.factions[0]" reverse />
@@ -20,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import { Battle, Game } from 'sora-game-core';
-import { defineComponent, nextTick, onMounted, onUnmounted, Ref, ref, shallowRef } from 'vue';
+import { Battle, CharacterBattle, Game } from 'sora-game-core';
+import { defineComponent, nextTick, onMounted, onUnmounted, provide, Ref, ref, shallowRef } from 'vue';
 
 // import '@/styles/vuetify.css';
 import BattleFaction from '@/components/BattleFaction.vue';
@@ -34,41 +35,34 @@ export default defineComponent({
     const game = Game.getInstence();
     const team = game.teamCenter.teams[0];
     const battle: Ref<Battle | undefined> = shallowRef();
+    const availableTargets = shallowRef<Array<CharacterBattle>>([]);
+    function setAvailableTargets(targets: Array<CharacterBattle>) {
+      availableTargets.value = targets;
+    }
 
-    // onMounted(() => {
-    //   if (battle.value) {
-    //     // battle.value?.end();
-    //     // battle.value = undefined
-    //   }
+    provide('availableTargets', availableTargets);
+    provide('setAvailableTargets', setAvailableTargets);
 
-    //   battle.value = game.battleCenter.generateBattle('Battle00001', team);
-    //   battle.value.autoMode = true;
-    //   battle.value.start();
-    // })
+    const selectTargetHandler = shallowRef<Function | undefined>();
+    function setSelectTargetHandler(handler: Function) {
+      selectTargetHandler.value = handler;
+    }
+
+    provide('selectTargetHandler', selectTargetHandler);
+    provide('setSelectTargetHandler', setSelectTargetHandler);
+
 
     onUnmounted(() => {
-      console.log('结束battle')
+      console.log('结束battle');
       battle.value?.end();
-      console.log('已结束battle')
-      // battle.value = undefined
+      console.log('已结束battle');
     });
 
-    // onBeforeRouteLeave(async () => {
-    //   console.log('结束battle')
-    //   // battle.value?.end();
-    //   console.log('已结束battle')
-
-    //   await nextTick();
-    // })
-
     async function onBattleStart() {
-      battle.value = await game.battleCenter.generateBattle('Battle00001', team);
-      battle.value.autoMode = true;
+      battle.value = game.battleCenter.generateBattle('Battle00001', team);
+      // battle.value.autoMode = true;
       console.clear();
-      console.log(battle.value)
-      // nextTick(() => {
-      battle.value!.start();
-      // })
+      battle.value.start();
     }
 
     return { battle, onBattleStart };

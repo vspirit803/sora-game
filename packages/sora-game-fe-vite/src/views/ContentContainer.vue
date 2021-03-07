@@ -6,7 +6,6 @@
 
 <style lang="scss" scoped>
 .content-container {
-
   position: relative;
 
   > *:only-child {
@@ -14,9 +13,7 @@
     height: 100%;
   }
 }
-</style>
 
-<style scoped>
 /**宽高比小于16/9, 按宽度决定 */
 @media screen and (max-aspect-ratio: 16/9) {
   .content-container {

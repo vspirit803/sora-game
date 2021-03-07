@@ -1,9 +1,5 @@
 <template>
   <div class="v-application">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/battle">Battle</router-link>
-    </div>
     <ContentContainer />
   </div>
 </template>
@@ -34,7 +30,7 @@ export default defineComponent({
     game.backpack.loadConfigurations(items as ItemConfigurations);
     game.characterCenter.loadConfiguration(characters);
     game.battleCenter.loadConfiguration(battles);
-    
+
     onMounted(() => {
       game.loadSave(save);
     });
@@ -60,7 +56,10 @@ html {
   color: #2c3e50;
 }
 
-#nav {
+.nav {
+  position: absolute;
+  z-index: 999;
+
   padding: 30px;
 
   a {

@@ -1,21 +1,39 @@
 <template>
-  <div ref="characterElement" class="character">
+  <div ref="characterElement" class="character" :class="{ target: isAvailable }" @click="onSelect">
     <div class="img-container">
-      <!-- <img class="img" :src="imgUrl" /> -->
+      <img class="img" :src="imgUrl" />
     </div>
     <div class="name">{{ character.name }}</div>
+    <div class="skills-container d-flex">
+      <img
+        class="skill"
+        :src="`/images/skills/${eachSkill.id}.png`"
+        v-for="eachSkill of availableSkills"
+        @click="onSelectSkill(eachSkill)"
+        :class="{ 'skill-selected': eachSkill === selectedSkill }"
+      />
+      <!-- <v-btn
+        class="skill"
+        v-for="eachSkill of availableSkills"
+        @click="onSelectSkill(eachSkill)"
+        :class="{ 'skill-selected': eachSkill === selectedSkill }"
+      >{{ eachSkill.name }}</v-btn>-->
+    </div>
     <progress class="hp-bar" :max="hpMax" :value="currHp"></progress>
   </div>
 </template>
 
 <script lang="ts">
-import { CharacterBattle, EventDataDamaged } from "sora-game-core";
+import { CharacterBattle, EventDataDamaged, EventDataSkillSelect, SkillBattle } from "sora-game-core";
 import {
+  computed,
   defineComponent,
+  inject,
   onMounted,
   PropType,
   Ref,
   ref,
+  shallowRef,
   toRefs,
   watch,
 } from "vue";
@@ -35,6 +53,19 @@ export default defineComponent({
     const currHp = ref(character.value.currHp);
     const hpMax = ref(character.value.properties.hp.battleValue);
     const characterElement: Ref<HTMLElement | undefined> = ref(undefined);
+    const selectSkillPromiseResolve = ref<Function | undefined>(undefined);
+    const availableSkills = shallowRef<Array<SkillBattle>>([]);
+    let selectSkillData: EventDataSkillSelect | undefined = undefined;
+
+    const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;
+    const setAvailableTargets = inject<Function>('setAvailableTargets')!;
+
+    const setSelectTargetHandler = inject<Function>('setSelectTargetHandler')!;
+    const selectTargetHandler = inject<Ref<Function>>('selectTargetHandler')!;
+
+    const isAvailable = computed(() => availableTargets.value.includes(character.value));
+    const selectedSkill = shallowRef<SkillBattle | undefined>(undefined);
+
     let addLabel: (damage: number, color?: string) => void;
     onMounted(() => {
       addLabel = useLabel(characterElement.value!);
@@ -58,27 +89,71 @@ export default defineComponent({
             });
           },
         });
+
+
+        character.value.battle.eventCenter.listen({
+          eventType: "SkillSelect",
+          priority: 1,
+          filter: character.value,
+          callback: async (eventData: EventDataSkillSelect) => {
+            availableSkills.value = eventData.availableSkills;
+            setAvailableTargets(eventData.availableTargets);
+            selectSkillData = eventData;
+
+            return new Promise((resolve) => {
+              selectSkillPromiseResolve.value = resolve;
+            });
+          },
+        });
       },
       { immediate: true }
     );
+
+    function onSelectSkill(skill: SkillBattle) {
+      if (selectSkillData) {
+        selectSkillData.selectedSkill = skill;
+        selectedSkill.value = skill;
+
+        setSelectTargetHandler((target: CharacterBattle) => {
+          selectSkillData!.selectedTarget = target;
+          selectSkillPromiseResolve.value?.(selectSkillData);
+          availableSkills.value = [];
+          selectSkillPromiseResolve.value = undefined;
+          selectedSkill.value = undefined;
+        });
+      }
+    }
+
+    function onSelect() {
+      if (isAvailable.value) {
+        selectTargetHandler.value?.(character.value);
+      }
+    }
 
     return {
       currHp,
       hpMax,
       characterElement,
-      imgUrl: `/images/${character.value.id}.png`,
+      imgUrl: `/images/characters/${character.value.id}.png`, availableSkills, onSelectSkill, isAvailable, onSelect, selectedSkill
     };
   },
 });
 </script>
 <style lang="scss" scoped>
 .character {
-  width: 12rem;
-  height: 12rem;
+  width: 16rem;
+  height: 16rem;
+
+  &.target {
+    border: 2px red dashed;
+
+    &:hover {
+      border-style: solid;
+    }
+  }
 
   border: double aquamarine;
   position: relative;
-
   .name {
     position: relative;
     font-weight: bold;
@@ -88,6 +163,22 @@ export default defineComponent({
       rgba(128, 128, 128, 0.8),
       rgba(255, 255, 255, 0)
     );
+  }
+
+  .skills-container {
+    position: absolute;
+    bottom: 1rem;
+
+    .skill {
+      width: 4rem;
+      height: 4rem;
+
+      font-size: 0.8rem;
+
+      &-selected {
+        border: 1px red solid !important;
+      }
+    }
   }
 
   .hp-bar {

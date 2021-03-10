@@ -2,31 +2,25 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description: 
- * @LastEditTime: 2021-03-05 11:50:23
+ * @LastEditTime: 2021-03-10 17:33:25
  * @LastEditors: vspirit803
 -->
 <template>
   <v-btn style="position: absolute" @click="onBattleStart">开始战斗</v-btn>
-  <v-btn style="position: absolute; right: 0;" @click="$router.push({ name: 'Home' })">退出</v-btn>
-  <div class="battle" v-if="battle">
+  <v-btn style="position: absolute; right: 0" @click="$router.push({ name: 'Home' })">退出</v-btn>
+  <div v-if="battle" class="battle">
     {{ battle.name }}
     <BattleFaction class="faction faction1" :faction="battle.factions[0]" reverse />
     <BattleFaction class="faction faction2" :faction="battle.factions[1]" />
-    <BattleFaction
-      v-if="battle.factions[2]"
-      class="faction faction3"
-      :faction="battle.factions[2]"
-    />
+    <BattleFaction v-if="battle.factions[2]" class="faction faction3" :faction="battle.factions[2]" />
   </div>
 </template>
 
 <script lang="ts">
 import { Battle, CharacterBattle, Game } from 'sora-game-core';
-import { defineComponent, nextTick, onMounted, onUnmounted, provide, Ref, ref, shallowRef } from 'vue';
+import { defineComponent, onUnmounted, provide, Ref, shallowRef } from 'vue';
 
-// import '@/styles/vuetify.css';
 import BattleFaction from '@/components/BattleFaction.vue';
-import { onBeforeRouteLeave } from 'vue-router';
 
 export default defineComponent({
   name: 'Battle',
@@ -43,14 +37,13 @@ export default defineComponent({
     provide('availableTargets', availableTargets);
     provide('setAvailableTargets', setAvailableTargets);
 
-    const selectTargetHandler = shallowRef<Function | undefined>();
-    function setSelectTargetHandler(handler: Function) {
+    const selectTargetHandler = shallowRef<(target: CharacterBattle) => void | undefined>();
+    function setSelectTargetHandler(handler: (target: CharacterBattle) => void) {
       selectTargetHandler.value = handler;
     }
 
     provide('selectTargetHandler', selectTargetHandler);
     provide('setSelectTargetHandler', setSelectTargetHandler);
-
 
     onUnmounted(() => {
       console.log('结束battle');

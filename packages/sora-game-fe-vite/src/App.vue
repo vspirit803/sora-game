@@ -1,3 +1,10 @@
+<!--
+ * @Author: vspirit803
+ * @Date: 2021-03-04 09:50:15
+ * @Description: 
+ * @LastEditTime: 2021-03-10 17:47:46
+ * @LastEditors: vspirit803
+-->
 <template>
   <div class="v-application">
     <ContentContainer />
@@ -5,8 +12,6 @@
 </template>
 
 <script lang="ts">
-import ContentContainer from '@/views/ContentContainer.vue';
-
 import battles from '@assets/battles.json';
 import characters from '@assets/characters.json';
 import items from '@assets/items.json';
@@ -15,14 +20,17 @@ import save from '@saves/sav001.json';
 import { Game, ItemConfigurations, SkillConfiguration } from 'sora-game-core';
 import { defineComponent, onMounted } from 'vue';
 
+import ContentContainer from '@/views/ContentContainer.vue';
+
 export default defineComponent({
   name: 'App',
   components: {
-    ContentContainer
+    ContentContainer,
   },
   setup() {
     const game = Game.getInstence();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).game = game;
 
     //加载配置
@@ -36,7 +44,6 @@ export default defineComponent({
     });
   },
 });
-
 </script>
 
 <style lang="scss">

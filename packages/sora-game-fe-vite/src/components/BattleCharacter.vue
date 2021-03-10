@@ -6,11 +6,12 @@
     <div class="name">{{ character.name }}</div>
     <div class="skills-container d-flex">
       <img
+        v-for="eachSkill of availableSkills"
+        :key="eachSkill.id"
         class="skill"
         :src="`/images/skills/${eachSkill.id}.png`"
-        v-for="eachSkill of availableSkills"
-        @click="onSelectSkill(eachSkill)"
         :class="{ 'skill-selected': eachSkill === selectedSkill }"
+        @click="onSelectSkill(eachSkill)"
       />
       <!-- <v-btn
         class="skill"
@@ -24,24 +25,13 @@
 </template>
 
 <script lang="ts">
-import { CharacterBattle, EventDataDamaged, EventDataSkillSelect, SkillBattle } from "sora-game-core";
-import {
-  computed,
-  defineComponent,
-  inject,
-  onMounted,
-  PropType,
-  Ref,
-  ref,
-  shallowRef,
-  toRefs,
-  watch,
-} from "vue";
+import { CharacterBattle, EventDataDamaged, EventDataSkillSelect, SkillBattle } from 'sora-game-core';
+import { computed, defineComponent, inject, onMounted, PropType, Ref, ref, shallowRef, toRefs, watch } from 'vue';
 
-import { useLabel } from "@/use";
+import { useLabel } from '@/use';
 
 export default defineComponent({
-  name: "BattleCharacter",
+  name: 'BattleCharacter',
   props: {
     character: {
       required: true,
@@ -53,15 +43,17 @@ export default defineComponent({
     const currHp = ref(character.value.currHp);
     const hpMax = ref(character.value.properties.hp.battleValue);
     const characterElement: Ref<HTMLElement | undefined> = ref(undefined);
-    const selectSkillPromiseResolve = ref<Function | undefined>(undefined);
+    const selectSkillPromiseResolve = ref<(() => void) | undefined>(undefined);
     const availableSkills = shallowRef<Array<SkillBattle>>([]);
     let selectSkillData: EventDataSkillSelect | undefined = undefined;
 
     const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;
-    const setAvailableTargets = inject<Function>('setAvailableTargets')!;
+    const setAvailableTargets = inject<(targets: Array<CharacterBattle>) => void>('setAvailableTargets')!;
 
-    const setSelectTargetHandler = inject<Function>('setSelectTargetHandler')!;
-    const selectTargetHandler = inject<Ref<Function>>('selectTargetHandler')!;
+    const setSelectTargetHandler = inject<(handler: (target: CharacterBattle) => void) => void>(
+      'setSelectTargetHandler',
+    )!;
+    const selectTargetHandler = inject<Ref<(target: CharacterBattle) => void>>('selectTargetHandler')!;
 
     const isAvailable = computed(() => availableTargets.value.includes(character.value));
     const selectedSkill = shallowRef<SkillBattle | undefined>(undefined);
@@ -75,12 +67,12 @@ export default defineComponent({
       character,
       () => {
         character.value.battle.eventCenter.listen({
-          eventType: "Damaged",
+          eventType: 'Damaged',
           priority: 1,
           filter: character.value,
           callback: async (eventData: EventDataDamaged) => {
             const { isCrit, finalDamage } = eventData;
-            addLabel(finalDamage!, isCrit ? "red" : undefined);
+            addLabel(finalDamage!, isCrit ? 'red' : undefined);
             currHp.value = character.value.currHp;
             hpMax.value = character.value.properties.hp.battleValue;
 
@@ -90,9 +82,8 @@ export default defineComponent({
           },
         });
 
-
         character.value.battle.eventCenter.listen({
-          eventType: "SkillSelect",
+          eventType: 'SkillSelect',
           priority: 1,
           filter: character.value,
           callback: async (eventData: EventDataSkillSelect) => {
@@ -106,7 +97,7 @@ export default defineComponent({
           },
         });
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     function onSelectSkill(skill: SkillBattle) {
@@ -116,7 +107,7 @@ export default defineComponent({
 
         setSelectTargetHandler((target: CharacterBattle) => {
           selectSkillData!.selectedTarget = target;
-          selectSkillPromiseResolve.value?.(selectSkillData);
+          selectSkillPromiseResolve.value?.();
           availableSkills.value = [];
           selectSkillPromiseResolve.value = undefined;
           selectedSkill.value = undefined;
@@ -134,7 +125,12 @@ export default defineComponent({
       currHp,
       hpMax,
       characterElement,
-      imgUrl: `/images/characters/${character.value.id}.png`, availableSkills, onSelectSkill, isAvailable, onSelect, selectedSkill
+      imgUrl: `/images/characters/${character.value.id}.png`,
+      availableSkills,
+      onSelectSkill,
+      isAvailable,
+      onSelect,
+      selectedSkill,
     };
   },
 });
@@ -157,12 +153,7 @@ export default defineComponent({
   .name {
     position: relative;
     font-weight: bold;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0),
-      rgba(128, 128, 128, 0.8),
-      rgba(255, 255, 255, 0)
-    );
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(128, 128, 128, 0.8), rgba(255, 255, 255, 0));
   }
 
   .skills-container {

@@ -1,9 +1,13 @@
 <template>
   <div ref="characterElement" class="character" :class="{ target: isAvailable }" @click="onSelect">
     <div class="img-container">
-      <img class="img" :src="imgUrl" />
+      <!-- <img class="img" :src="imgUrl" /> -->
+      <div class="img" :style="`background-image: url(${imgUrl});`"></div>
     </div>
     <div class="name">{{ character.name }}</div>
+    <div class="buffs-container d-flex">
+      <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
+    </div>
     <div class="skills-container d-flex">
       <img
         v-for="eachSkill of availableSkills"
@@ -11,6 +15,7 @@
         class="skill"
         :src="`/images/skills/${eachSkill.id}.png`"
         :class="{ 'skill-selected': eachSkill === selectedSkill }"
+        :alt="eachSkill.name"
         @click="onSelectSkill(eachSkill)"
       />
       <!-- <v-btn
@@ -25,13 +30,15 @@
 </template>
 
 <script lang="ts">
-import { CharacterBattle, EventDataDamaged, EventDataSkillSelect, SkillBattle } from 'sora-game-core';
+import { Buff, CharacterBattle, EventDataDamaged, EventDataSkillSelect, SkillBattle } from 'sora-game-core';
 import { computed, defineComponent, inject, onMounted, PropType, Ref, ref, shallowRef, toRefs, watch } from 'vue';
 
+import BuffComponent from '@/components/Buff.vue';
 import { useLabel } from '@/use';
 
 export default defineComponent({
   name: 'BattleCharacter',
+  components: { BuffComponent },
   props: {
     character: {
       required: true,
@@ -46,6 +53,7 @@ export default defineComponent({
     const selectSkillPromiseResolve = ref<(() => void) | undefined>(undefined);
     const availableSkills = shallowRef<Array<SkillBattle>>([]);
     let selectSkillData: EventDataSkillSelect | undefined = undefined;
+    const buffs = shallowRef<Array<Buff>>([]);
 
     const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;
     const setAvailableTargets = inject<(targets: Array<CharacterBattle>) => void>('setAvailableTargets')!;
@@ -68,7 +76,7 @@ export default defineComponent({
       () => {
         character.value.battle.eventCenter.listen({
           eventType: 'Damaged',
-          priority: 1,
+          priority: 0,
           filter: character.value,
           callback: async (eventData: EventDataDamaged) => {
             const { isCrit, finalDamage } = eventData;
@@ -84,16 +92,23 @@ export default defineComponent({
 
         character.value.battle.eventCenter.listen({
           eventType: 'SkillSelect',
-          priority: 1,
+          priority: 0,
           filter: character.value,
           callback: async (eventData: EventDataSkillSelect) => {
             availableSkills.value = eventData.availableSkills;
-            setAvailableTargets(eventData.availableTargets);
             selectSkillData = eventData;
 
             return new Promise((resolve) => {
               selectSkillPromiseResolve.value = resolve;
             });
+          },
+        });
+
+        character.value.battle.eventCenter.listen({
+          eventType: 'ActionEnd',
+          priority: 0,
+          callback: async () => {
+            buffs.value = character.value.buffs;
           },
         });
       },
@@ -104,11 +119,13 @@ export default defineComponent({
       if (selectSkillData) {
         selectSkillData.selectedSkill = skill;
         selectedSkill.value = skill;
+        setAvailableTargets(selectedSkill.value.getTargets());
 
         setSelectTargetHandler((target: CharacterBattle) => {
           selectSkillData!.selectedTarget = target;
           selectSkillPromiseResolve.value?.();
           availableSkills.value = [];
+          setAvailableTargets([]);
           selectSkillPromiseResolve.value = undefined;
           selectedSkill.value = undefined;
         });
@@ -131,6 +148,7 @@ export default defineComponent({
       isAvailable,
       onSelect,
       selectedSkill,
+      buffs,
     };
   },
 });
@@ -163,11 +181,28 @@ export default defineComponent({
     .skill {
       width: 4rem;
       height: 4rem;
+      position: relative;
 
       font-size: 0.8rem;
 
       &-selected {
         border: 1px red solid !important;
+
+        &::after {
+          border: unset !important;
+        }
+      }
+
+      &::after {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #bbdefb;
+        border: 1px grey dotted;
+        content: attr(alt);
       }
     }
   }

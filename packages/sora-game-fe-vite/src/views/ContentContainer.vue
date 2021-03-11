@@ -1,3 +1,10 @@
+<!--
+ * @Author: vspirit803
+ * @Date: 2021-03-04 09:50:15
+ * @Description: 
+ * @LastEditTime: 2021-03-11 10:34:09
+ * @LastEditors: vspirit803
+-->
 <template>
   <div class="content-container d-flex blue lighten-4 text-center">
     <router-view />
@@ -26,8 +33,8 @@
 @media screen and (min-aspect-ratio: 16/9) {
   .content-container {
     margin: auto;
-    height: calc(100vh - 84px);
-    width: calc((100vh - 84px) / 9 * 16);
+    height: calc(100vh);
+    width: calc((100vh) / 9 * 16);
   }
 }
 </style>

@@ -13,9 +13,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@src/*": ["node_modules/sora-game-core/src/*"],
-      "@assets/*": ["node_modules/sora-game-core/assets/*"],
-      "@saves/*": ["node_modules/sora-game-core/saves/*"]
+      "@src/*": ["sora-game-core/src/*"],
+      "@assets/*": ["sora-game-core/assets/*"],
+      "@saves/*": ["sora-game-core/saves/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]

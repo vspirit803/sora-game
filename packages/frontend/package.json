@@ -1,5 +1,5 @@
 {
-  "name": "sora-game-fe-vite",
+  "name": "sora-game-frontend",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

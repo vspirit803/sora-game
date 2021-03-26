@@ -50,7 +50,7 @@ export default defineComponent({
     const currHp = ref(character.value.currHp);
     const hpMax = ref(character.value.properties.hp.battleValue);
     const characterElement: Ref<HTMLElement | undefined> = ref(undefined);
-    const selectSkillPromiseResolve = ref<(() => void) | undefined>(undefined);
+    const selectSkillPromiseResolve = ref<((value?: unknown) => void) | undefined>(undefined);
     const availableSkills = shallowRef<Array<SkillBattle>>([]);
     let selectSkillData: EventDataSkillSelect | undefined = undefined;
     const buffs = shallowRef<Array<Buff>>([]);

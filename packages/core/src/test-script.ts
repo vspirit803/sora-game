@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-10-23 16:03:31
  * @LastEditors: vspirit803
  */
-import scriptConfiguration from '@assets/scripts/script001.json';
+import { script001 as scriptConfiguration } from 'sora-game-assets';
 
 import { Script } from './Scrpit/Script';
 

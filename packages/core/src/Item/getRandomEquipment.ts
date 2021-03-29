@@ -5,8 +5,8 @@
  * @LastEditors: vspirit803
  * @Description:
  */
-import rarityRate from '@assets/ItemRarityRate.json';
 import { Rarity } from '@src/Common';
+import { ItemRarityRate as rarityRate } from 'sora-game-assets';
 
 import { ItemEquipment } from './ItemEquipment';
 import { ItemEquipmentType } from './ItemEquipmentType';

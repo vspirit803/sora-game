@@ -12,11 +12,7 @@
 </template>
 
 <script lang="ts">
-import battles from '@assets/battles.json';
-import characters from '@assets/characters.json';
-import items from '@assets/items.json';
-import skills from '@assets/skills.json';
-import save from '@saves/sav001.json';
+import { battles, characters, items, sav001, skills } from 'sora-game-assets';
 import { Game, ItemConfigurations, SkillConfiguration } from 'sora-game-core';
 import { defineComponent, onMounted } from 'vue';
 
@@ -40,7 +36,7 @@ export default defineComponent({
     game.battleCenter.loadConfiguration(battles);
 
     onMounted(() => {
-      game.loadSave(save);
+      game.loadSave(sav001);
     });
   },
 });

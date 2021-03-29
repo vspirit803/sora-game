@@ -6,8 +6,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@src': 'sora-game-core/src',
-      '@assets': 'sora-game-core/assets',
-      '@saves': 'sora-game-core/saves',
       '@': '/src',
     },
   },

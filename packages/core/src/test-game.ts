@@ -5,11 +5,8 @@
  * @LastEditors: vspirit803
  * @Description:
  */
-import battles from '@assets/battles.json';
-import characters from '@assets/characters.json';
-import items from '@assets/items.json';
-import skills from '@assets/skills.json';
-import save from '@saves/sav001.json';
+
+import { battles, characters, items, sav001, skills } from 'sora-game-assets';
 
 import { Game } from './Game';
 import { ItemConfigurations } from './Item';
@@ -23,7 +20,7 @@ game.characterCenter.loadConfiguration(characters);
 game.battleCenter.loadConfiguration(battles);
 
 //载入存档
-game.loadSave(save);
+game.loadSave(sav001);
 
 const team = game.teamCenter.teams[0];
 const battle = game.battleCenter.generateBattle('Battle00001', team);

@@ -18,7 +18,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   root: true,
   env: {
@@ -29,7 +28,6 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'simple-import-sort/sort': 'error',
     'comma-spacing': 'error',
 
     quotes: ['error', 'single'],
@@ -42,7 +40,8 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
-    'simple-import-sort/sort': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
 
     'import/order': 'off',
     'import/first': 'error',

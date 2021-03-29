@@ -7,5 +7,5 @@
  */
 export * from './EventCenter';
 export * from './EventData';
-export * from './EventTypes';
 export * from './EventDecorators';
+export * from './EventTypes';

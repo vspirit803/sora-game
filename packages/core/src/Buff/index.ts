@@ -8,5 +8,5 @@
 export * from './Buff';
 export * from './EventBuffItem';
 export * from './PropertyBuffItem';
-export * from './StatusBuffItem';
 export * from './Status';
+export * from './StatusBuffItem';

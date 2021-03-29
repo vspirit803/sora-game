@@ -18,6 +18,7 @@ function Listen(value: string): MethodDecorator {
 }
 
 function Listener(value: string) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   function classDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
     return class extends constructor {
       constructor(...args: any[]) {
@@ -29,6 +30,7 @@ function Listener(value: string) {
         );
 
         methodNames.forEach((each) => {
+          // eslint-disable-next-line @typescript-eslint/ban-types
           const fn = prototype[each] as Function;
           console.log(Reflect.getMetadataKeys(fn));
           console.log(Reflect.getMetadata('testKey', fn));

@@ -5,10 +5,10 @@
  * @LastEditTime: 2020-09-25 10:47:38
  * @LastEditors: vspirit803
  */
+export * from './CharacterBattle';
 export * from './CharacterCenter';
 export * from './CharacterConfiguration';
 export * from './CharacterNormal';
 export * from './CharacterPropertyConfiguration';
 export * from './CharacterPropertyNormal';
 export * from './CharacterSave';
-export * from './CharacterBattle';

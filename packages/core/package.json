@@ -33,7 +33,6 @@
   "dependencies": {
     "bson": "^4.1.0",
     "reflect-metadata": "^0.1.13",
-    "sora-game-assets": "0.0.0",
     "ts-loader": "^8.0.4",
     "webpack": "^5.28.0",
     "webpack-cli": "^4.6.0"

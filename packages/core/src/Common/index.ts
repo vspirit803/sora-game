@@ -5,6 +5,6 @@
  * @LastEditors: vspirit803
  * @Description:
  */
-export * from './UUID';
 export * from './Properties';
 export * from './Rarity';
+export * from './UUID';

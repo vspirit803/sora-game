@@ -5,8 +5,8 @@
  * @LastEditTime: 2020-09-25 13:51:43
  * @LastEditors: vspirit803
  */
+export * from './TeamBattle';
+export * from './TeamCenter';
 export * from './TeamConfiguration';
 export * from './TeamNormal';
-export * from './TeamCenter';
 export * from './TeamSave';
-export * from './TeamBattle';

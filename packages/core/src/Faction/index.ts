@@ -1,2 +1,2 @@
-export * from './FactionConfiguration';
 export * from './FactionBattle';
+export * from './FactionConfiguration';

@@ -7,6 +7,7 @@
  */
 export * from './Battle';
 export * from './BattleActionQueue';
+export * from './Buff';
 export * from './Character';
 export * from './Common';
 export * from './Condition';
@@ -15,5 +16,4 @@ export * from './Faction';
 export * from './Game';
 export * from './Item';
 export * from './Skill';
-export * from './Buff';
 export * from './Team';

@@ -18,12 +18,6 @@
         :alt="eachSkill.name"
         @click="onSelectSkill(eachSkill)"
       />
-      <!-- <v-btn
-        class="skill"
-        v-for="eachSkill of availableSkills"
-        @click="onSelectSkill(eachSkill)"
-        :class="{ 'skill-selected': eachSkill === selectedSkill }"
-      >{{ eachSkill.name }}</v-btn>-->
     </div>
     <progress class="hp-bar" :max="hpMax" :value="currHp"></progress>
   </div>
@@ -186,10 +180,8 @@ export default defineComponent({
       font-size: 0.8rem;
 
       &-selected {
-        border: 1px red solid !important;
-
         &::after {
-          border: unset !important;
+          border: 1px red solid !important;
         }
       }
 
@@ -223,6 +215,7 @@ export default defineComponent({
       width: 100%;
       height: 100%;
       object-fit: cover;
+      background-size: cover;
     }
   }
 

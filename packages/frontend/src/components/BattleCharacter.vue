@@ -137,10 +137,10 @@ export default defineComponent({
       hpMax,
       characterElement,
       imgUrl: `/images/characters/${character.value.id}.png`,
-      availableSkills,
-      onSelectSkill,
       isAvailable,
       onSelect,
+      availableSkills,
+      onSelectSkill,
       selectedSkill,
       buffs,
     };

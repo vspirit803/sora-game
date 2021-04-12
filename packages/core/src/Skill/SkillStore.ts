@@ -7,8 +7,8 @@
  */
 import 'reflect-metadata';
 
-import { Buff, StatusBuffItem, STUNNED } from '@src/Buff';
-import { CharacterBattle } from '@src/Character';
+import { Buff, StatusBuffItem, STUNNED } from '@core/Buff';
+import { CharacterBattle } from '@core/Character';
 
 import { SkillData } from './SkillData';
 

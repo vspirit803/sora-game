@@ -1,6 +1,6 @@
-import { Battle } from '@src/Battle';
-import { CharacterBattle } from '@src/Character';
-import { SkillBattle } from '@src/Skill';
+import { Battle } from '@core/Battle';
+import { CharacterBattle } from '@core/Character';
+import { SkillBattle } from '@core/Skill';
 
 import { EventTypes } from './EventTypes';
 

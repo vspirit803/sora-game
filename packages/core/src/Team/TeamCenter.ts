@@ -5,7 +5,7 @@
  * @LastEditors: vspirit803
  * @Description: 队伍中心 单例模式
  */
-import { SaveInterface } from '@src/Game';
+import { SaveInterface } from '@core/Game';
 
 import { TeamNormal } from './TeamNormal';
 import { TeamSave } from './TeamSave';

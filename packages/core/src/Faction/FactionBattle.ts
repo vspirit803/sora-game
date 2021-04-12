@@ -5,10 +5,10 @@
  * @LastEditTime: 2020-09-25 17:30:10
  * @LastEditors: vspirit803
  */
-import { Battle } from '@src/Battle';
-import { CharacterBattle } from '@src/Character';
-import { Game } from '@src/Game';
-import { TeamBattle, TeamNormal } from '@src/Team';
+import { Battle } from '@core/Battle';
+import { CharacterBattle } from '@core/Character';
+import { Game } from '@core/Game';
+import { TeamBattle, TeamNormal } from '@core/Team';
 
 import { FactionConfiguration } from './FactionConfiguration';
 

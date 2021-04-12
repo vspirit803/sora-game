@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-03-04 16:17:56
  * @LastEditors: vspirit803
  */
-import { CharacterPropertyType } from '@src/Character/CharacterPropertyType';
+import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
 
 import { AbstractBuffItem } from './AbstractBuffItem';
 import { Buff } from './Buff';

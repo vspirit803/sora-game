@@ -5,7 +5,7 @@
  * @LastEditors: vspirit803
  * @Description: 物品基类
  */
-import { Rarity, UUID } from '@src/Common';
+import { Rarity, UUID } from '@core/Common';
 import { ObjectId } from 'bson';
 
 import { ItemType } from './ItemType';

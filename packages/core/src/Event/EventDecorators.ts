@@ -7,9 +7,9 @@
  */
 import 'reflect-metadata';
 
-import { Battle } from '@src/Battle';
-import { CharacterBattle } from '@src/Character';
-import { UUID } from '@src/Common';
+import { Battle } from '@core/Battle';
+import { CharacterBattle } from '@core/Character';
+import { UUID } from '@core/Common';
 
 import { EventCenter, EventListener } from './EventCenter';
 import { EventData } from './EventData';

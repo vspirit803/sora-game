@@ -5,8 +5,8 @@
  * @LastEditTime: 2020-09-25 16:56:58
  * @LastEditors: vspirit803
  */
-import { Battle } from '@src/Battle';
-import { CharacterBattle } from '@src/Character';
+import { Battle } from '@core/Battle';
+import { CharacterBattle } from '@core/Character';
 
 import { BattleActionQueueBase } from './BattleActionQueueBase';
 

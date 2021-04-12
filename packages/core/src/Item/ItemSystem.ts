@@ -5,7 +5,7 @@
  * @LastEditors: vspirit803
  * @Description:
  */
-import { Rarity } from '@src/Common';
+import { Rarity } from '@core/Common';
 
 import { ItemBase } from './ItemBase';
 import { ItemCenter } from './ItemCenter';

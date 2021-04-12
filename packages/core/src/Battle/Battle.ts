@@ -5,13 +5,13 @@
  * @LastEditTime: 2020-09-29 11:28:29
  * @LastEditors: vspirit803
  */
-import { BattleActionQueueBase, BattleActionQueueMHXY } from '@src/BattleActionQueue';
-import { CharacterBattle } from '@src/Character';
-import { UUID } from '@src/Common';
-import { Condition } from '@src/Condition';
-import { EventCenter } from '@src/Event';
-import { FactionBattle } from '@src/Faction';
-import { TeamBattle, TeamNormal } from '@src/Team';
+import { BattleActionQueueBase, BattleActionQueueMHXY } from '@core/BattleActionQueue';
+import { CharacterBattle } from '@core/Character';
+import { UUID } from '@core/Common';
+import { Condition } from '@core/Condition';
+import { EventCenter } from '@core/Event';
+import { FactionBattle } from '@core/Faction';
+import { TeamBattle, TeamNormal } from '@core/Team';
 import { ObjectId } from 'bson';
 
 import { BattleConfiguration } from './BattleConfiguration';

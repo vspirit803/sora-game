@@ -5,7 +5,7 @@
  * @LastEditors: vspirit803
  * @Description:
  */
-import { CharacterPropertyType } from '@src/Character/CharacterPropertyType';
+import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
 
 import { ItemSave } from './ItemSave';
 

@@ -5,8 +5,8 @@
  * @LastEditTime: 2020-09-28 17:28:50
  * @LastEditors: vspirit803
  */
-import { Condition, ConditionItem, LogicOperator } from '@src/Condition';
-import { TeamNormal } from '@src/Team';
+import { Condition, ConditionItem, LogicOperator } from '@core/Condition';
+import { TeamNormal } from '@core/Team';
 
 import { Battle } from './Battle';
 import { BattleConfiguration } from './BattleConfiguration';

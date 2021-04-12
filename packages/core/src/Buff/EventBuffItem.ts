@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-03-04 16:20:50
  * @LastEditors: vspirit803
  */
-import { EventData, EventListener, EventTypes } from '@src/Event';
+import { EventData, EventListener, EventTypes } from '@core/Event';
 
 import { AbstractBuffItem } from './AbstractBuffItem';
 import { Buff } from './Buff';

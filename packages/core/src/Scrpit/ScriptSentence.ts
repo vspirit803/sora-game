@@ -6,7 +6,7 @@
  * @LastEditors: vspirit803
  */
 
-import { UUID } from '@src/Common';
+import { UUID } from '@core/Common';
 
 import { Script } from './Script';
 

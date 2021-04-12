@@ -5,10 +5,10 @@
  * @LastEditors: vspirit803
  * @Description:
  */
-import { CharacterSave } from '@src/Character';
-import { BackpackSave } from '@src/Item';
-// import { MapSave } from '@src/Map';
-import { TeamSave } from '@src/Team';
+import { CharacterSave } from '@core/Character';
+import { BackpackSave } from '@core/Item';
+// import { MapSave } from '@core/Map';
+import { TeamSave } from '@core/Team';
 
 /**
  * 游戏存档

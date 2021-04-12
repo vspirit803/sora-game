@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-03-05 11:17:59
  * @LastEditors: vspirit803
  */
-import { UUID } from '@src/Common';
+import { UUID } from '@core/Common';
 
 import { EventData } from './EventData';
 

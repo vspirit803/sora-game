@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-09-25 16:51:03
  * @LastEditors: vspirit803
  */
-import { Battle } from '@src/Battle';
+import { Battle } from '@core/Battle';
 
 import { ConditionItem } from './ConditionItem';
 

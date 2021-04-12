@@ -55,7 +55,7 @@ export default defineComponent({
       battle.value = game.battleCenter.generateBattle('Battle00001', team);
       // battle.value.autoMode = true;
       console.clear();
-      battle.value.start();
+      battle.value!.start();
     }
 
     return { battle, onBattleStart };

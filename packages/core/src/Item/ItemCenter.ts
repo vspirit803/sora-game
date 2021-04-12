@@ -5,7 +5,7 @@
  * @LastEditors: vspirit803
  * @Description: 物品中心 单例模式
  */
-import { SaveInterface } from '@src/Game';
+import { SaveInterface } from '@core/Game';
 
 import { BackpackSave } from './BackpackSave';
 import { ItemConfiguration } from './ItemConfiguration';

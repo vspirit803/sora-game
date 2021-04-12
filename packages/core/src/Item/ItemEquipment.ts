@@ -5,9 +5,9 @@
  * @LastEditors: vspirit803
  * @Description: 装备
  */
-import { CharacterNormal } from '@src/Character';
-import { CharacterPropertyType } from '@src/Character/CharacterPropertyType';
-import { Rarity } from '@src/Common';
+import { CharacterNormal } from '@core/Character';
+import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
+import { Rarity } from '@core/Common';
 import { ObjectId } from 'bson';
 
 import { ItemBase } from './ItemBase';

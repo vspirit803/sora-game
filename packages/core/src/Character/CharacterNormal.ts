@@ -5,8 +5,8 @@
  * @LastEditTime: 2020-09-27 10:42:15
  * @LastEditors: vspirit803
  */
-import { UUID } from '@src/Common';
-import { SkillNormal } from '@src/Skill';
+import { UUID } from '@core/Common';
+import { SkillNormal } from '@core/Skill';
 import { ObjectId } from 'bson';
 
 import { CharacterCenter } from './CharacterCenter';

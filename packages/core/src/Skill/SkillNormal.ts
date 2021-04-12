@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-09-27 11:48:03
  * @LastEditors: vspirit803
  */
-import { CharacterNormal } from '@src/Character';
+import { CharacterNormal } from '@core/Character';
 
 import { SkillCenter } from './SkillCenter';
 import { SkillData } from './SkillData';

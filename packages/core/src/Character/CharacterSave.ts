@@ -1,4 +1,4 @@
-import { UUID } from '@src/Common';
+import { UUID } from '@core/Common';
 
 /**
  * 角色存档

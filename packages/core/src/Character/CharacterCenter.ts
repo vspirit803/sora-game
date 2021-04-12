@@ -5,7 +5,7 @@
  * @LastEditors: vspirit803
  * @Description: 角色中心 单例模式
  */
-import { SaveInterface } from '@src/Game';
+import { SaveInterface } from '@core/Game';
 
 import { CharacterConfiguration } from './CharacterConfiguration';
 import { CharacterNormal } from './CharacterNormal';

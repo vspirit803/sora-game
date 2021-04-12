@@ -1,6 +1,6 @@
-import { Battle } from '@src/Battle';
-import { Buff, SILENCE, Status, StatusBuffItem, STUNNED } from '@src/Buff';
-import { UUID } from '@src/Common';
+import { Battle } from '@core/Battle';
+import { Buff, SILENCE, Status, StatusBuffItem, STUNNED } from '@core/Buff';
+import { UUID } from '@core/Common';
 import {
   EventDataActionEnd,
   EventDataAttacked,
@@ -14,10 +14,10 @@ import {
   Listen,
   Listener,
   RemoveAllListeners,
-} from '@src/Event';
-import { FactionBattle } from '@src/Faction';
-import { SkillBattle } from '@src/Skill';
-import { TeamBattle } from '@src/Team';
+} from '@core/Event';
+import { FactionBattle } from '@core/Faction';
+import { SkillBattle } from '@core/Skill';
+import { TeamBattle } from '@core/Team';
 
 import { CharacterNormal } from './CharacterNormal';
 import { CharacterPropertyBattle } from './CharacterPropertyBattle';

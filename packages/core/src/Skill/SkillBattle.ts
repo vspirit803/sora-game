@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-03-11 15:39:26
  * @LastEditors: vspirit803
  */
-import { CharacterBattle } from '@src/Character';
+import { CharacterBattle } from '@core/Character';
 
 import { SkillCenter } from './SkillCenter';
 import { SkillData } from './SkillData';

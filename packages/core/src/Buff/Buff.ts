@@ -5,8 +5,8 @@
  * @LastEditTime: 2021-03-11 13:54:53
  * @LastEditors: vspirit803
  */
-import { CharacterBattle } from '@src/Character';
-import { EventData, EventListener } from '@src/Event';
+import { CharacterBattle } from '@core/Character';
+import { EventData, EventListener } from '@core/Event';
 import { ObjectId } from 'bson';
 
 import { AbstractBuffItem } from './AbstractBuffItem';

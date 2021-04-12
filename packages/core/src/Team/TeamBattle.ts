@@ -1,7 +1,7 @@
-import { Battle } from '@src/Battle';
-import { CharacterBattle } from '@src/Character';
-import { MAX_TEAM_MEMBERS_NUM, UUID } from '@src/Common';
-import { FactionBattle } from '@src/Faction';
+import { Battle } from '@core/Battle';
+import { CharacterBattle } from '@core/Character';
+import { MAX_TEAM_MEMBERS_NUM, UUID } from '@core/Common';
+import { FactionBattle } from '@core/Faction';
 import { ObjectId } from 'bson';
 
 import { TeamNormal } from './TeamNormal';

@@ -6,16 +6,16 @@
  * @Description:
  */
 
-// import { BattleCenter } from '@src/Battle';
-import packageJson from '@src/../package.json';
-import { BattleCenter } from '@src/Battle';
-import { CharacterCenter } from '@src/Character';
-import { ItemCenter } from '@src/Item';
-import { SkillCenter } from '@src/Skill';
-// import { MapCenter } from '@src/Map';
-// import { SkillFactory } from '@src/Skill';
-// import { TaskCenter } from '@src/Task';
-import { TeamCenter } from '@src/Team';
+// import { BattleCenter } from '@core/Battle';
+import packageJson from '@core/../package.json';
+import { BattleCenter } from '@core/Battle';
+import { CharacterCenter } from '@core/Character';
+import { ItemCenter } from '@core/Item';
+import { SkillCenter } from '@core/Skill';
+// import { MapCenter } from '@core/Map';
+// import { SkillFactory } from '@core/Skill';
+// import { TaskCenter } from '@core/Task';
+import { TeamCenter } from '@core/Team';
 
 import { GameSave } from './GameSave';
 

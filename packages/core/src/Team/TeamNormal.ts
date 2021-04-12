@@ -5,9 +5,9 @@
  * @LastEditors: vspirit803
  * @Description:
  */
-import { CharacterNormal } from '@src/Character';
-import { MAX_TEAM_MEMBERS_NUM, UUID } from '@src/Common';
-import { Game } from '@src/Game';
+import { CharacterNormal } from '@core/Character';
+import { MAX_TEAM_MEMBERS_NUM, UUID } from '@core/Common';
+import { Game } from '@core/Game';
 import { ObjectId } from 'bson';
 
 import { TeamConfiguration } from './TeamConfiguration';

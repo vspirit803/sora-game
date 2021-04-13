@@ -41,12 +41,12 @@ export class EventListener<T extends EventData = EventData> {
 }
 
 export class EventCenter {
-  private static instence: EventCenter;
-  static getInstence(): EventCenter {
-    if (!EventCenter.instence) {
-      EventCenter.instence = new EventCenter();
+  private static instance: EventCenter;
+  static getInstance(): EventCenter {
+    if (!EventCenter.instance) {
+      EventCenter.instance = new EventCenter();
     }
-    return EventCenter.instence;
+    return EventCenter.instance;
   }
 
   listeners: Array<EventListener>;

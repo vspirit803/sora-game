@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:28
  * @Description:
- * @LastEditTime: 2021-04-13 15:44:09
+ * @LastEditTime: 2021-04-13 15:49:56
  * @LastEditors: vspirit803
  */
 import { Condition, ConditionItem, LogicOperator } from '@core/Condition';
@@ -15,12 +15,12 @@ import { BattleConfiguration } from './BattleConfiguration';
  * 战斗中心
  */
 export class BattleCenter {
-  private static instence: BattleCenter;
-  static getInstence(): BattleCenter {
-    if (!BattleCenter.instence) {
-      BattleCenter.instence = new BattleCenter();
+  private static instance: BattleCenter;
+  static getInstance(): BattleCenter {
+    if (!BattleCenter.instance) {
+      BattleCenter.instance = new BattleCenter();
     }
-    return BattleCenter.instence;
+    return BattleCenter.instance;
   }
 
   battles: Array<BattleConfiguration>;
@@ -96,10 +96,10 @@ export class BattleCenter {
     });
 
     const battle = new Battle(battleConfiguration, team, successCondition);
-    conditionItemKillJCYY.setTestInstence(battle);
-    conditionItemKillAll.setTestInstence(battle);
-    conditionItemNobuAlive.setTestInstence(battle);
-    conditionItemRound5.setTestInstence(battle);
+    conditionItemKillJCYY.setTestInstance(battle);
+    conditionItemKillAll.setTestInstance(battle);
+    conditionItemNobuAlive.setTestInstance(battle);
+    conditionItemRound5.setTestInstance(battle);
 
     this.currBattle = battle;
     return battle;

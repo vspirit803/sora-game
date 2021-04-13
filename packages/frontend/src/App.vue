@@ -24,7 +24,7 @@ export default defineComponent({
     ContentContainer,
   },
   setup() {
-    const game = Game.getInstence();
+    const game = Game.getInstance();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).game = game;

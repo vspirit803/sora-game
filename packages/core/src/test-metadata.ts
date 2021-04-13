@@ -22,7 +22,7 @@ function Listener(value: string) {
   function classDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
     return class extends constructor {
       constructor(...args: any[]) {
-        const instence = super(args);
+        const instance = super(args);
 
         const prototype = constructor.prototype;
         const methodNames = Object.getOwnPropertyNames(prototype).filter(

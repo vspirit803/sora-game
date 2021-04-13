@@ -35,7 +35,7 @@ export class CharacterNormal implements UUID {
   constructor(character: CharacterConfiguration | CharacterSave) {
     let characterConfiguration: CharacterConfiguration;
     if (isCharacterSave(character)) {
-      characterConfiguration = CharacterCenter.getInstence().charactersConfigurationMap.get(character.id)!;
+      characterConfiguration = CharacterCenter.getInstance().charactersConfigurationMap.get(character.id)!;
     } else {
       characterConfiguration = character;
     }

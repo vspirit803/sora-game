@@ -38,12 +38,12 @@ export type ItemConfigurations = {
  * 物品中心(背包)
  */
 export class ItemCenter implements SaveInterface<BackpackSave> {
-  private static instence: ItemCenter;
-  static getInstence(): ItemCenter {
-    if (!ItemCenter.instence) {
-      ItemCenter.instence = new ItemCenter();
+  private static instance: ItemCenter;
+  static getInstance(): ItemCenter {
+    if (!ItemCenter.instance) {
+      ItemCenter.instance = new ItemCenter();
     }
-    return ItemCenter.instence;
+    return ItemCenter.instance;
   }
 
   equipments: Array<ItemEquipment>;

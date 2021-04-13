@@ -40,7 +40,7 @@ export class TeamNormal implements UUID {
         character = new CharacterNormal(eachMember);
       } else {
         //id
-        character = Game.getInstence().characterCenter.getCharacter(eachMember.id);
+        character = Game.getInstance().characterCenter.getCharacter(eachMember.id);
       }
 
       if (eachMember.level) {

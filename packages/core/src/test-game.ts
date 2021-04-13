@@ -12,7 +12,7 @@ import { Game } from './Game';
 import { ItemConfigurations } from './Item';
 import { SkillConfiguration } from './Skill';
 
-const game = Game.getInstence();
+const game = Game.getInstance();
 //加载配置
 game.skillCenter.loadConfiguration(skills as Array<SkillConfiguration>);
 game.backpack.loadConfigurations(items as ItemConfigurations);

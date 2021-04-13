@@ -26,7 +26,7 @@ export function generateEquipment({
   rarity?: Rarity;
   level?: number;
 }): ItemEquipment {
-  const randomGenerator = Game.getInstence().randomGenerator;
+  const randomGenerator = Game.getInstance().randomGenerator;
 
   if (rarity === undefined) {
     const r = randomGenerator.get();

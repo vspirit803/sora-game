@@ -26,7 +26,7 @@ export class ItemMaterial extends ItemBase {
   constructor(material: ItemMaterialConfiguration | ItemMaterialSave) {
     let materialConfiguration: ItemMaterialConfiguration;
     if (isItemMaterialSave(material)) {
-      materialConfiguration = ItemCenter.getInstence().materialsConfigurationMap.get(material.id)!;
+      materialConfiguration = ItemCenter.getInstance().materialsConfigurationMap.get(material.id)!;
     } else {
       materialConfiguration = material;
     }

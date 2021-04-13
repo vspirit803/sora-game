@@ -24,12 +24,12 @@ import { GameSave } from './GameSave';
  * 游戏的实例
  */
 export class Game {
-  private static instence: Game;
-  static getInstence(): Game {
-    if (!Game.instence) {
-      Game.instence = new Game();
+  private static instance: Game;
+  static getInstance(): Game {
+    if (!Game.instance) {
+      Game.instance = new Game();
     }
-    return Game.instence;
+    return Game.instance;
   }
 
   /**角色中心 */
@@ -51,11 +51,11 @@ export class Game {
   randomDecider: RandomDecider;
 
   private constructor() {
-    this.characterCenter = CharacterCenter.getInstence();
-    this.teamCenter = TeamCenter.getInstence();
-    this.backpack = ItemCenter.getInstence();
-    this.battleCenter = BattleCenter.getInstence();
-    this.skillCenter = SkillCenter.getInstence();
+    this.characterCenter = CharacterCenter.getInstance();
+    this.teamCenter = TeamCenter.getInstance();
+    this.backpack = ItemCenter.getInstance();
+    this.battleCenter = BattleCenter.getInstance();
+    this.skillCenter = SkillCenter.getInstance();
 
     this.randomGenerator = RandomUtil.getRandomGenerator();
     this.randomDecider = RandomUtil.getRandomDecider(this.randomGenerator);

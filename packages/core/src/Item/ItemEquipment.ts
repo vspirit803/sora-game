@@ -53,7 +53,7 @@ export class ItemEquipment extends ItemBase {
     } else {
       //参数为EquipmentSave
       const id = equipment.id;
-      const tempEquipmentConfiguration = ItemCenter.getInstence().equipmentsConfigurationMap.get(id);
+      const tempEquipmentConfiguration = ItemCenter.getInstance().equipmentsConfigurationMap.get(id);
       if (tempEquipmentConfiguration === undefined) {
         throw new Error(`装备[${id}]的配置不存在`);
       }
@@ -70,7 +70,7 @@ export class ItemEquipment extends ItemBase {
       let value: number;
       if (!isEquipmentSave(equipment)) {
         //范围内随机取值
-        value = Game.getInstence().randomGenerator.get(min, max);
+        value = Game.getInstance().randomGenerator.get(min, max);
         //若为整数则取整
         if (Number.isInteger(min) && Number.isInteger(max)) {
           value = Math.round(value);

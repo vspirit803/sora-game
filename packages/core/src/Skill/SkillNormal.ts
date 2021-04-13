@@ -33,7 +33,7 @@ export class SkillNormal {
   owner: CharacterNormal;
 
   constructor({ owner, id, level = 1 }: { owner: CharacterNormal; id: string; level?: number }) {
-    const skillConfigration = SkillCenter.getInstence().skillConfigurationMap.get(id);
+    const skillConfigration = SkillCenter.getInstance().skillConfigurationMap.get(id);
     if (skillConfigration === undefined) {
       throw new Error(`技能[${id}]配置不存在`);
     }

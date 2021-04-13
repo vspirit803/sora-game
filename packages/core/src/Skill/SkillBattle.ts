@@ -43,7 +43,7 @@ export class SkillBattle implements SkillNormal {
   handler?: (skillData: SkillData, source: CharacterBattle, target: CharacterBattle) => Promise<void>;
 
   constructor({ owner, id, level = 1 }: { owner: CharacterBattle; id: string; level?: number }) {
-    const skillConfigration = SkillCenter.getInstence().skillConfigurationMap.get(id);
+    const skillConfigration = SkillCenter.getInstance().skillConfigurationMap.get(id);
     if (skillConfigration === undefined) {
       throw new Error(`技能[${id}]配置不存在`);
     }
@@ -63,7 +63,7 @@ export class SkillBattle implements SkillNormal {
     this.owner = owner;
 
     if (this.type !== 'passive') {
-      this.handler = SkillStore.getInstence().getHandler(id);
+      this.handler = SkillStore.getInstance().getHandler(id);
     }
   }
 

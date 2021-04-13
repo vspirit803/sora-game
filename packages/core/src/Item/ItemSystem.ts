@@ -26,7 +26,7 @@ export class ItemSystem extends ItemBase {
   constructor(systemItem: ItemSystemConfiguration | ItemSystemSave) {
     let systemConfiguration: ItemSystemConfiguration;
     if (isItemSystemSave(systemItem)) {
-      systemConfiguration = ItemCenter.getInstence().systemsConfigurationMap.get(systemItem.id)!;
+      systemConfiguration = ItemCenter.getInstance().systemsConfigurationMap.get(systemItem.id)!;
     } else {
       systemConfiguration = systemItem;
     }

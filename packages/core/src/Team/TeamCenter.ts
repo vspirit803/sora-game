@@ -14,12 +14,12 @@ import { TeamSave } from './TeamSave';
  * 队伍中心
  */
 export class TeamCenter implements SaveInterface<Array<TeamSave>> {
-  private static instence: TeamCenter;
-  static getInstence(): TeamCenter {
-    if (!TeamCenter.instence) {
-      TeamCenter.instence = new TeamCenter();
+  private static instance: TeamCenter;
+  static getInstance(): TeamCenter {
+    if (!TeamCenter.instance) {
+      TeamCenter.instance = new TeamCenter();
     }
-    return TeamCenter.instence;
+    return TeamCenter.instance;
   }
 
   teams: Array<TeamNormal>;

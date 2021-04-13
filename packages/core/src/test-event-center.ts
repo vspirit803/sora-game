@@ -39,7 +39,7 @@ class User implements UUID {
 const a = new User('织田信长');
 const b = new User('丰臣秀吉');
 
-// const eventCenter = EventCenter.getInstence();
+// const eventCenter = EventCenter.getInstance();
 // eventCenter.listen({
 //   eventType: 'BattleStart',
 //   priority: 3,
@@ -72,7 +72,7 @@ const b = new User('丰臣秀吉');
 //   console.log('pause');
 // });
 
-const eventCenter = EventCenter.getInstence();
+const eventCenter = EventCenter.getInstance();
 
 eventCenter.trigger(a, { eventType: 'ActionEnd' });
 eventCenter.trigger({ uuid: '123' }, { eventType: 'BattleStart' });

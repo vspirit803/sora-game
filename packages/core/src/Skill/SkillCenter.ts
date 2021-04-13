@@ -11,12 +11,12 @@ import { SkillConfiguration } from './SkillConfiguration';
  * 技能中心
  */
 export class SkillCenter {
-  private static instence: SkillCenter;
-  static getInstence(): SkillCenter {
-    if (!SkillCenter.instence) {
-      SkillCenter.instence = new SkillCenter();
+  private static instance: SkillCenter;
+  static getInstance(): SkillCenter {
+    if (!SkillCenter.instance) {
+      SkillCenter.instance = new SkillCenter();
     }
-    return SkillCenter.instence;
+    return SkillCenter.instance;
   }
 
   /**技能配置映射 */

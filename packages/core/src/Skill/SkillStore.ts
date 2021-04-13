@@ -20,12 +20,12 @@ function DefineSkill(key: any): MethodDecorator {
 }
 
 export class SkillStore {
-  private static instence: SkillStore;
-  static getInstence(): SkillStore {
-    if (!SkillStore.instence) {
-      SkillStore.instence = new SkillStore();
+  private static instance: SkillStore;
+  static getInstance(): SkillStore {
+    if (!SkillStore.instance) {
+      SkillStore.instance = new SkillStore();
     }
-    return SkillStore.instence;
+    return SkillStore.instance;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function

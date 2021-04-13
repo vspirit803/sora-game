@@ -26,7 +26,7 @@ export default defineComponent({
   name: 'Battle',
   components: { BattleFaction },
   setup() {
-    const game = Game.getInstence();
+    const game = Game.getInstance();
     const team = game.teamCenter.teams[0];
     const battle: Ref<Battle | undefined> = shallowRef();
     const availableTargets = shallowRef<Array<CharacterBattle>>([]);

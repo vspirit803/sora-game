@@ -2,25 +2,25 @@
  * 条件项
  */
 export class ConditionItem<T> {
-  testInstence?: T;
-  testFunction: (testInstence: T) => boolean;
+  testInstance?: T;
+  testFunction: (testInstance: T) => boolean;
   description: string;
   constructor({
-    testInstence,
+    testInstance,
     testFunction,
     description,
   }: {
-    testInstence?: T;
-    testFunction: (testInstence: T) => boolean;
+    testInstance?: T;
+    testFunction: (testInstance: T) => boolean;
     description: string;
   }) {
-    this.testInstence = testInstence;
+    this.testInstance = testInstance;
     this.testFunction = testFunction;
     this.description = description;
   }
 
-  setTestInstence(testInstence: T): void {
-    this.testInstence = testInstence;
+  setTestInstance(testInstance: T): void {
+    this.testInstance = testInstance;
   }
 
   getFormatedDescription(indentation = 0): string {
@@ -28,9 +28,9 @@ export class ConditionItem<T> {
   }
 
   get isCompleted(): boolean {
-    if (this.testInstence === undefined) {
+    if (this.testInstance === undefined) {
       throw new Error('未设定实例就尝试获取条件状态');
     }
-    return this.testFunction(this.testInstence);
+    return this.testFunction(this.testInstance);
   }
 }

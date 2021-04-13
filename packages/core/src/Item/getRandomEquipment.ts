@@ -1,11 +1,12 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
- * @LastEditTime: 2020-09-24 13:29:48
+ * @LastEditTime: 2021-04-13 11:49:31
  * @LastEditors: vspirit803
  * @Description:
  */
 import { Rarity } from '@core/Common';
+import { Game } from '@core/Game';
 import { ItemRarityRate as rarityRate } from 'sora-game-assets';
 
 import { ItemEquipment } from './ItemEquipment';
@@ -25,8 +26,11 @@ export function generateEquipment({
   rarity?: Rarity;
   level?: number;
 }): ItemEquipment {
+  const randomGenerator = Game.getInstence().randomGenerator;
+
   if (rarity === undefined) {
-    const r = Math.random();
+    const r = randomGenerator.get();
+
     if (r < rarityRate.Immortal.stackRate) {
       rarity = Rarity.Immortal;
     } else if (r < rarityRate.Legendary.stackRate) {
@@ -41,15 +45,14 @@ export function generateEquipment({
   }
 
   if (level === undefined) {
-    level = Math.round(Math.random() * 20) * 5;
+    level = randomGenerator.getInt(20) * 5;
   }
   const rarityRange = rarityRate as { [rarity: string]: { min: number; max: number } };
   equipmentType = ItemEquipmentType.Weapon;
-  // const { min: minRatio, max: maxRatio } = { ...rarityRange[Rarity[rarity]] };
   const { min: minRatio, max: maxRatio } = { ...rarityRange[rarity] };
   const min = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * minRatio);
   const max = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * maxRatio);
-  const value = Math.round((max - min) * Math.random()) + min;
+  const value = randomGenerator.getInt(min, max);
   const properties = { atk: { min, max, value } };
 
   return new ItemEquipment({

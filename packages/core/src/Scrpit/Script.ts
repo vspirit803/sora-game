@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-10-23 15:00:09
  * @Description:
- * @LastEditTime: 2020-10-27 16:12:10
+ * @LastEditTime: 2021-04-13 13:07:36
  * @LastEditors: vspirit803
  */
 import { ScriptSentence, ScriptSentenceConfiguration } from './ScriptSentence';
@@ -34,11 +34,11 @@ export class Script {
     console.log(`==========初始化剧本【${this.name}】完成==========`);
   }
 
-  get hasNext() {
+  get hasNext(): boolean {
     return !this.isEnd && this.index < this.sentences.length;
   }
 
-  next() {
+  next(): void {
     if (this.hasNext) {
       this.sentences[this.index].run();
     } else {
@@ -46,7 +46,7 @@ export class Script {
     }
   }
 
-  chat(character: string, content: string, background?: string) {
+  chat(character: string, content: string, background?: string): void {
     if (background && background !== this.currBackground) {
       console.log(`背景切换为${background}`);
       this.currBackground = background;
@@ -55,7 +55,7 @@ export class Script {
     this.index++;
   }
 
-  showOptions(options: Array<ScriptSentenceSelectOption>) {
+  showOptions(options: Array<ScriptSentenceSelectOption>): void {
     for (const eachOption of options) {
       console.log(`· [${eachOption.text}]`);
     }
@@ -65,7 +65,7 @@ export class Script {
     this.selectOption(selectedOption);
   }
 
-  selectOption(option: ScriptSentenceSelectOption) {
+  selectOption(option: ScriptSentenceSelectOption): void {
     const { target } = option;
     const index = this.sentences.findIndex((eachSentence) => eachSentence.uuid === target);
     if (index === -1) {
@@ -74,7 +74,7 @@ export class Script {
     this.index = index;
   }
 
-  end() {
+  end(): void {
     this.isEnd = true;
     console.log('==========剧本结束==========');
   }

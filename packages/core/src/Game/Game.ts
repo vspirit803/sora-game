@@ -1,7 +1,7 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 08:41:10
- * @LastEditTime: 2020-09-27 11:30:49
+ * @LastEditTime: 2021-04-13 11:42:55
  * @LastEditors: vspirit803
  * @Description:
  */
@@ -16,6 +16,7 @@ import { SkillCenter } from '@core/Skill';
 // import { SkillFactory } from '@core/Skill';
 // import { TaskCenter } from '@core/Task';
 import { TeamCenter } from '@core/Team';
+import { RandomDecider, RandomGenerator, RandomUtil } from '@core/Utils';
 
 import { GameSave } from './GameSave';
 
@@ -46,12 +47,18 @@ export class Game {
   /**技能中心 */
   skillCenter: SkillCenter;
 
+  randomGenerator: RandomGenerator;
+  randomDecider: RandomDecider;
+
   private constructor() {
     this.characterCenter = CharacterCenter.getInstence();
     this.teamCenter = TeamCenter.getInstence();
     this.backpack = ItemCenter.getInstence();
     this.battleCenter = BattleCenter.getInstence();
     this.skillCenter = SkillCenter.getInstence();
+
+    this.randomGenerator = RandomUtil.getRandomGenerator();
+    this.randomDecider = RandomUtil.getRandomDecider(this.randomGenerator);
   }
 
   /**

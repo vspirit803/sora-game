@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-29 16:11:25
  * @Description:
- * @LastEditTime: 2021-04-12 17:44:51
+ * @LastEditTime: 2021-04-13 13:10:35
  * @LastEditors: vspirit803
  */
 
@@ -18,7 +18,13 @@ export class RandomUtil {
     return new RandomGenerator(seed ?? Date.now().toString());
   }
 
-  static getRandomDecider(seed?: string): RandomDecider {
+  static getRandomDecider(randomGenerator: RandomGenerator): RandomDecider;
+  static getRandomDecider(seed?: string): RandomDecider;
+  static getRandomDecider(seed?: string | RandomGenerator): RandomDecider {
+    if (seed instanceof RandomGenerator) {
+      return new RandomDecider(seed);
+    }
+
     return new RandomDecider(seed ?? Date.now().toString());
   }
 }
@@ -39,10 +45,13 @@ export class RandomGenerator {
     return min + (max - min) * this.seedRandom.quick();
   }
 
+  get(): number;
   get(max: number): number;
   get(min: number, max: number): number;
-  get(min: number, max?: number): number {
-    if (max === undefined) {
+  get(min?: number, max?: number): number {
+    if (min === undefined) {
+      [min, max] = [0, 1];
+    } else if (max === undefined) {
       [min, max] = [0, min];
     }
 
@@ -59,6 +68,10 @@ export class RandomGenerator {
 
     return min + (Math.round(this.get(Number.MAX_SAFE_INTEGER)) % (max - min + 1));
   }
+
+  selectOneRandomly<T>(list: Array<T>): T {
+    return list[this.getInt(list.length - 1)];
+  }
 }
 
 export class RandomDecider {
@@ -66,9 +79,19 @@ export class RandomDecider {
   randomGenerator: RandomGenerator;
   prdMap: WeakMap<UUID, PRD>;
 
-  constructor(seed: string) {
-    this.seed = seed;
-    this.randomGenerator = new RandomGenerator(seed);
+  constructor(seed: string);
+  constructor(randomGenerator: RandomGenerator);
+  constructor(p: string | RandomGenerator) {
+    if (typeof p === 'string') {
+      const seed = p;
+      this.seed = seed;
+      this.randomGenerator = new RandomGenerator(seed);
+    } else {
+      const randomGenerator = p;
+      this.randomGenerator = randomGenerator;
+      this.seed = randomGenerator.seed;
+    }
+
     this.prdMap = new WeakMap();
   }
 

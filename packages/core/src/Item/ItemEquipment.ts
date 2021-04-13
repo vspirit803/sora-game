@@ -1,13 +1,14 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
- * @LastEditTime: 2020-09-25 13:57:33
+ * @LastEditTime: 2021-04-13 11:50:24
  * @LastEditors: vspirit803
  * @Description: 装备
  */
 import { CharacterNormal } from '@core/Character';
 import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
 import { Rarity } from '@core/Common';
+import { Game } from '@core/Game';
 import { ObjectId } from 'bson';
 
 import { ItemBase } from './ItemBase';
@@ -61,6 +62,7 @@ export class ItemEquipment extends ItemBase {
     const rarity = equipmentConfiguration.rarity as Rarity;
     const equipmentType = equipmentConfiguration.equipmentType;
     const properties: { [propName in CharacterPropertyType]?: ItemEquipmentProperty } = {};
+
     for (const eachEquipmentPropertyConfiguration in equipmentConfiguration.properties) {
       const { min, max } = equipmentConfiguration.properties[
         eachEquipmentPropertyConfiguration as CharacterPropertyType
@@ -68,7 +70,7 @@ export class ItemEquipment extends ItemBase {
       let value: number;
       if (!isEquipmentSave(equipment)) {
         //范围内随机取值
-        value = Math.random() * (max - min) + min;
+        value = Game.getInstence().randomGenerator.get(min, max);
         //若为整数则取整
         if (Number.isInteger(min) && Number.isInteger(max)) {
           value = Math.round(value);

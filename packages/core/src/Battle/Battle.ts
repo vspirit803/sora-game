@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:40:51
  * @Description:
- * @LastEditTime: 2020-09-29 11:28:29
+ * @LastEditTime: 2021-04-13 11:22:37
  * @LastEditors: vspirit803
  */
 import { BattleActionQueueBase, BattleActionQueueMHXY } from '@core/BattleActionQueue';
@@ -12,6 +12,7 @@ import { Condition } from '@core/Condition';
 import { EventCenter } from '@core/Event';
 import { FactionBattle } from '@core/Faction';
 import { TeamBattle, TeamNormal } from '@core/Team';
+import { RandomDecider, RandomGenerator, RandomUtil } from '@core/Utils';
 import { ObjectId } from 'bson';
 
 import { BattleConfiguration } from './BattleConfiguration';
@@ -30,8 +31,9 @@ export class Battle implements UUID {
   eventCenter: EventCenter;
   successCondition: Condition;
   battleActionQueue: BattleActionQueueBase;
-
   endFlag: boolean;
+  randomGenerator: RandomGenerator;
+  randomDecider: RandomDecider;
 
   /**
    * 自动模式
@@ -44,7 +46,12 @@ export class Battle implements UUID {
     this.fireTarget = fireTarget;
   }
 
-  constructor(battleConfiguration: BattleConfiguration, playerTeam: TeamNormal, successCondition?: Condition) {
+  constructor(
+    battleConfiguration: BattleConfiguration,
+    playerTeam: TeamNormal,
+    successCondition?: Condition,
+    seed?: string,
+  ) {
     this.uuid = new ObjectId().toHexString();
     this.name = battleConfiguration.name ?? '未留下名字的战斗';
     this.eventCenter = new EventCenter();
@@ -56,16 +63,13 @@ export class Battle implements UUID {
     );
     this.factions[0].setPlayerTeam(new TeamBattle(playerTeam, this.factions[0]));
     this.battleActionQueue = new BattleActionQueueMHXY(this);
+
+    this.randomGenerator = RandomUtil.getRandomGenerator(seed);
+    this.randomDecider = RandomUtil.getRandomDecider(this.randomGenerator);
   }
 
   get characters(): Array<CharacterBattle> {
-    return this.factions
-      .map((eachFaction) => {
-        return eachFaction.characters;
-      })
-      .reduce((prev, curr) => {
-        return [...prev, ...curr];
-      }, []);
+    return this.factions.map((eachFaction) => eachFaction.characters).reduce((prev, curr) => [...prev, ...curr], []);
   }
 
   async start(): Promise<void> {
@@ -98,11 +102,11 @@ export class Battle implements UUID {
     this.cancelAllListeners();
   }
 
-  end() {
+  end(): void {
     this.endFlag = true;
   }
 
-  cancelAllListeners() {
+  cancelAllListeners(): void {
     this.characters.forEach((each) => each.unSubscribeBaseBattleEvent());
     this.eventCenter.listeners.forEach((eachListener) => this.eventCenter.cancelListen(eachListener));
   }

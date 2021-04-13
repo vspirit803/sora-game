@@ -18,6 +18,7 @@ import {
 import { FactionBattle } from '@core/Faction';
 import { SkillBattle } from '@core/Skill';
 import { TeamBattle } from '@core/Team';
+import { RandomGenerator } from '@core/Utils';
 
 import { CharacterNormal } from './CharacterNormal';
 import { CharacterPropertyBattle } from './CharacterPropertyBattle';
@@ -87,7 +88,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   }
 
   @Listen<EventDataAttacking>({ eventType: 'Attacking', priority: 2 })
-  async onAttacking(data: EventDataAttacking) {
+  async onAttacking(data: EventDataAttacking): Promise<void> {
     const target = data.target;
     // console.log(`[${this.name}]🗡️[${target.name}]`);
     await this.battle.eventCenter.trigger(this, {
@@ -98,7 +99,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   }
 
   @Listen<EventDataAttacked>({ eventType: 'Attacked', priority: 2 })
-  async onAttacked(data: EventDataAttacked) {
+  async onAttacked(data: EventDataAttacked): Promise<void> {
     const attackSource: CharacterBattle = data.source;
     const target = data.target;
     const damage = Math.round(attackSource.properties.atk.battleValue) - target.properties.def.battleValue;
@@ -116,7 +117,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   }
 
   @Listen<EventDataDamaging>({ eventType: 'Damaging', priority: 2 })
-  async onDamaging(data: EventDataDamaging) {
+  async onDamaging(data: EventDataDamaging): Promise<void> {
     const target = data.target;
     await target.battle.eventCenter.trigger(target, {
       ...data,
@@ -125,7 +126,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   }
 
   @Listen<EventDataDamaged>({ eventType: 'Damaged', priority: 2 })
-  async onDamaged(data: EventDataDamaged) {
+  async onDamaged(data: EventDataDamaged): Promise<void> {
     const source = data.source;
     const target = data.target;
     const damage = data.damage;
@@ -145,7 +146,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
       target.currHp = 0;
       await target.battle.eventCenter.trigger(target, { ...data, eventType: 'Killed' });
     } else {
-      if (Math.random() < 0.3) {
+      if (this.battle.randomDecider.prdDecider(this, 0.3)) {
         console.log(`${target.name}被打晕了`);
         const stunBuff = new Buff({ name: '眩晕', source, target, duration: 1 });
         const stunBuffItem = new StatusBuffItem(stunBuff, STUNNED);
@@ -157,7 +158,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   }
 
   @Listen<EventDataTreated>({ eventType: 'Treated', priority: 2 })
-  async onTreated(data: EventDataTreated) {
+  async onTreated(data: EventDataTreated): Promise<void> {
     const target = data.target;
     const damage = data.damage;
     /**计算减伤和保底后的治疗 */
@@ -173,13 +174,13 @@ export class CharacterBattle implements CharacterNormal, UUID {
   }
 
   @Listen<EventDataKilling>({ eventType: 'Killing', priority: 2 })
-  async onKilling(data: EventDataKilling) {
+  async onKilling(data: EventDataKilling): Promise<void> {
     const target = data.target;
     console.log(`[${this.name}]🗡️☠[${target.name}]`);
   }
 
   @Listen<EventDataKilled>({ eventType: 'Killed', priority: 2 })
-  async onKilled(data: EventDataKilled) {
+  async onKilled(data: EventDataKilled): Promise<void> {
     const killSource = data.source;
     console.log(`[${this.name}]☠`);
     await this.battle.eventCenter.trigger(killSource, { eventType: 'Killing', source: killSource, target: this });
@@ -207,7 +208,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   }
 
   @Listen<EventDataActionEnd>({ eventType: 'ActionEnd', priority: 2 })
-  async onActionEnd(data: EventDataActionEnd) {
+  async onActionEnd(data: EventDataActionEnd): Promise<void> {
     const character = data.source;
     character.skills.forEach((eachSkill) => {
       if (eachSkill.currCooldown !== 0) {
@@ -225,10 +226,10 @@ export class CharacterBattle implements CharacterNormal, UUID {
     console.log(`轮到${this.name}行动了`);
 
     const availableTargets = this.enemies.filter((eachCharacter) => eachCharacter.isAlive);
-    let target = availableTargets[Math.floor(Math.random() * availableTargets.length)];
+    let target = this.randomGenerator.selectOneRandomly(availableTargets);
     let skill = this.skills[0];
     const availableSkills = this.skills.filter((each) => each.type !== 'passive');
-    skill = availableSkills[Math.floor(Math.random() * availableSkills.length)];
+    skill = this.randomGenerator.selectOneRandomly(availableSkills);
 
     if (this.isStunned()) {
       console.log(`${this.name}处于眩晕状态,跳过回合`);
@@ -269,6 +270,10 @@ export class CharacterBattle implements CharacterNormal, UUID {
 
   get teammates(): Array<CharacterBattle> {
     return this.team.members.filter((each) => each !== this);
+  }
+
+  get randomGenerator(): RandomGenerator {
+    return this.battle.randomGenerator;
   }
 
   isInStatus(status: Status): boolean {

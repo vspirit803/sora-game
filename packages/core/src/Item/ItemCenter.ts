@@ -38,7 +38,7 @@ export type ItemConfigurations = {
  * 物品中心(背包)
  */
 export class ItemCenter implements SaveInterface<BackpackSave> {
-  static instence: ItemCenter;
+  private static instence: ItemCenter;
   static getInstence(): ItemCenter {
     if (!ItemCenter.instence) {
       ItemCenter.instence = new ItemCenter();

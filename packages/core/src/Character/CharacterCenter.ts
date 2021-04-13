@@ -1,7 +1,7 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-23 16:57:06
- * @LastEditTime: 2020-09-25 17:03:58
+ * @LastEditTime: 2021-04-13 15:44:38
  * @LastEditors: vspirit803
  * @Description: 角色中心 单例模式
  */
@@ -15,7 +15,7 @@ import { CharacterSave } from './CharacterSave';
  * 角色中心
  */
 export class CharacterCenter implements SaveInterface<Array<CharacterSave>> {
-  static instence: CharacterCenter;
+  private static instence: CharacterCenter;
   static getInstence(): CharacterCenter {
     if (!CharacterCenter.instence) {
       CharacterCenter.instence = new CharacterCenter();

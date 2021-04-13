@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:28
  * @Description:
- * @LastEditTime: 2020-09-28 17:28:50
+ * @LastEditTime: 2021-04-13 15:44:09
  * @LastEditors: vspirit803
  */
 import { Condition, ConditionItem, LogicOperator } from '@core/Condition';
@@ -15,7 +15,7 @@ import { BattleConfiguration } from './BattleConfiguration';
  * 战斗中心
  */
 export class BattleCenter {
-  static instence: BattleCenter;
+  private static instence: BattleCenter;
   static getInstence(): BattleCenter {
     if (!BattleCenter.instence) {
       BattleCenter.instence = new BattleCenter();
@@ -27,7 +27,7 @@ export class BattleCenter {
   battlesMap: Map<string, BattleConfiguration>;
   currBattle?: Battle;
 
-  constructor() {
+  private constructor() {
     this.battles = [];
     this.battlesMap = new Map<string, BattleConfiguration>();
   }

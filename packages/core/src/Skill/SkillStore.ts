@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-27 10:36:03
  * @Description:
- * @LastEditTime: 2021-04-13 11:27:29
+ * @LastEditTime: 2021-04-13 15:45:54
  * @LastEditors: vspirit803
  */
 import 'reflect-metadata';
@@ -20,13 +20,16 @@ function DefineSkill(key: any): MethodDecorator {
 }
 
 export class SkillStore {
-  static instence: SkillStore;
+  private static instence: SkillStore;
   static getInstence(): SkillStore {
     if (!SkillStore.instence) {
       SkillStore.instence = new SkillStore();
     }
     return SkillStore.instence;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {}
 
   getHandler(id: string): (skillData: SkillData, source: CharacterBattle, target: CharacterBattle) => Promise<void> {
     const handler = Reflect.getMetadata(id, this);

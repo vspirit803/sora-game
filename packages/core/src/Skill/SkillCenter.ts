@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-27 10:17:29
  * @Description: 技能中心 单例模式
- * @LastEditTime: 2020-09-27 10:47:40
+ * @LastEditTime: 2021-04-13 15:45:13
  * @LastEditors: vspirit803
  */
 import { SkillConfiguration } from './SkillConfiguration';
@@ -11,7 +11,7 @@ import { SkillConfiguration } from './SkillConfiguration';
  * 技能中心
  */
 export class SkillCenter {
-  static instence: SkillCenter;
+  private static instence: SkillCenter;
   static getInstence(): SkillCenter {
     if (!SkillCenter.instence) {
       SkillCenter.instence = new SkillCenter();

@@ -14,7 +14,7 @@ import { TeamSave } from './TeamSave';
  * 队伍中心
  */
 export class TeamCenter implements SaveInterface<Array<TeamSave>> {
-  static instence: TeamCenter;
+  private static instence: TeamCenter;
   static getInstence(): TeamCenter {
     if (!TeamCenter.instence) {
       TeamCenter.instence = new TeamCenter();

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 16:31:12
  * @Description:
- * @LastEditTime: 2021-03-05 11:17:59
+ * @LastEditTime: 2021-04-13 15:44:49
  * @LastEditors: vspirit803
  */
 import { UUID } from '@core/Common';
@@ -41,7 +41,7 @@ export class EventListener<T extends EventData = EventData> {
 }
 
 export class EventCenter {
-  static instence: EventCenter;
+  private static instence: EventCenter;
   static getInstence(): EventCenter {
     if (!EventCenter.instence) {
       EventCenter.instence = new EventCenter();
@@ -51,7 +51,7 @@ export class EventCenter {
 
   listeners: Array<EventListener>;
 
-  public constructor() {
+  private constructor() {
     this.listeners = [];
   }
 
@@ -82,7 +82,7 @@ export class EventCenter {
     return listener;
   }
 
-  cancelListen(listener: EventListener) {
+  cancelListen(listener: EventListener): void {
     this.listeners = this.listeners.filter((eachListener) => eachListener !== listener);
   }
 

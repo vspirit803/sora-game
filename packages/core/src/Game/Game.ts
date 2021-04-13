@@ -1,7 +1,7 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 08:41:10
- * @LastEditTime: 2021-04-13 11:42:55
+ * @LastEditTime: 2021-04-13 15:45:02
  * @LastEditors: vspirit803
  * @Description:
  */
@@ -24,7 +24,7 @@ import { GameSave } from './GameSave';
  * 游戏的实例
  */
 export class Game {
-  static instence: Game;
+  private static instence: Game;
   static getInstence(): Game {
     if (!Game.instence) {
       Game.instence = new Game();

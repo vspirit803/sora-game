@@ -1,5 +1,10 @@
 {
-  "include": ["packages/core/src/**/*", "packages/core/test/**/*"],
+  "include": [
+    "packages/core/src/**/*",
+    "packages/core/test/**/*",
+    "packages/assets/src/**/*",
+    "packages/frontend/src/**/*"
+  ],
   "compilerOptions": {
     "target": "ESNEXT",
     "module": "commonjs",
@@ -10,7 +15,9 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@core/*": ["packages/core/src/*"]
+      "@core/*": ["packages/core/src/*"],
+      "@assets/*": ["packages/assets/src/*"],
+      "@/*": ["packages/frontend/src/*"]
     },
     "esModuleInterop": true,
     "resolveJsonModule": true,

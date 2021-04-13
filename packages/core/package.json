@@ -2,6 +2,7 @@
   "name": "sora-game-core",
   "version": "0.0.1",
   "main": "src/index.ts",
+  "module": "src/index.ts",
   "author": "vspirit803",
   "license": "MIT",
   "sideEffects": false,

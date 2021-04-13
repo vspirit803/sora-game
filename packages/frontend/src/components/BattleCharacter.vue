@@ -1,21 +1,19 @@
 <template>
   <div ref="characterElement" class="character" :class="{ target: isAvailable }" @click="onSelect">
     <div class="img-container">
-      <!-- <img class="img" :src="imgUrl" /> -->
-      <div class="img" :style="`background-image: url(${imgUrl});`"></div>
+      <v-img class="img" :src="imgUrl" />
+      <!-- <div class="img" :style="`background-image: url(${imgUrl});`"></div> -->
     </div>
     <div class="name">{{ character.name }}</div>
     <div class="buffs-container d-flex">
       <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
     </div>
     <div class="skills-container d-flex">
-      <img
+      <BattleCharacterSkill
         v-for="eachSkill of availableSkills"
         :key="eachSkill.id"
-        class="skill"
-        :src="`/images/skills/${eachSkill.id}.png`"
-        :class="{ 'skill-selected': eachSkill === selectedSkill }"
-        :alt="eachSkill.name"
+        :skill="eachSkill"
+        :selected="eachSkill === selectedSkill"
         @click="onSelectSkill(eachSkill)"
       />
     </div>
@@ -27,12 +25,13 @@
 import { Buff, CharacterBattle, EventDataDamaged, EventDataSkillSelect, SkillBattle } from 'sora-game-core';
 import { computed, defineComponent, inject, onMounted, PropType, Ref, ref, shallowRef, toRefs, watch } from 'vue';
 
+import BattleCharacterSkill from '@/components/BattleCharacterSkill.vue';
 import BuffComponent from '@/components/Buff.vue';
 import { useLabel } from '@/use';
 
 export default defineComponent({
   name: 'BattleCharacter',
-  components: { BuffComponent },
+  components: { BuffComponent, BattleCharacterSkill },
   props: {
     character: {
       required: true,
@@ -171,32 +170,6 @@ export default defineComponent({
   .skills-container {
     position: absolute;
     bottom: 1rem;
-
-    .skill {
-      width: 4rem;
-      height: 4rem;
-      position: relative;
-
-      font-size: 0.8rem;
-
-      &-selected {
-        &::after {
-          border: 1px red solid !important;
-        }
-      }
-
-      &::after {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #bbdefb;
-        border: 1px grey dotted;
-        content: attr(alt);
-      }
-    }
   }
 
   .hp-bar {

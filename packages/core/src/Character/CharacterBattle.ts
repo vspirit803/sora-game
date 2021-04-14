@@ -19,6 +19,7 @@ import { FactionBattle } from '@core/Faction';
 import { SkillBattle } from '@core/Skill';
 import { TeamBattle } from '@core/Team';
 import { RandomGenerator } from '@core/Utils';
+import { ObjectId } from 'bson';
 
 import { CharacterNormal } from './CharacterNormal';
 import { CharacterPropertyBattle } from './CharacterPropertyBattle';
@@ -56,8 +57,8 @@ export class CharacterBattle implements CharacterNormal, UUID {
     this.id = character.id;
     this.name = character.name;
     this.level = character.level;
-    this.id = character.id;
     this.uuid = character.uuid;
+    this.uuid = new ObjectId().toHexString();
 
     this.team = team;
     this.faction = team.faction;

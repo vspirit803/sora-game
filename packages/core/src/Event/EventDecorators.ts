@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 14:06:27
  * @Description: 监听事件的装饰器
- * @LastEditTime: 2021-04-14 15:02:08
+ * @LastEditTime: 2021-04-14 15:53:44
  * @LastEditors: vspirit803
  */
 import 'reflect-metadata';
@@ -54,8 +54,8 @@ export function Listen<T extends EventData>({
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function Listener<T extends { new (...args: any[]): { battle: Battle } }>() {
-  function classDecorator(constructor: T) {
+export function Listener() {
+  function classDecorator<T extends { new (...args: any[]): { battle: Battle } }>(constructor: T) {
     return class extends constructor {
       constructor(...args: any[]) {
         super(...args);

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-27 10:36:03
  * @Description:
- * @LastEditTime: 2021-04-13 15:45:54
+ * @LastEditTime: 2021-04-14 16:09:52
  * @LastEditors: vspirit803
  */
 import 'reflect-metadata';
@@ -131,5 +131,24 @@ export class SkillStore {
     });
 
     await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target, damage, isCrit });
+  }
+
+  //羽刃暴风
+  @DefineSkill('S00008')
+  async skill00008(skillData: SkillData, source: CharacterBattle, target: CharacterBattle): Promise<void> {
+    const battle = source.battle;
+    const ratio = skillData.ratio;
+    const targets = target.team.members.filter((each) => each.isAlive);
+
+    for (let i = 0; i < 4; i++) {
+      for (const eachTarget of targets) {
+        const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
+        const damage = Math.round(
+          source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+        );
+
+        await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target: eachTarget, damage, isCrit });
+      }
+    }
   }
 }

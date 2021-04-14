@@ -1808,6 +1808,38 @@
     "skills": ["S00000"]
   },
   {
+    "id": "C1001",
+    "name": "茨木童子",
+    "gender": "male",
+    "properties": {
+      "atk": { "baseValue": 35, "increaseValue": 6 },
+      "def": { "baseValue": 10, "increaseValue": 1 },
+      "critRate": { "baseValue": 0.05, "increaseValue": 0 },
+      "critMultiplier": { "baseValue": 1.5, "increaseValue": 0 },
+      "missRate": { "baseValue": 0, "increaseValue": 0 },
+      "hp": { "baseValue": 385, "increaseValue": 39 },
+      "speed": { "baseValue": 85, "increaseValue": 0 }
+    },
+    "equipmentSlots": [],
+    "skills": ["S00001"]
+  },
+  {
+    "id": "C1002",
+    "name": "大天狗",
+    "gender": "male",
+    "properties": {
+      "atk": { "baseValue": 35, "increaseValue": 6 },
+      "def": { "baseValue": 10, "increaseValue": 1 },
+      "critRate": { "baseValue": 0.05, "increaseValue": 0 },
+      "critMultiplier": { "baseValue": 1.5, "increaseValue": 0 },
+      "missRate": { "baseValue": 0, "increaseValue": 0 },
+      "hp": { "baseValue": 385, "increaseValue": 39 },
+      "speed": { "baseValue": 85, "increaseValue": 0 }
+    },
+    "equipmentSlots": [],
+    "skills": ["S00008"]
+  },
+  {
     "id": "Enemy0001",
     "name": "今川义元",
     "gender": "male",

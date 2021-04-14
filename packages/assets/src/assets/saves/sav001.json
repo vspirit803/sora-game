@@ -3,35 +3,109 @@
   "characters": [
     { "uuid": "507f191e810c19729de860ea", "id": "C0001", "level": 50 },
     { "uuid": "507f191e810c19729de860eb", "id": "C0002", "level": 5 },
-    { "uuid": "507f191e810c19729de860ec", "id": "C0003", "level": 5, "name": "武田信玄" },
-    { "uuid": "507f191e810c19729de860ed", "id": "C0007", "level": 1, "name": "羽柴秀吉" },
-    { "uuid": "507f191e810c19729de860ee", "id": "C0008", "level": 1 }
+    {
+      "uuid": "507f191e810c19729de860ec",
+      "id": "C0003",
+      "level": 5,
+      "name": "武田信玄"
+    },
+    {
+      "uuid": "507f191e810c19729de860ed",
+      "id": "C0007",
+      "level": 1,
+      "name": "羽柴秀吉"
+    },
+    { "uuid": "507f191e810c19729de860ee", "id": "C0008", "level": 1 },
+    { "uuid": "6076a1b83841618c016c761e", "id": "C1001", "level": 10 },
+    { "uuid": "6076a1b83841618c016c761f", "id": "C1002", "level": 10 }
   ],
   "backpack": {
     "equipments": [
-      { "uuid": "507f191e810c19729de860f1", "id": "equipment0003", "properties": { "atk": 26 }, "count": 1 },
-      { "uuid": "5f6c54b8f5ebdebb142dd5fc", "id": "equipment0004", "properties": { "atk": 100 }, "count": 1 },
-      { "uuid": "5f6c54b8f5ebdebb142dd5fd", "id": "equipment0004", "properties": { "atk": 100 }, "count": 1 },
-      { "uuid": "5f6c54b8f5ebdebb142dd5fe", "id": "equipment0004", "properties": { "atk": 100 }, "count": 1 },
-      { "uuid": "5f6c54b8f5ebdebb142dd5ff", "id": "equipment0004", "properties": { "atk": 100 }, "count": 1 },
-      { "uuid": "5f6c54b8f5ebdebb142dd600", "id": "equipment0004", "properties": { "atk": 100 }, "count": 1 },
-      { "uuid": "5f6c55c4f5ebdebb142dd601", "id": "equipment0002", "properties": { "atk": 20 }, "count": 1 },
-      { "uuid": "5f6c55c4f5ebdebb142dd602", "id": "equipment0002", "properties": { "atk": 17 }, "count": 1 },
-      { "uuid": "5f6c55c4f5ebdebb142dd603", "id": "equipment0002", "properties": { "atk": 19 }, "count": 1 },
-      { "uuid": "5f6c55c4f5ebdebb142dd604", "id": "equipment0002", "properties": { "atk": 17 }, "count": 1 },
-      { "uuid": "5f6c55c4f5ebdebb142dd605", "id": "equipment0002", "properties": { "atk": 18 }, "count": 1 }
+      {
+        "uuid": "507f191e810c19729de860f1",
+        "id": "equipment00003",
+        "properties": { "atk": 26 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c54b8f5ebdebb142dd5fc",
+        "id": "equipment00004",
+        "properties": { "atk": 100 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c54b8f5ebdebb142dd5fd",
+        "id": "equipment00004",
+        "properties": { "atk": 100 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c54b8f5ebdebb142dd5fe",
+        "id": "equipment00004",
+        "properties": { "atk": 100 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c54b8f5ebdebb142dd5ff",
+        "id": "equipment00004",
+        "properties": { "atk": 100 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c54b8f5ebdebb142dd600",
+        "id": "equipment00004",
+        "properties": { "atk": 100 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c55c4f5ebdebb142dd601",
+        "id": "equipment00002",
+        "properties": { "atk": 20 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c55c4f5ebdebb142dd602",
+        "id": "equipment00002",
+        "properties": { "atk": 17 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c55c4f5ebdebb142dd603",
+        "id": "equipment00002",
+        "properties": { "atk": 19 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c55c4f5ebdebb142dd604",
+        "id": "equipment00002",
+        "properties": { "atk": 17 },
+        "count": 1
+      },
+      {
+        "uuid": "5f6c55c4f5ebdebb142dd605",
+        "id": "equipment00002",
+        "properties": { "atk": 18 },
+        "count": 1
+      }
     ],
     "materials": [
       { "uuid": "507f191e810c19729de860ef", "id": "material0002", "count": 15 },
       { "uuid": "507f191e810c19729de860f0", "id": "material0003", "count": 5 }
     ],
     "systemItems": [
-      { "uuid": "507f191e810c19729de860f2", "id": "system0001", "count": 12345 },
+      {
+        "uuid": "507f191e810c19729de860f2",
+        "id": "system0001",
+        "count": 12345
+      },
       { "uuid": "507f191e810c19729de860f3", "id": "system0002", "count": 50 }
     ]
   },
   "teams": [
-    { "name": "第一小分队", "members": ["C0001", "C0002", "C0007"] },
+    {
+      "name": "第一小分队",
+      "members": ["C0001", "C0002", "C0007", "C1001", "C1002"]
+    },
     { "name": "第二小分队", "members": ["C0001", "C0003", "C0008"] }
   ]
 }

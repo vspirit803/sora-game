@@ -76,10 +76,6 @@ export default defineComponent({
             addLabel(finalDamage!, isCrit ? 'red' : undefined);
             currHp.value = character.value.currHp;
             hpMax.value = character.value.properties.hp.battleValue;
-
-            return new Promise((resolve) => {
-              setTimeout(resolve, 50);
-            });
           },
         });
 
@@ -148,8 +144,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .character {
-  width: 16rem;
-  height: 16rem;
+  width: 12rem;
+  height: 12rem;
 
   &.target {
     border: 2px red dashed;

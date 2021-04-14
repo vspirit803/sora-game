@@ -47,7 +47,7 @@
   ],
   "equipments": [
     {
-      "id": "equipment0001",
+      "id": "equipment00001",
       "name": "破旧弓",
       "type": "Equipment",
       "equipmentType": "Weapon",
@@ -56,7 +56,7 @@
       "rarity": "Common"
     },
     {
-      "id": "equipment0002",
+      "id": "equipment00002",
       "name": "简易弓",
       "type": "Equipment",
       "equipmentType": "Weapon",
@@ -65,7 +65,7 @@
       "rarity": "Rare"
     },
     {
-      "id": "equipment0003",
+      "id": "equipment00003",
       "name": "精致弓",
       "type": "Equipment",
       "equipmentType": "Weapon",
@@ -74,7 +74,7 @@
       "rarity": "Legendary"
     },
     {
-      "id": "equipment0004",
+      "id": "equipment00004",
       "name": "杨的反曲弓",
       "type": "Equipment",
       "equipmentType": "Weapon",

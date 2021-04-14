@@ -1,14 +1,14 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
- * @LastEditTime: 2020-09-24 14:06:44
- * @LastEditors: vspirit803
  * @Description: 物品基类
+ * @LastEditTime: 2021-04-14 15:03:40
+ * @LastEditors: vspirit803
  */
-import { Rarity, UUID } from '@core/Common';
+import { Common, Rarity, UUID } from '@core/Common';
 import { ObjectId } from 'bson';
 
-import { ItemType } from './ItemType';
+import { ItemType, Material } from './ItemType';
 
 /**
  * 物品基类
@@ -34,8 +34,8 @@ export abstract class ItemBase implements UUID {
     id,
     name,
     isStackable = false,
-    type = ItemType.Material,
-    rarity = Rarity.Common,
+    type = Material,
+    rarity = Common,
     count = 1,
   }: {
     uuid?: string;

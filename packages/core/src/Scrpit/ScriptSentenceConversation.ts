@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-10-23 15:01:24
  * @Description: 剧本单句 - 对话
- * @LastEditTime: 2020-10-23 16:05:23
+ * @LastEditTime: 2021-04-14 14:40:32
  * @LastEditors: vspirit803
  */
 
@@ -30,7 +30,7 @@ export class ScriptSentenceConversation extends ScriptSentence {
     this.content = content;
   }
 
-  run() {
+  run(): void {
     this.script.chat(this.character, this.content, this.background);
   }
 }

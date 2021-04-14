@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:47:53
  * @Description: 技能(战斗状态)
- * @LastEditTime: 2021-03-11 15:39:26
+ * @LastEditTime: 2021-04-14 14:42:40
  * @LastEditors: vspirit803
  */
 import { CharacterBattle } from '@core/Character';
@@ -67,7 +67,7 @@ export class SkillBattle implements SkillNormal {
     }
   }
 
-  async trigger(target: CharacterBattle) {
+  async trigger(target: CharacterBattle): Promise<any> {
     if (!this.handler) {
       throw new Error(`技能[${this.id}]不能主动触发`);
     }
@@ -76,8 +76,8 @@ export class SkillBattle implements SkillNormal {
     this.currCooldown = this.cooldown + 1; //包含本回合
   }
 
-  getTargets() {
-    if (this.target & SkillTarget.NON_TARGET) {
+  getTargets(): Array<CharacterBattle> {
+    if (this.isNonTarget) {
       return [];
     }
 
@@ -102,7 +102,7 @@ export class SkillBattle implements SkillNormal {
     return tempList;
   }
 
-  get isNonTarget() {
-    return this.target & SkillTarget.NON_TARGET;
+  get isNonTarget(): boolean {
+    return Boolean(this.target & SkillTarget.NON_TARGET);
   }
 }

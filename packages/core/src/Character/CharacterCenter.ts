@@ -1,9 +1,9 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-23 16:57:06
+ * @Description: 角色中心 单例模式
  * @LastEditTime: 2021-04-13 15:49:24
  * @LastEditors: vspirit803
- * @Description: 角色中心 单例模式
  */
 import { SaveInterface } from '@core/Game';
 

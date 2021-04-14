@@ -20,7 +20,7 @@ export class ScriptSentenceEnd extends ScriptSentence {
     super({ uuid, type }, script);
   }
 
-  run() {
+  run(): void {
     this.script.end();
   }
 }

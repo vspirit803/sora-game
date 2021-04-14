@@ -1,9 +1,9 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 14:00:05
+ * @Description:
  * @LastEditTime: 2020-09-24 15:19:20
  * @LastEditors: vspirit803
- * @Description:
  */
 import { ItemConfiguration } from './ItemConfiguration';
 

@@ -2,12 +2,11 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:07
  * @Description:
- * @LastEditTime: 2020-09-25 17:30:10
+ * @LastEditTime: 2021-04-14 14:40:22
  * @LastEditors: vspirit803
  */
 import { Battle } from '@core/Battle';
 import { CharacterBattle } from '@core/Character';
-import { Game } from '@core/Game';
 import { TeamBattle, TeamNormal } from '@core/Team';
 
 import { FactionConfiguration } from './FactionConfiguration';

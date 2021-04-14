@@ -1,9 +1,9 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 08:41:10
+ * @Description:
  * @LastEditTime: 2020-09-24 09:37:00
  * @LastEditors: vspirit803
- * @Description:
  */
 import { CharacterNormal } from '@core/Character';
 import { MAX_TEAM_MEMBERS_NUM, UUID } from '@core/Common';

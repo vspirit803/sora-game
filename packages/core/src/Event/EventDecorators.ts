@@ -2,16 +2,15 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 14:06:27
  * @Description: 监听事件的装饰器
- * @LastEditTime: 2021-03-04 10:42:10
+ * @LastEditTime: 2021-04-14 15:02:08
  * @LastEditors: vspirit803
  */
 import 'reflect-metadata';
 
 import { Battle } from '@core/Battle';
-import { CharacterBattle } from '@core/Character';
 import { UUID } from '@core/Common';
 
-import { EventCenter, EventListener } from './EventCenter';
+import { EventListener } from './EventCenter';
 import { EventData } from './EventData';
 import { EventTypes } from './EventTypes';
 
@@ -48,27 +47,32 @@ export function Listen<T extends EventData>({
     if (typeof descriptor.value !== 'function') {
       throw Error('Listen装饰器只能用于方法');
     }
+
     const existed = Reflect.getMetadata(eventType, target) ?? [];
     Reflect.defineMetadata(eventType, [...existed, { callback: descriptor.value, priority, filterFunction }], target);
   };
 }
 
-export function Listener(value?: string) {
-  function classDecorator<T extends { new (...args: any[]): { battle: Battle } }>(constructor: T) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function Listener<T extends { new (...args: any[]): { battle: Battle } }>() {
+  function classDecorator(constructor: T) {
     return class extends constructor {
       constructor(...args: any[]) {
         super(...args);
         const eventNames: Array<EventTypes> = Reflect.getMetadataKeys(this);
         const listenerList: Array<EventListener> = [];
+
         for (const eachEvent of eventNames) {
           const listeners: Array<{
             callback: (eventData: EventData) => Promise<void>;
             priority?: number;
             filterFunction?: () => UUID | Array<UUID>;
           }> = Reflect.getMetadata(eachEvent, this);
+
           for (const eachListener of listeners) {
             const { priority, filterFunction, callback } = eachListener;
             let filter: UUID | Array<UUID> | undefined;
+
             if (filterFunction) {
               filter = filterFunction.call(this);
             } else if (Reflect.ownKeys(this).includes('uuid')) {
@@ -84,18 +88,20 @@ export function Listener(value?: string) {
             listenerList.push(listener);
           }
         }
+
         Reflect.defineMetadata('listenerList', listenerList, this);
       }
     };
   }
+
   return classDecorator;
 }
 
 export function RemoveAllListeners(
-  target: any,
+  target: unknown,
   propertyKey: string,
   descriptor: TypedPropertyDescriptor<(...args: any[]) => any>,
-) {
+): TypedPropertyDescriptor<(...args: any[]) => any> {
   const method = descriptor.value!;
   descriptor.value = function (...args: any[]) {
     const result = method.apply(this, args);
@@ -103,10 +109,10 @@ export function RemoveAllListeners(
     const listenerList: Array<EventListener> = Reflect.getMetadata('listenerList', this);
     listenerList.forEach((eachListener) => {
       (this as { battle: Battle }).battle.eventCenter.cancelListen(eachListener);
-      // console.log(this);
-      // console.log(this.battle.name);
     });
+
     return result;
   };
+
   return descriptor;
 }

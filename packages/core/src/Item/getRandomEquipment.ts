@@ -1,17 +1,17 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
- * @LastEditTime: 2021-04-13 11:49:31
- * @LastEditors: vspirit803
  * @Description:
+ * @LastEditTime: 2021-04-14 14:39:38
+ * @LastEditors: vspirit803
  */
-import { Rarity } from '@core/Common';
+import { Common, Immortal, Legendary, Mythical, Rare, Rarity } from '@core/Common';
 import { Game } from '@core/Game';
 import { ItemRarityRate as rarityRate } from 'sora-game-assets';
 
 import { ItemEquipment } from './ItemEquipment';
-import { ItemEquipmentType } from './ItemEquipmentType';
-import { ItemType } from './ItemType';
+import { ItemEquipmentType, Weapon } from './ItemEquipmentType';
+import { Equipment } from './ItemType';
 
 export function generateEquipment({
   id,
@@ -32,15 +32,15 @@ export function generateEquipment({
     const r = randomGenerator.get();
 
     if (r < rarityRate.Immortal.stackRate) {
-      rarity = Rarity.Immortal;
+      rarity = Immortal;
     } else if (r < rarityRate.Legendary.stackRate) {
-      rarity = Rarity.Legendary;
+      rarity = Legendary;
     } else if (r < rarityRate.Mythical.stackRate) {
-      rarity = Rarity.Mythical;
+      rarity = Mythical;
     } else if (r < rarityRate.Rare.stackRate) {
-      rarity = Rarity.Rare;
+      rarity = Rare;
     } else {
-      rarity = Rarity.Common;
+      rarity = Common;
     }
   }
 
@@ -48,7 +48,7 @@ export function generateEquipment({
     level = randomGenerator.getInt(20) * 5;
   }
   const rarityRange = rarityRate as { [rarity: string]: { min: number; max: number } };
-  equipmentType = ItemEquipmentType.Weapon;
+  equipmentType = Weapon;
   const { min: minRatio, max: maxRatio } = { ...rarityRange[rarity] };
   const min = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * minRatio);
   const max = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * maxRatio);
@@ -62,6 +62,88 @@ export function generateEquipment({
     equipmentType,
     level,
     properties,
-    type: ItemType.Equipment,
+    type: Equipment,
   });
+}
+
+export class ItemEquipmentBuilder {
+  private id?: string;
+  private name?: string;
+  private equipmentType?: ItemEquipmentType;
+  private rarity?: Rarity;
+  private level?: number;
+
+  constructor() {
+    const randomGenerator = Game.getInstance().randomGenerator;
+    const r = randomGenerator.get();
+
+    if (r < rarityRate.Immortal.stackRate) {
+      this.rarity = Immortal;
+    } else if (r < rarityRate.Legendary.stackRate) {
+      this.rarity = Legendary;
+    } else if (r < rarityRate.Mythical.stackRate) {
+      this.rarity = Mythical;
+    } else if (r < rarityRate.Rare.stackRate) {
+      this.rarity = Rare;
+    } else {
+      this.rarity = Common;
+    }
+  }
+
+  setId(id: string): ItemEquipmentBuilder {
+    this.id = id;
+    return this;
+  }
+
+  setName(name: string): ItemEquipmentBuilder {
+    this.name = name;
+    return this;
+  }
+
+  setEquipmentType(equipmentType: ItemEquipmentType): ItemEquipmentBuilder {
+    this.equipmentType = equipmentType;
+    return this;
+  }
+
+  setRarity(rarity: Rarity): ItemEquipmentBuilder {
+    this.rarity = rarity;
+    return this;
+  }
+
+  setLevel(level: number): ItemEquipmentBuilder {
+    this.level = level;
+    return this;
+  }
+
+  getResult(): ItemEquipment {
+    if (this.id === undefined) {
+      throw new Error('The id of ItemEquipment cannot be undefined.');
+    }
+
+    if (this.name === undefined) {
+      throw new Error('The name of ItemEquipment cannot be undefined.');
+    }
+
+    if (this.rarity === undefined) {
+      throw new Error('The rarity of ItemEquipment cannot be undefined.');
+    }
+
+    if (this.equipmentType === undefined) {
+      throw new Error('The equipmentType of ItemEquipment cannot be undefined.');
+    }
+
+    if (this.level === undefined) {
+      throw new Error('The level of ItemEquipment cannot be undefined.');
+    }
+
+    return new ItemEquipment({
+      id: this.id,
+      name: this.name,
+      rarity: this.rarity,
+      equipmentType: this.equipmentType,
+      level: this.level,
+      properties: {},
+      type: Equipment,
+    });
+  }
 }

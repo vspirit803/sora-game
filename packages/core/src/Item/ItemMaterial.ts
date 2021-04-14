@@ -1,9 +1,9 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
- * @LastEditTime: 2020-09-25 13:57:02
- * @LastEditors: vspirit803
  * @Description:
+ * @LastEditTime: 2021-04-14 15:04:04
+ * @LastEditors: vspirit803
  */
 import { Rarity } from '@core/Common';
 
@@ -11,7 +11,7 @@ import { ItemBase } from './ItemBase';
 import { ItemCenter } from './ItemCenter';
 import { ItemMaterialConfiguration } from './ItemMaterialConfiguration';
 import { ItemMaterialSave } from './ItemMaterialSave';
-import { ItemType } from './ItemType';
+import { Material } from './ItemType';
 
 function isItemMaterialSave(material: ItemMaterialConfiguration | ItemMaterialSave): material is ItemMaterialSave {
   return 'uuid' in material;
@@ -34,7 +34,7 @@ export class ItemMaterial extends ItemBase {
     const { id, name, rarity } = materialConfiguration;
     const uuid = isItemMaterialSave(material) ? material.uuid : undefined;
     const count = isItemMaterialSave(material) ? material.count : undefined;
-    super({ uuid, id, name, isStackable: true, type: ItemType.Material, rarity: rarity as Rarity, count });
+    super({ uuid, id, name, isStackable: true, type: Material, rarity: rarity as Rarity, count });
   }
 
   generateSave(): ItemMaterialSave {

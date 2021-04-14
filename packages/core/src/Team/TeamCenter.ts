@@ -1,9 +1,9 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 08:41:10
+ * @Description: 队伍中心 单例模式
  * @LastEditTime: 2020-09-24 09:30:36
  * @LastEditors: vspirit803
- * @Description: 队伍中心 单例模式
  */
 import { SaveInterface } from '@core/Game';
 

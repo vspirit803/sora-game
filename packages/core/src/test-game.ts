@@ -1,9 +1,9 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-23 16:54:06
+ * @Description:
  * @LastEditTime: 2020-09-27 13:52:20
  * @LastEditors: vspirit803
- * @Description:
  */
 
 import { battles, characters, items, sav001, skills } from 'sora-game-assets';

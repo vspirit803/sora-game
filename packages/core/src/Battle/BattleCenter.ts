@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-04-13 15:49:56
  * @LastEditors: vspirit803
  */
-import { Condition, ConditionItem, LogicOperator } from '@core/Condition';
+import { Condition, ConditionItem, Or } from '@core/Condition';
 import { TeamNormal } from '@core/Team';
 
 import { Battle } from './Battle';
@@ -84,7 +84,7 @@ export class BattleCenter {
     });
 
     const successCondition = new Condition({
-      logicOperator: LogicOperator.Or,
+      logicOperator: Or,
       conditionItems: [
         conditionItemKillJCYY,
         conditionItemKillAll,

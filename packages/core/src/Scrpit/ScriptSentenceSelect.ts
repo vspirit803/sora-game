@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-10-23 15:01:24
  * @Description: 剧本单句 - 选择
- * @LastEditTime: 2020-10-23 16:07:18
+ * @LastEditTime: 2021-04-14 14:40:45
  * @LastEditors: vspirit803
  */
 
@@ -33,7 +33,7 @@ export class ScriptSentenceSelect extends ScriptSentence {
     this.options = options;
   }
 
-  run() {
+  run(): void {
     this.script.showOptions(this.options);
   }
 }

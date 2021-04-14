@@ -1,9 +1,9 @@
 /*
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
- * @LastEditTime: 2021-04-13 11:50:24
- * @LastEditors: vspirit803
  * @Description: 装备
+ * @LastEditTime: 2021-04-14 14:32:29
+ * @LastEditors: vspirit803
  */
 import { CharacterNormal } from '@core/Character';
 import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
@@ -16,8 +16,8 @@ import { ItemCenter } from './ItemCenter';
 import { ItemEquipmentConfiguration } from './ItemEquipmentConfiguration';
 import { ItemEquipmentProperty } from './ItemEquipmentProperty';
 import { ItemEquipmentSave } from './ItemEquipmentSave';
-import { ItemEquipmentTypes } from './ItemEquipmentType';
-import { ItemType } from './ItemType';
+import { ItemEquipmentType } from './ItemEquipmentType';
+import { Equipment } from './ItemType';
 
 function isEquipmentSave(equipment: ItemEquipmentConfiguration | ItemEquipmentSave): equipment is ItemEquipmentSave {
   return 'uuid' in equipment;
@@ -30,7 +30,7 @@ export class ItemEquipment extends ItemBase {
   /**穿戴装备的角色 */
   wearer?: CharacterNormal;
   /**装备部位 */
-  equipmentType: ItemEquipmentTypes;
+  equipmentType: ItemEquipmentType;
   /**装备属性 */
   properties: { [propName in CharacterPropertyType]?: ItemEquipmentProperty };
   /**装备等级 */
@@ -84,7 +84,7 @@ export class ItemEquipment extends ItemBase {
 
     const { id, name, level } = equipmentConfiguration;
     const uuid = isEquipmentSave(equipment) ? equipment.uuid : new ObjectId().toHexString();
-    super({ uuid, id, name, isStackable: false, rarity, type: ItemType.Equipment });
+    super({ uuid, id, name, isStackable: false, rarity, type: Equipment });
     this.level = level;
     this.equipmentType = equipmentType;
     this.properties = properties;
@@ -102,7 +102,10 @@ export class ItemEquipment extends ItemBase {
   }
 
   generateSave(): ItemEquipmentSave {
-    const properties = Object.fromEntries(Object.entries(this.properties).map(([key, value]) => [key, value!.value]));
+    const properties = Object.fromEntries(
+      Object.entries(this.properties).map(([key, eachProperty]) => [key, eachProperty!.value]),
+    );
+
     return {
       uuid: this.uuid,
       id: this.id,

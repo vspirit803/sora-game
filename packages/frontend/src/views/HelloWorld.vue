@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description: 
- * @LastEditTime: 2021-03-10 17:38:17
+ * @LastEditTime: 2021-04-14 16:57:09
  * @LastEditors: vspirit803
 -->
 <template>
@@ -12,6 +12,7 @@
     </div>
     <div style="margin-top: 300px">
       <v-btn @click="$router.push({ name: 'Battle' })">战斗</v-btn>
+      <v-btn @click="$router.push({ name: 'Teams' })">编队</v-btn>
     </div>
   </div>
 </template>

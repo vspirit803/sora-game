@@ -2,20 +2,20 @@
  * @Author: vspirit803
  * @Date: 2021-04-13 10:21:23
  * @Description: 
- * @LastEditTime: 2021-04-13 10:54:56
+ * @LastEditTime: 2021-04-14 17:17:31
  * @LastEditors: vspirit803
 -->
 <template>
-  <v-img
+  <q-img
     class="skill"
     :src="`/images/skills/${skill.id}.png`"
     :class="{ 'skill-selected': selected }"
     :alt="skill.name"
   >
-    <template #placeholder>
+    <template #error>
       {{ skill.name }}
     </template>
-  </v-img>
+  </q-img>
 </template>
 
 <script lang="ts">

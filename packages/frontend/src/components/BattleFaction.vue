@@ -1,7 +1,14 @@
+<!--
+ * @Author: vspirit803
+ * @Date: 2021-03-26 17:05:53
+ * @Description: 
+ * @LastEditTime: 2021-04-14 17:22:46
+ * @LastEditors: vspirit803
+-->
 <template>
   <div class="faction">
     <div>{{ faction.name }}</div>
-    <div class="teams d-flex" :class="reverse ? 'flex-column-reverse' : 'flex-column'">
+    <div class="teams" :class="reverse ? 'column' : 'column reverse'">
       <BattleTeam v-for="eachTeam of faction.teams" :key="eachTeam.uuid" :team="eachTeam" />
     </div>
   </div>

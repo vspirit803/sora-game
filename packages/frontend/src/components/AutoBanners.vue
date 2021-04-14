@@ -11,7 +11,7 @@
     >
       {{ each.content }}
       <template #actions>
-        <v-btn @click="onClose(each)">关闭</v-btn>
+        <q-btn @click="onClose(each)">关闭</q-btn>
       </template>
     </v-banner>
   </transition-group>

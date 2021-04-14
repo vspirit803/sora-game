@@ -1,7 +1,7 @@
 <template>
   <div ref="characterElement" class="character" :class="{ target: isAvailable }" @click="onSelect">
     <div class="img-container">
-      <v-img class="img" :src="imgUrl" />
+      <q-img class="img" :src="imgUrl" />
       <!-- <div class="img" :style="`background-image: url(${imgUrl});`"></div> -->
     </div>
     <div class="name">{{ character.name }}</div>

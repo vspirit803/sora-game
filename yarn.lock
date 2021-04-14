@@ -5733,6 +5733,11 @@ qs@~6.5.2:
   resolved "https://registry.npm.taobao.org/qs/download/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha1-yzroBuh0BERYTvFUzo7pjUA/PjY=
 
+quasar@^2.0.0-beta.12:
+  version "2.0.0-beta.12"
+  resolved "https://registry.npm.taobao.org/quasar/download/quasar-2.0.0-beta.12.tgz#e698e0156dd891b7e9d602a80432ae4271467a07"
+  integrity sha1-5pjgFW3Ykbfp1gKoBDKuQnFGegc=
+
 query-string@^6.13.8:
   version "6.14.1"
   resolved "https://registry.npm.taobao.org/query-string/download/query-string-6.14.1.tgz#7ac2dca46da7f309449ba0f86b1fd28255b0c86a"
@@ -7004,11 +7009,6 @@ vue@^3.0.5:
     "@vue/compiler-dom" "3.0.9"
     "@vue/runtime-dom" "3.0.9"
     "@vue/shared" "3.0.9"
-
-vuetify@^3.0.0-alpha.0:
-  version "3.0.0-alpha.2"
-  resolved "https://registry.npm.taobao.org/vuetify/download/vuetify-3.0.0-alpha.2.tgz#06d6031ed7fd2d9afb3b2be8cb93e70a42228207"
-  integrity sha1-BtYDHtf9LZr7Oyvoy5PnCkIiggc=
 
 watchpack@^2.0.0:
   version "2.1.1"

@@ -2,14 +2,15 @@
  * @Author: vspirit803
  * @Date: 2021-04-14 16:48:40
  * @Description: 
- * @LastEditTime: 2021-04-14 17:05:01
+ * @LastEditTime: 2021-04-14 17:17:12
  * @LastEditors: vspirit803
 -->
 <template>
-  <v-btn style="position: absolute; right: 0" @click="$router.push({ name: 'Home' })">退出</v-btn>
+  <q-btn style="position: absolute; right: 0" @click="$router.push({ name: 'Home' })">退出</q-btn>
   <div class="teams">
-    <v-btn v-for="eachTeam of teams" :key="eachTeam.uuid" @click="onSelectTeam(eachTeam)">{{ eachTeam.name }}</v-btn>
-
+    <q-btn-group>
+      <q-btn v-for="eachTeam of teams" :key="eachTeam.uuid" @click="onSelectTeam(eachTeam)">{{ eachTeam.name }}</q-btn>
+    </q-btn-group>
     <span v-for="eachCharacter of selectedTeam.members" :key="eachCharacter.uuid">{{ eachCharacter.name }}</span>
   </div>
 </template>

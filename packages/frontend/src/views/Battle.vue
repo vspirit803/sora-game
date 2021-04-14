@@ -6,8 +6,8 @@
  * @LastEditors: vspirit803
 -->
 <template>
-  <v-btn style="position: absolute" @click="onBattleStart">开始战斗</v-btn>
-  <v-btn style="position: absolute; right: 0" @click="$router.push({ name: 'Home' })">退出</v-btn>
+  <q-btn style="position: absolute" @click="onBattleStart">开始战斗</q-btn>
+  <q-btn style="position: absolute; right: 0" @click="$router.push({ name: 'Home' })">退出</q-btn>
   <div v-if="battle" class="battle">
     {{ battle.name }}
     <BattleFaction class="faction faction1" :faction="battle.factions[0]" reverse />

@@ -11,8 +11,8 @@
       <AutoBanners />
     </div>
     <div style="margin-top: 300px">
-      <v-btn @click="$router.push({ name: 'Battle' })">战斗</v-btn>
-      <v-btn @click="$router.push({ name: 'Teams' })">编队</v-btn>
+      <q-btn @click="$router.push({ name: 'Battle' })">战斗</q-btn>
+      <q-btn @click="$router.push({ name: 'Teams' })">编队</q-btn>
     </div>
   </div>
 </template>

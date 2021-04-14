@@ -7,7 +7,7 @@
 -->
 <template>
   <div>
-    <v-btn @click="nextRound">nextRound</v-btn>{{ t.toFixed(3) }}s
+    <q-btn @click="nextRound">nextRound</q-btn>{{ t.toFixed(3) }}s
     <div class="container" :style="{ width: `${totalLength * lengthRatio + 64}px` }">
       <div
         v-for="(each, index) of persons"

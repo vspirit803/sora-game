@@ -1,7 +1,14 @@
+<!--
+ * @Author: vspirit803
+ * @Date: 2021-03-26 17:05:53
+ * @Description: 
+ * @LastEditTime: 2021-04-14 17:24:00
+ * @LastEditors: vspirit803
+-->
 <template>
   <div class="team">
     <div class="text-left">{{ team.name }}</div>
-    <div class="members d-flex">
+    <div class="members row">
       <BattleCharacter v-for="eachCharacter of team.members" :key="eachCharacter.uuid" :character="eachCharacter" />
     </div>
   </div>

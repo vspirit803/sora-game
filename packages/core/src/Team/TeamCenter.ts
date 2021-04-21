@@ -2,9 +2,10 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 08:41:10
  * @Description: 队伍中心 单例模式
- * @LastEditTime: 2020-09-24 09:30:36
+ * @LastEditTime: 2021-04-21 16:37:01
  * @LastEditors: vspirit803
  */
+import { MAX_TEAMS_NUM } from '@core/Common';
 import { SaveInterface } from '@core/Game';
 
 import { TeamNormal } from './TeamNormal';
@@ -46,5 +47,21 @@ export class TeamCenter implements SaveInterface<Array<TeamSave>> {
       name: eachTeam.name,
       members: eachTeam.members.map((eachMember) => eachMember.id),
     }));
+  }
+
+  canAddTeam(): boolean {
+    return this.teams.length < MAX_TEAMS_NUM;
+  }
+
+  newTeam(): void {
+    if (this.teams.length >= MAX_TEAMS_NUM) {
+      return;
+    }
+
+    this.teams.push(new TeamNormal({ name: `Team ${this.teams.length.toString().padStart(2, '0')}`, members: [] }));
+  }
+
+  removeTeam(team: TeamNormal): void {
+    this.teams.splice(this.teams.indexOf(team), 1);
   }
 }

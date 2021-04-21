@@ -5,10 +5,10 @@
       <!-- <div class="img" :style="`background-image: url(${imgUrl});`"></div> -->
     </div>
     <div class="name">{{ character.name }}</div>
-    <div class="buffs-container d-flex">
+    <div class="buffs-container row">
       <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
     </div>
-    <div class="skills-container d-flex">
+    <div class="skills-container row">
       <BattleCharacterSkill
         v-for="eachSkill of availableSkills"
         :key="eachSkill.id"
@@ -146,6 +146,7 @@ export default defineComponent({
 .character {
   width: 12rem;
   height: 12rem;
+  box-sizing: content-box;
 
   &.target {
     border: 2px red dashed;
@@ -155,7 +156,7 @@ export default defineComponent({
     }
   }
 
-  border: double aquamarine;
+  border: 2px double aquamarine;
   position: relative;
   .name {
     position: relative;
@@ -175,6 +176,7 @@ export default defineComponent({
     width: 100%;
     height: 2rem;
   }
+
   .img-container {
     position: absolute;
     width: 100%;

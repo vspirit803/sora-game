@@ -2,13 +2,13 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description: 
- * @LastEditTime: 2021-04-14 16:57:09
+ * @LastEditTime: 2021-04-14 17:36:19
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="flex-row">
     <div id="banners" style="position: absolute; z-index: 500">
-      <AutoBanners />
+      <AutoBanners v-if="false" />
     </div>
     <div style="margin-top: 300px">
       <q-btn @click="$router.push({ name: 'Battle' })">战斗</q-btn>

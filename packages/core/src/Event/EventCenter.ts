@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 16:31:12
  * @Description:
- * @LastEditTime: 2021-04-13 15:44:49
+ * @LastEditTime: 2021-04-21 14:08:51
  * @LastEditors: vspirit803
  */
 import { UUID } from '@core/Common';
@@ -51,7 +51,7 @@ export class EventCenter {
 
   listeners: Array<EventListener>;
 
-  private constructor() {
+  public constructor() {
     this.listeners = [];
   }
 

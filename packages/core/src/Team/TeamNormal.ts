@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 08:41:10
  * @Description:
- * @LastEditTime: 2020-09-24 09:37:00
+ * @LastEditTime: 2021-04-15 13:52:10
  * @LastEditors: vspirit803
  */
 import { CharacterNormal } from '@core/Character';
@@ -58,9 +58,11 @@ export class TeamNormal implements UUID {
     if (this.members.includes(member)) {
       throw new Error(`[${member.id}]${member.name}已在队伍中`);
     }
+
     if (this.members.length >= MAX_TEAM_MEMBERS_NUM) {
       throw new Error(`队伍成员数已达上限(${MAX_TEAM_MEMBERS_NUM})`);
     }
+
     this.members.push(member);
   }
 
@@ -68,6 +70,7 @@ export class TeamNormal implements UUID {
     if (!this.members.includes(member)) {
       throw new Error(`[${member.id}]${member.name}不在队伍中`);
     }
+
     this.members.splice(this.members.indexOf(member), 1);
   }
 
@@ -75,9 +78,11 @@ export class TeamNormal implements UUID {
     if (!this.members.includes(memberA)) {
       throw new Error(`[${memberA.id}]${memberA.name}不在队伍中`);
     }
+
     if (!this.members.includes(memberB)) {
       throw new Error(`[${memberB.id}]${memberB.name}不在队伍中`);
     }
+
     const indexA = this.members.indexOf(memberA);
     const indexB = this.members.indexOf(memberB);
     this.members.splice(indexA, 1, memberB);
@@ -85,10 +90,15 @@ export class TeamNormal implements UUID {
   }
 
   replaceMember(memberBefore: CharacterNormal, memberAfter: CharacterNormal): void {
-    const index = this.members.indexOf(memberBefore);
-    if (index === -1) {
+    if (!this.members.includes(memberBefore)) {
       throw new Error(`[${memberBefore.id}]${memberBefore.name}不在队伍中`);
     }
-    this.members.splice(index, 1, memberAfter);
+
+    if (this.members.includes(memberAfter)) {
+      this.swapMember(memberBefore, memberAfter);
+      return;
+    }
+
+    this.members.splice(this.members.indexOf(memberBefore), 1, memberAfter);
   }
 }

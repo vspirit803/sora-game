@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-04-13 10:21:23
  * @Description: 
- * @LastEditTime: 2021-04-14 17:17:31
+ * @LastEditTime: 2021-04-14 17:49:06
  * @LastEditors: vspirit803
 -->
 <template>
@@ -42,6 +42,7 @@ export default defineComponent({
   height: 4rem;
   font-size: 0.8rem;
   border: 1px grey dotted;
+  box-sizing: border-box;
 
   &-selected {
     border: 1px red solid;

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-08 09:59:13
  * @Description:
- * @LastEditTime: 2021-03-10 17:37:27
+ * @LastEditTime: 2021-04-15 13:16:15
  * @LastEditors: vspirit803
  */
 module.exports = {
@@ -31,7 +31,8 @@ module.exports = {
   rules: {
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'
-    indent: [
+    indent: 'off',
+    '@typescript-eslint/indent': [
       'error',
       2,
       {

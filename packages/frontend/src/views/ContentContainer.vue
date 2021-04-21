@@ -2,11 +2,11 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description: 
- * @LastEditTime: 2021-03-11 10:34:09
+ * @LastEditTime: 2021-04-14 17:47:45
  * @LastEditors: vspirit803
 -->
 <template>
-  <div class="content-container d-flex blue lighten-4 text-center">
+  <div class="content-container bg-light-blue-3 row">
     <router-view />
   </div>
 </template>

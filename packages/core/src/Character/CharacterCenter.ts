@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-23 16:57:06
  * @Description: 角色中心 单例模式
- * @LastEditTime: 2021-04-13 15:49:24
+ * @LastEditTime: 2021-04-15 13:30:08
  * @LastEditors: vspirit803
  */
 import { SaveInterface } from '@core/Game';
@@ -140,5 +140,9 @@ export class CharacterCenter implements SaveInterface<Array<CharacterSave>> {
       throw new Error(`id为${id}的角色未激活`);
     }
     return character;
+  }
+
+  get userCharacters(): Array<CharacterNormal> {
+    return this.characters.filter((each) => each.id.startsWith('C'));
   }
 }

@@ -2,11 +2,11 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:28
  * @Description:
- * @LastEditTime: 2021-05-05 20:59:55
+ * @LastEditTime: 2021-05-09 09:06:37
  * @LastEditors: vspirit803
  */
 import { Condition, ConditionItem, Or } from '@core/Condition';
-import { EventDataDamaged, EventListener } from '@core/Event';
+import { EventDataDamaged } from '@core/Event';
 import { TeamNormal } from '@core/Team';
 
 import { Battle } from './Battle';
@@ -103,36 +103,63 @@ export class BattleCenter {
     conditionItemRound5.setTestInstance(battle);
 
     const 弓兵 = battle.characters.find((each) => each.id === 'Enemy0002');
-    console.log(弓兵);
-    console.log(battle);
 
     if (弓兵) {
-      const 伤害分摊 = battle.eventCenter.listen({
-        eventType: 'Damaged',
-        priority: 3,
-        filter: 弓兵,
-        callback: async (eventData: EventDataDamaged) => {
-          if (eventData.isConductive) {
-            return;
-          }
-
-          const 分摊目标 = 弓兵.team.members.filter((each) => each.isAlive);
-          const number = 分摊目标.length;
-          const damage = eventData.damage / number;
-          eventData.damage = damage;
-          eventData.isConductive = true;
-
-          for (const each of 分摊目标) {
-            if (each !== 弓兵) {
-              await battle.eventCenter.trigger(each, {
-                ...eventData,
-                target: each,
-                eventType: 'Damaged',
-              });
+      弓兵.team.members.forEach((eachMember) => {
+        battle.eventCenter.listen({
+          eventType: 'Damaged',
+          priority: 3,
+          filter: eachMember,
+          callback: async (eventData: EventDataDamaged) => {
+            if (eventData.isConductive) {
+              return;
             }
-          }
-        },
+
+            const 分摊目标 = eachMember.team.members.filter((each) => each.isAlive);
+            const number = 分摊目标.length;
+            const damage = eventData.damage / number;
+            eventData.damage = damage;
+            eventData.isConductive = true;
+
+            for (const each of 分摊目标) {
+              if (each !== eachMember) {
+                await battle.eventCenter.trigger(each, {
+                  ...eventData,
+                  target: each,
+                  eventType: 'Damaged',
+                });
+              }
+            }
+          },
+        });
       });
+
+      // const 伤害分摊 = battle.eventCenter.listen({
+      //   eventType: 'Damaged',
+      //   priority: 3,
+      //   filter: 弓兵,
+      //   callback: async (eventData: EventDataDamaged) => {
+      //     if (eventData.isConductive) {
+      //       return;
+      //     }
+
+      //     const 分摊目标 = 弓兵.team.members.filter((each) => each.isAlive);
+      //     const number = 分摊目标.length;
+      //     const damage = eventData.damage / number;
+      //     eventData.damage = damage;
+      //     eventData.isConductive = true;
+
+      //     for (const each of 分摊目标) {
+      //       if (each !== 弓兵) {
+      //         await battle.eventCenter.trigger(each, {
+      //           ...eventData,
+      //           target: each,
+      //           eventType: 'Damaged',
+      //         });
+      //       }
+      //     }
+      //   },
+      // });
     }
 
     this.currBattle = battle;

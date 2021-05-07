@@ -1,8 +1,8 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-04-13 10:21:23
- * @Description: 
- * @LastEditTime: 2021-04-14 17:49:06
+ * @Description:
+ * @LastEditTime: 2021-05-09 09:11:08
  * @LastEditors: vspirit803
 -->
 <template>
@@ -38,8 +38,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .skill {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   font-size: 0.8rem;
   border: 1px grey dotted;
   box-sizing: border-box;

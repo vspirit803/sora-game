@@ -18,6 +18,7 @@
       />
     </div>
     <progress class="hp-bar" :max="hpMax" :value="currHp"></progress>
+    <div class="hp-number">{{ currHp }} / {{ hpMax }}</div>
   </div>
 </template>
 
@@ -177,6 +178,20 @@ export default defineComponent({
     height: 2rem;
   }
 
+  .hp-number {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+  }
+
+  &:hover .hp-number {
+    display: unset;
+  }
+
   .img-container {
     position: absolute;
     width: 100%;
@@ -198,6 +213,10 @@ export default defineComponent({
     text-align: center;
     left: 0;
     right: 0;
+  }
+
+  ::v-deep(img) {
+    -webkit-user-drag: none;
   }
 }
 </style>

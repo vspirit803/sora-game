@@ -1,8 +1,8 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
- * @Description: 
- * @LastEditTime: 2021-04-14 17:47:45
+ * @Description:
+ * @LastEditTime: 2021-05-12 17:04:45
  * @LastEditors: vspirit803
 -->
 <template>
@@ -13,28 +13,15 @@
 
 <style lang="scss" scoped>
 .content-container {
+  margin: auto;
+  aspect-ratio: 16 / 9;
+  max-height: 100vh;
+  max-width: 100vw;
   position: relative;
 
   > *:only-child {
     width: 100%;
     height: 100%;
-  }
-}
-
-/**宽高比小于16/9, 按宽度决定 */
-@media screen and (max-aspect-ratio: 16/9) {
-  .content-container {
-    margin: auto;
-    height: calc((100vw) / 16 * 9);
-    width: calc(100vw);
-  }
-}
-/**宽高比大于16/9, 按高度决定 */
-@media screen and (min-aspect-ratio: 16/9) {
-  .content-container {
-    margin: auto;
-    height: calc(100vh);
-    width: calc((100vh) / 9 * 16);
   }
 }
 </style>

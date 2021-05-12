@@ -1,12 +1,12 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
- * @Description: 
- * @LastEditTime: 2021-03-10 17:47:46
+ * @Description:
+ * @LastEditTime: 2021-05-12 17:07:06
  * @LastEditors: vspirit803
 -->
 <template>
-  <div class="v-application">
+  <div class="q-application">
     <ContentContainer />
   </div>
 </template>
@@ -43,8 +43,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.v-application {
-  flex-direction: column;
+.q-application {
+  width: 100%;
 }
 
 html {
@@ -59,19 +59,7 @@ html {
   color: #2c3e50;
 }
 
-.nav {
-  position: absolute;
-  z-index: 999;
-
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+* {
+  user-select: none;
 }
 </style>

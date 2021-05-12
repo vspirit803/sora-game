@@ -2,14 +2,14 @@
  * @Author: vspirit803
  * @Date: 2021-04-13 10:21:23
  * @Description:
- * @LastEditTime: 2021-05-09 09:11:08
+ * @LastEditTime: 2021-05-13 22:07:10
  * @LastEditors: vspirit803
 -->
 <template>
   <q-img
     class="skill"
     :src="`/images/skills/${skill.id}.png`"
-    :class="{ 'skill-selected': selected }"
+    :class="{ 'skill-selected': selected, 'skill-passive': skill.isPassive }"
     :alt="skill.name"
   >
     <template #error>
@@ -38,14 +38,42 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .skill {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   font-size: 0.8rem;
-  border: 1px grey dotted;
-  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
 
-  &-selected {
-    border: 1px red solid;
+  &-selected::after {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    border: 1.5px solid red;
+  }
+
+  &-passive::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 75%, gold 76%, gold 99%, transparent 100%) no-repeat;
+    background-position: 50% 0;
+    background-size: 50% 100%;
+    animation: rotate 2s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
   }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-05-05 20:58:55
+ * @LastEditTime: 2021-05-16 19:47:54
  * @LastEditors: vspirit803
 -->
 <template>
@@ -68,7 +68,6 @@ export default defineComponent({
 
   .faction {
     position: absolute;
-    border: dashed #32a1ce;
   }
 
   .faction1 {

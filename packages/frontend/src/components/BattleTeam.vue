@@ -1,14 +1,14 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
- * @Description: 
- * @LastEditTime: 2021-04-14 17:24:00
+ * @Description:
+ * @LastEditTime: 2021-05-16 18:48:13
  * @LastEditors: vspirit803
 -->
 <template>
-  <div class="team">
-    <div class="text-left">{{ team.name }}</div>
-    <div class="members row">
+  <div class="team" :class="reverse ? 'row reverse' : 'row'">
+    <div class="text-left team-name">{{ team.name }}</div>
+    <div class="members" :class="reverse ? 'row reverse' : 'row'">
       <BattleCharacter v-for="eachCharacter of team.members" :key="eachCharacter.uuid" :character="eachCharacter" />
     </div>
   </div>
@@ -28,6 +28,20 @@ export default defineComponent({
       required: true,
       type: Object as PropType<TeamBattle>,
     },
+    reverse: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 });
 </script>
+<style>
+.members {
+  gap: 8px;
+}
+
+.team-name {
+  writing-mode: vertical-rl;
+}
+</style>

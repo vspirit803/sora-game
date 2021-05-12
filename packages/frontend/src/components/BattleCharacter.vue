@@ -148,17 +148,17 @@ export default defineComponent({
   width: 12rem;
   height: 12rem;
   box-sizing: content-box;
+  outline: aquamarine double 2px;
+  position: relative;
 
   &.target {
-    border: 2px red dashed;
+    outline: red dashed 2px;
 
     &:hover {
-      border-style: solid;
+      outline-style: solid;
     }
   }
 
-  border: 2px double aquamarine;
-  position: relative;
   .name {
     position: relative;
     font-weight: bold;
@@ -167,7 +167,9 @@ export default defineComponent({
 
   .skills-container {
     position: absolute;
-    bottom: 1rem;
+    bottom: 1.5rem;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
   }
 
   .hp-bar {

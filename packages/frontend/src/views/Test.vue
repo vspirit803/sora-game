@@ -1,8 +1,8 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
- * @Description: 
- * @LastEditTime: 2021-03-11 17:35:50
+ * @Description:
+ * @LastEditTime: 2021-05-13 20:11:10
  * @LastEditors: vspirit803
 -->
 <template>
@@ -19,6 +19,9 @@
         {{ each.name }}
       </div>
     </div>
+  </div>
+  <div>
+    <div class="canvas"></div>
   </div>
 </template>
 
@@ -128,6 +131,21 @@ export default defineComponent({
 
     width: 64px;
     height: 64px;
+  }
+}
+
+.canvas {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, transparent 98px, red 99px, transparent 100px) no-repeat;
+  background-position: 50px 0;
+  background-size: 100px 100%;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
   }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:47:53
  * @Description: 技能(战斗状态)
- * @LastEditTime: 2021-04-14 14:42:40
+ * @LastEditTime: 2021-05-13 20:37:02
  * @LastEditors: vspirit803
  */
 import { CharacterBattle } from '@core/Character';
@@ -104,5 +104,9 @@ export class SkillBattle implements SkillNormal {
 
   get isNonTarget(): boolean {
     return Boolean(this.target & SkillTarget.NON_TARGET);
+  }
+
+  get isPassive(): boolean {
+    return this.type === 'passive';
   }
 }

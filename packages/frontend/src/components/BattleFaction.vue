@@ -1,15 +1,15 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
- * @Description: 
- * @LastEditTime: 2021-04-14 17:22:46
+ * @Description:
+ * @LastEditTime: 2021-05-16 19:46:28
  * @LastEditors: vspirit803
 -->
 <template>
-  <div class="faction">
-    <div>{{ faction.name }}</div>
-    <div class="teams" :class="reverse ? 'column' : 'column reverse'">
-      <BattleTeam v-for="eachTeam of faction.teams" :key="eachTeam.uuid" :team="eachTeam" />
+  <div class="faction" :class="reverse ? 'row reverse' : 'row'">
+    <div class="faction-name">{{ faction.name }}</div>
+    <div class="teams column">
+      <BattleTeam v-for="eachTeam of faction.teams" :key="eachTeam.uuid" :team="eachTeam" :reverse="reverse" />
     </div>
   </div>
 </template>
@@ -36,3 +36,12 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss">
+.teams {
+  gap: 8px;
+}
+
+.faction-name {
+  writing-mode: vertical-rl;
+}
+</style>

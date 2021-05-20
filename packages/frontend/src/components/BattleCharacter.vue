@@ -52,9 +52,8 @@ export default defineComponent({
     const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;
     const setAvailableTargets = inject<(targets: Array<CharacterBattle>) => void>('setAvailableTargets')!;
 
-    const setSelectTargetHandler = inject<(handler: (target: CharacterBattle) => void) => void>(
-      'setSelectTargetHandler',
-    )!;
+    const setSelectTargetHandler =
+      inject<(handler: (target: CharacterBattle) => void) => void>('setSelectTargetHandler')!;
     const selectTargetHandler = inject<Ref<(target: CharacterBattle) => void>>('selectTargetHandler')!;
 
     const isAvailable = computed(() => availableTargets.value.includes(character.value));
@@ -99,6 +98,17 @@ export default defineComponent({
           priority: 0,
           callback: async () => {
             buffs.value = character.value.buffs;
+          },
+        });
+
+        character.value.battle.eventCenter.listen({
+          eventType: 'ActionEnd',
+          priority: -1,
+          filter: character.value,
+          callback: async () => {
+            return new Promise((resolve) => {
+              setTimeout(resolve, 200);
+            });
           },
         });
       },

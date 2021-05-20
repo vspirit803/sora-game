@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-05-16 19:47:54
+ * @LastEditTime: 2021-05-20 15:58:35
  * @LastEditors: vspirit803
 -->
 <template>
@@ -54,7 +54,7 @@ export default defineComponent({
     async function onBattleStart() {
       console.clear();
       battle.value = game.battleCenter.generateBattle('Battle00001', team);
-      // battle.value.autoMode = true;
+      // battle.value!.autoMode = true;
       battle.value!.start();
     }
 

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:28
  * @Description:
- * @LastEditTime: 2021-05-09 09:06:37
+ * @LastEditTime: 2021-05-24 13:29:47
  * @LastEditors: vspirit803
  */
 import { Condition, ConditionItem, Or } from '@core/Condition';
@@ -133,33 +133,6 @@ export class BattleCenter {
           },
         });
       });
-
-      // const 伤害分摊 = battle.eventCenter.listen({
-      //   eventType: 'Damaged',
-      //   priority: 3,
-      //   filter: 弓兵,
-      //   callback: async (eventData: EventDataDamaged) => {
-      //     if (eventData.isConductive) {
-      //       return;
-      //     }
-
-      //     const 分摊目标 = 弓兵.team.members.filter((each) => each.isAlive);
-      //     const number = 分摊目标.length;
-      //     const damage = eventData.damage / number;
-      //     eventData.damage = damage;
-      //     eventData.isConductive = true;
-
-      //     for (const each of 分摊目标) {
-      //       if (each !== 弓兵) {
-      //         await battle.eventCenter.trigger(each, {
-      //           ...eventData,
-      //           target: each,
-      //           eventType: 'Damaged',
-      //         });
-      //       }
-      //     }
-      //   },
-      // });
     }
 
     this.currBattle = battle;

@@ -23,7 +23,14 @@
 </template>
 
 <script lang="ts">
-import { Buff, CharacterBattle, EventDataDamaged, EventDataSkillSelect, SkillBattle } from 'sora-game-core';
+import {
+  Buff,
+  CharacterBattle,
+  EventDataDamaged,
+  EventDataSkillSelect,
+  EventListenerBuilder,
+  SkillBattle,
+} from 'sora-game-core';
 import { computed, defineComponent, inject, onMounted, PropType, Ref, ref, shallowRef, toRefs, watch } from 'vue';
 
 import BattleCharacterSkill from '@/components/BattleCharacterSkill.vue';
@@ -67,50 +74,46 @@ export default defineComponent({
     watch(
       character,
       () => {
-        character.value.battle.eventCenter.listen({
-          eventType: 'Damaged',
-          priority: 0,
-          filter: character.value,
-          callback: async (eventData: EventDataDamaged) => {
+        new EventListenerBuilder()
+          .setEventType('Damaged')
+          .setPriority(0)
+          .setFilter(character.value)
+          .setCallback(async (eventData: EventDataDamaged) => {
             const { isCrit, finalDamage } = eventData;
             addLabel(finalDamage!, isCrit ? 'red' : undefined);
             currHp.value = character.value.currHp;
             hpMax.value = character.value.properties.hp.battleValue;
-          },
-        });
+          });
 
-        character.value.battle.eventCenter.listen({
-          eventType: 'SkillSelect',
-          priority: 0,
-          filter: character.value,
-          callback: async (eventData: EventDataSkillSelect) => {
+        new EventListenerBuilder()
+          .setEventType('SkillSelect')
+          .setPriority(0)
+          .setFilter(character.value)
+          .setCallback(async (eventData: EventDataSkillSelect) => {
             availableSkills.value = eventData.availableSkills;
             selectSkillData = eventData;
 
             return new Promise((resolve) => {
               selectSkillPromiseResolve.value = resolve;
             });
-          },
-        });
+          });
 
-        character.value.battle.eventCenter.listen({
-          eventType: 'ActionEnd',
-          priority: 0,
-          callback: async () => {
+        new EventListenerBuilder()
+          .setEventType('ActionEnd')
+          .setPriority(0)
+          .setCallback(async () => {
             buffs.value = character.value.buffs;
-          },
-        });
+          });
 
-        character.value.battle.eventCenter.listen({
-          eventType: 'ActionEnd',
-          priority: -1,
-          filter: character.value,
-          callback: async () => {
+        new EventListenerBuilder()
+          .setEventType('ActionEnd')
+          .setPriority(-1)
+          .setFilter(character.value)
+          .setCallback(async () => {
             return new Promise((resolve) => {
               setTimeout(resolve, 200);
             });
-          },
-        });
+          });
       },
       { immediate: true },
     );

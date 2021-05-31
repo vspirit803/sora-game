@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:40:51
  * @Description:
- * @LastEditTime: 2021-04-13 11:22:37
+ * @LastEditTime: 2021-05-31 17:29:09
  * @LastEditors: vspirit803
  */
 import { BattleActionQueueBase, BattleActionQueueMHXY } from '@core/BattleActionQueue';
@@ -41,9 +41,15 @@ export class Battle implements UUID {
   autoMode: boolean;
   /**集火目标 */
   fireTarget?: CharacterBattle;
+  /**守护目标 */
+  protectTarget?: CharacterBattle;
 
   setFireTarget(fireTarget: CharacterBattle): void {
     this.fireTarget = fireTarget;
+  }
+
+  setProtectTarget(protectTarget: CharacterBattle): void {
+    this.protectTarget = protectTarget;
   }
 
   constructor(

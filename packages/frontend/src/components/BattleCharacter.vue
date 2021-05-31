@@ -1,10 +1,19 @@
 <template>
-  <div ref="characterElement" class="character" :class="{ target: isAvailable }" @click.stop="onSelectCharacter">
+  <div
+    ref="characterElement"
+    class="character"
+    :class="{ target: isAvailable, 'fire-target': isFireTarget }"
+    @click.stop="onSelectCharacter"
+  >
     <div class="img-container">
       <q-img class="img" :src="imgUrl" />
       <!-- <div class="img" :style="`background-image: url(${imgUrl});`"></div> -->
     </div>
-    <div class="name">{{ character.name }}</div>
+    <div class="name">
+      {{ character.name }}
+    </div>
+    <q-icon v-if="isFireTarget" class="absolute-right text-h2" color="red" name="mdi-bullseye-arrow" />
+    <q-icon v-if="isProtectTarget" class="absolute-right text-h2" color="green" name="mdi-shield-cross-outline" />
     <div class="buffs-container row">
       <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
     </div>
@@ -47,6 +56,10 @@ export default defineComponent({
     const availableSkills = inject<Ref<Array<SkillBattle>>>('availableSkills')!;
     const currActionCharacter = inject<Ref<CharacterBattle>>('currActionCharacter')!;
     const buffs = shallowRef<Array<Buff>>([]);
+    const fireTarget = inject<Ref<CharacterBattle | undefined>>('fireTarget')!;
+    const isFireTarget = computed(() => fireTarget.value === character.value);
+    const protectTarget = inject<Ref<CharacterBattle | undefined>>('protectTarget')!;
+    const isProtectTarget = computed(() => protectTarget.value === character.value);
 
     const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;
     const isAvailable = computed(() => availableTargets.value.includes(character.value));
@@ -116,9 +129,7 @@ export default defineComponent({
     }
 
     function onSelectCharacter() {
-      if (isAvailable.value) {
-        emit('onSelectCharacter', character.value);
-      }
+      emit('onSelectCharacter', character.value);
     }
 
     return {
@@ -132,6 +143,8 @@ export default defineComponent({
       onSelectSkill,
       buffs,
       currActionCharacter,
+      isFireTarget,
+      isProtectTarget,
     };
   },
 });
@@ -151,6 +164,9 @@ export default defineComponent({
     &:hover {
       outline-style: solid;
     }
+  }
+
+  &-fire-target::after {
   }
 
   .name {

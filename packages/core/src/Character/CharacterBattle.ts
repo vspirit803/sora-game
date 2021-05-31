@@ -236,11 +236,10 @@ export class CharacterBattle implements CharacterNormal, UUID {
   async action(): Promise<void> {
     // console.log(`轮到${this.name}行动了`);
 
-    const availableTargets = this.enemies.filter((eachCharacter) => eachCharacter.isAlive);
-    let target = this.randomGenerator.selectOneRandomly(availableTargets);
-    let skill = this.skills[0];
     const availableSkills = this.skills.filter((each) => each.type !== 'passive');
-    skill = this.randomGenerator.selectOneRandomly(availableSkills);
+    let skill = this.randomGenerator.selectOneRandomly(availableSkills);
+    const availableTargets = skill.getTargets();
+    let target = this.randomGenerator.selectOneRandomly(availableTargets);
 
     if (this.isStunned()) {
       // console.log(`${this.name}处于眩晕状态,跳过回合`);
@@ -248,8 +247,12 @@ export class CharacterBattle implements CharacterNormal, UUID {
       return;
     }
 
-    if (this.isPlayerControl && this.battle.fireTarget) {
-      target = this.battle.fireTarget;
+    if (this.isPlayerControl && this.battle.autoMode) {
+      if (skill.isAttack && this.battle.fireTarget) {
+        target = this.battle.fireTarget;
+      } else if (skill.isTreat) {
+        target = this.battle.protectTarget ?? this;
+      }
     }
 
     if (!this.battle.autoMode && this.isPlayerControl) {

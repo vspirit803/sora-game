@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-05-31 16:27:30
+ * @LastEditTime: 2021-05-31 17:29:47
  * @LastEditors: vspirit803
 -->
 <template>
@@ -31,7 +31,7 @@
       @onSelectCharacter="onSelectCharacter"
     />
 
-    <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" :size="128" />
+    <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" />
   </div>
 </template>
 
@@ -60,6 +60,10 @@ export default defineComponent({
     const currActionCharacter = shallowRef<CharacterBattle | undefined>(undefined);
     provide('currActionCharacter', currActionCharacter);
     const isAutoModeEnabled = ref(false);
+    const fireTarget = shallowRef<CharacterBattle | undefined>(undefined);
+    provide('fireTarget', fireTarget);
+    const protectTarget = shallowRef<CharacterBattle | undefined>(undefined);
+    provide('protectTarget', protectTarget);
 
     onUnmounted(() => {
       console.log('结束battle');
@@ -87,6 +91,15 @@ export default defineComponent({
         })
         .apply();
 
+      new EventListenerBuilder()
+        .setEventCenter(battle.value!.eventCenter)
+        .setEventType('BattleSuccess')
+        .setPriority(0)
+        .setCallback(async () => {
+          isAutoModeEnabled.value = false;
+        })
+        .apply();
+
       nextTick(() => battle.value!.start());
     }
 
@@ -99,12 +112,22 @@ export default defineComponent({
     }
 
     function onSelectCharacter(character: CharacterBattle) {
-      selectSkillData!.selectedTarget = character;
-      selectSkillPromiseResolve.value?.();
-      availableSkills.value = [];
-      availableTargets.value = [];
-      selectSkillPromiseResolve.value = undefined;
-      selectedSkill.value = undefined;
+      if (isAutoModeEnabled.value) {
+        if (character.faction !== battle.value!.factions[0]) {
+          battle.value!.setFireTarget(character);
+          fireTarget.value = character;
+        } else {
+          battle.value!.setProtectTarget(character);
+          protectTarget.value = character;
+        }
+      } else if (availableTargets.value.includes(character)) {
+        selectSkillData!.selectedTarget = character;
+        selectSkillPromiseResolve.value?.();
+        availableSkills.value = [];
+        availableTargets.value = [];
+        selectSkillPromiseResolve.value = undefined;
+        selectedSkill.value = undefined;
+      }
     }
 
     watch(isAutoModeEnabled, (newVal) => {

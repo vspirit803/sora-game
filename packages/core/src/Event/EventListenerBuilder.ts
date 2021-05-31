@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-05-20 16:12:45
  * @Description:
- * @LastEditTime: 2021-05-20 16:24:04
+ * @LastEditTime: 2021-05-31 12:17:44
  * @LastEditors: vspirit803
  */
 
@@ -21,6 +21,7 @@ export class EventListenerBuilder {
   filter?: UUID | Array<UUID>;
   callback?: (eventData: EventData) => Promise<void>;
   once?: boolean;
+  eventCenter?: EventCenter;
 
   constructor() {
     this.priority = 5;
@@ -53,6 +54,11 @@ export class EventListenerBuilder {
     return this;
   }
 
+  setEventCenter(eventCenter: EventCenter): EventListenerBuilder {
+    this.eventCenter = eventCenter;
+    return this;
+  }
+
   apply(): EventListener {
     if (this.eventType === undefined) {
       throw new Error('eventType can not be undefined');
@@ -62,7 +68,7 @@ export class EventListenerBuilder {
       throw new Error('callback can not be undefined');
     }
 
-    const eventCenter = EventCenter.getInstance();
+    const eventCenter = this.eventCenter ?? EventCenter.getInstance();
 
     return eventCenter.listen({
       eventType: this.eventType,

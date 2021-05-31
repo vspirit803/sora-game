@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 16:31:12
  * @Description:
- * @LastEditTime: 2021-04-21 14:08:51
+ * @LastEditTime: 2021-05-31 13:40:33
  * @LastEditors: vspirit803
  */
 import { UUID } from '@core/Common';
@@ -78,7 +78,7 @@ export class EventCenter {
     }
 
     const listener = new EventListener({ eventType, priority, filters, callback, once });
-    this.listeners.push((listener as unknown) as EventListener);
+    this.listeners.push(listener as unknown as EventListener);
     return listener;
   }
 

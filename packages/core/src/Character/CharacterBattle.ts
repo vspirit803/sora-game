@@ -148,7 +148,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
       await target.battle.eventCenter.trigger(target, { ...data, eventType: 'Killed' });
     } else {
       if (this.battle.randomDecider.prdDecider(this, 0.3)) {
-        console.log(`${target.name}被打晕了`);
+        // console.log(`${target.name}被打晕了`);
         const stunBuff = new Buff({ name: '眩晕', source, target, duration: 1 });
         const stunBuffItem = new StatusBuffItem(stunBuff, STUNNED);
         stunBuff.addBuffs(stunBuffItem);
@@ -177,13 +177,13 @@ export class CharacterBattle implements CharacterNormal, UUID {
   @Listen<EventDataKilling>({ eventType: 'Killing', priority: 2 })
   async onKilling(data: EventDataKilling): Promise<void> {
     const target = data.target;
-    console.log(`[${this.name}]🗡️☠[${target.name}]`);
+    // console.log(`[${this.name}]🗡️☠[${target.name}]`);
   }
 
   @Listen<EventDataKilled>({ eventType: 'Killed', priority: 2 })
   async onKilled(data: EventDataKilled): Promise<void> {
     const killSource = data.source;
-    console.log(`[${this.name}]☠`);
+    // console.log(`[${this.name}]☠`);
     await this.battle.eventCenter.trigger(killSource, { eventType: 'Killing', source: killSource, target: this });
 
     if (this.isAlive) {
@@ -224,7 +224,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   unSubscribeBaseBattleEvent(): void {}
 
   async action(): Promise<void> {
-    console.log(`轮到${this.name}行动了`);
+    // console.log(`轮到${this.name}行动了`);
 
     const availableTargets = this.enemies.filter((eachCharacter) => eachCharacter.isAlive);
     let target = this.randomGenerator.selectOneRandomly(availableTargets);
@@ -233,7 +233,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
     skill = this.randomGenerator.selectOneRandomly(availableSkills);
 
     if (this.isStunned()) {
-      console.log(`${this.name}处于眩晕状态,跳过回合`);
+      // console.log(`${this.name}处于眩晕状态,跳过回合`);
       await this.battle.eventCenter.trigger(this, { eventType: 'ActionEnd', source: this });
       return;
     }

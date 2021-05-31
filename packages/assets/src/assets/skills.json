@@ -83,5 +83,15 @@
     "type": "skill_attack",
     "cooldown": 0,
     "target": 24
+  },
+  {
+    "id": "S00009",
+    "name": "风砂甘霖术",
+    "levels": [{ "ratio": 0.37 }, { "ratio": 0.42 }, { "ratio": 0.47 }],
+    "description": "来自《轩辕剑3外传-天之痕》的治疗术",
+    "cost": 3,
+    "type": "skill_treat",
+    "cooldown": 0,
+    "target": 22
   }
 ]

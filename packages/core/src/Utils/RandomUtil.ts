@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-29 16:11:25
  * @Description:
- * @LastEditTime: 2021-04-13 13:10:35
+ * @LastEditTime: 2021-05-31 14:57:27
  * @LastEditors: vspirit803
  */
 
@@ -72,6 +72,10 @@ export class RandomGenerator {
   selectOneRandomly<T>(list: Array<T>): T {
     return list[this.getInt(list.length - 1)];
   }
+
+  getRandomFloat(): number {
+    return this.get(0.99, 1.01);
+  }
 }
 
 export class RandomDecider {
@@ -101,7 +105,6 @@ export class RandomDecider {
 
   prdDecider(uuid: UUID, probability: number): boolean {
     if (!this.prdMap.has(uuid)) {
-      //todo 新建一个prd发生器
       this.prdMap.set(uuid, new PRD(probability, this.randomGenerator));
     }
 

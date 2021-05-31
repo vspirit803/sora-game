@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-27 11:25:31
  * @Description: 技能类别
- * @LastEditTime: 2020-09-27 11:26:57
+ * @LastEditTime: 2021-05-31 14:35:29
  * @LastEditors: vspirit803
  */
 
@@ -15,4 +15,6 @@ export type SkillType =
   /**攻击性技能 */
   | 'skill_attack'
   /**被动技能 */
-  | 'passive';
+  | 'passive'
+  /**治疗技能 */
+  | 'skill_treat';

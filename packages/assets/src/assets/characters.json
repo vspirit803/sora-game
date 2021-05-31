@@ -13,7 +13,7 @@
       "speed": { "baseValue": 100, "increaseValue": 0 }
     },
     "equipmentSlots": [],
-    "skills": ["S00004", "S00005", "S00006", "S00007"]
+    "skills": ["S00004", "S00005", "S00006", "S00007", "S00009"]
   },
   {
     "id": "C0002",
@@ -1830,7 +1830,7 @@
     "properties": {
       "atk": { "baseValue": 35, "increaseValue": 6 },
       "def": { "baseValue": 10, "increaseValue": 1 },
-      "critRate": { "baseValue": 0.05, "increaseValue": 0 },
+      "critRate": { "baseValue": 0.4, "increaseValue": 0 },
       "critMultiplier": { "baseValue": 1.5, "increaseValue": 0 },
       "missRate": { "baseValue": 0, "increaseValue": 0 },
       "hp": { "baseValue": 385, "increaseValue": 39 },

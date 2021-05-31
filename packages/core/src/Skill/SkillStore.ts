@@ -2,12 +2,11 @@
  * @Author: vspirit803
  * @Date: 2020-09-27 10:36:03
  * @Description:
- * @LastEditTime: 2021-04-14 16:09:52
+ * @LastEditTime: 2021-05-31 14:57:47
  * @LastEditors: vspirit803
  */
 import 'reflect-metadata';
 
-import { Buff, StatusBuffItem, STUNNED } from '@core/Buff';
 import { CharacterBattle } from '@core/Character';
 
 import { SkillData } from './SkillData';
@@ -45,7 +44,10 @@ export class SkillStore {
     const ratio = skillData.ratio;
     const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
     const damage = Math.round(
-      source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+      source.properties.atk.battleValue *
+        (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+        ratio *
+        battle.randomGenerator.getRandomFloat(),
     );
     await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target, damage, isCrit });
   }
@@ -56,7 +58,10 @@ export class SkillStore {
     const ratio = skillData.ratio;
     const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
     const damage = Math.round(
-      source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+      source.properties.atk.battleValue *
+        (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+        ratio *
+        battle.randomGenerator.getRandomFloat(),
     );
     await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target, damage, isCrit });
   }
@@ -68,7 +73,10 @@ export class SkillStore {
     const ratio = skillData.ratio;
     const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
     const damage = Math.round(
-      source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+      source.properties.atk.battleValue *
+        (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+        ratio *
+        battle.randomGenerator.getRandomFloat(),
     );
     await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target, damage, isCrit });
   }
@@ -80,7 +88,10 @@ export class SkillStore {
     const ratio = skillData.ratio;
     const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
     const damage = Math.round(
-      source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+      source.properties.atk.battleValue *
+        (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+        ratio *
+        battle.randomGenerator.getRandomFloat(),
     );
     await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target, damage, isCrit });
   }
@@ -93,13 +104,14 @@ export class SkillStore {
     for (let i = 0; i < times; i++) {
       const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
       const damage = Math.round(
-        source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+        source.properties.atk.battleValue *
+          (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+          ratio *
+          battle.randomGenerator.getRandomFloat(),
       );
 
       const data = { eventType: 'Damaging' as const, source, target, damage, isCrit };
       await battle.eventCenter.trigger(source, data);
-      console.log('行动后的data:', { ...data });
-      // await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target, damage, isCrit });
     }
   }
 
@@ -110,25 +122,11 @@ export class SkillStore {
     const ratio = skillData.ratio;
     const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
     const damage = Math.round(
-      source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+      source.properties.atk.battleValue *
+        (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+        ratio *
+        battle.randomGenerator.getRandomFloat(),
     );
-
-    console.log(`${source.name}使用了大招脱力,眩晕了`);
-
-    battle.eventCenter.listen({
-      eventType: 'ActionEnd',
-      filter: source,
-      once: true,
-      callback: async () => {
-        console.log(`${source.name}获得眩晕状态`);
-
-        const stunBuff = new Buff({ name: '眩晕', source, target: source, duration: 1 });
-        const stunBuffItem = new StatusBuffItem(stunBuff, STUNNED);
-        stunBuff.addBuffs(stunBuffItem);
-
-        source.buffs.push(stunBuff);
-      },
-    });
 
     await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target, damage, isCrit });
   }
@@ -144,11 +142,34 @@ export class SkillStore {
       for (const eachTarget of targets) {
         const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
         const damage = Math.round(
-          source.properties.atk.battleValue * (isCrit ? source.properties.critMultiplier.battleValue : 1) * ratio,
+          source.properties.atk.battleValue *
+            (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+            ratio *
+            battle.randomGenerator.getRandomFloat(),
         );
 
         await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target: eachTarget, damage, isCrit });
       }
+    }
+  }
+
+  //砂风甘霖术
+  @DefineSkill('S00009')
+  async skill00009(skillData: SkillData, source: CharacterBattle, target: CharacterBattle): Promise<void> {
+    const battle = source.battle;
+    const ratio = skillData.ratio;
+    const targets = target.team.members.filter((each) => each.isAlive);
+
+    for (const eachTarget of targets) {
+      const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
+      const damage = Math.round(
+        source.properties.atk.battleValue *
+          (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+          ratio *
+          battle.randomGenerator.getRandomFloat(),
+      );
+
+      await battle.eventCenter.trigger(source, { eventType: 'Treating', source, target: eachTarget, damage, isCrit });
     }
   }
 }

@@ -51,7 +51,7 @@ export default defineComponent({
     const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;
     const isAvailable = computed(() => availableTargets.value.includes(character.value));
 
-    let addLabel: (damage: number, color?: string) => void;
+    let addLabel: (damage: number, color: string, isCrit?: boolean) => void;
     onMounted(() => {
       addLabel = useLabel(characterElement.value!);
     });
@@ -68,7 +68,20 @@ export default defineComponent({
           .setFilter(character.value)
           .setCallback(async (eventData: EventDataDamaged) => {
             const { isCrit, finalDamage } = eventData;
-            addLabel(finalDamage!, isCrit ? 'red' : undefined);
+            addLabel(finalDamage!, 'red', isCrit);
+            currHp.value = character.value.currHp;
+            hpMax.value = character.value.properties.hp.battleValue;
+          })
+          .apply();
+
+        new EventListenerBuilder()
+          .setEventCenter(eventCenter)
+          .setEventType('Treated')
+          .setPriority(0)
+          .setFilter(character.value)
+          .setCallback(async (eventData: EventDataDamaged) => {
+            const { isCrit, finalDamage } = eventData;
+            addLabel(finalDamage!, 'green', isCrit);
             currHp.value = character.value.currHp;
             hpMax.value = character.value.properties.hp.battleValue;
           })
@@ -190,8 +203,6 @@ export default defineComponent({
 
   ::v-deep(.damage-span) {
     position: absolute;
-    font-size: x-large;
-    font-weight: bolder;
     bottom: 20px;
     text-align: center;
     left: 0;

@@ -11,6 +11,7 @@ import {
   EventDataKilling,
   EventDataSkillSelect,
   EventDataTreated,
+  EventDataTreating,
   Listen,
   Listener,
   RemoveAllListeners,
@@ -156,6 +157,15 @@ export class CharacterBattle implements CharacterNormal, UUID {
         this.buffs.push(stunBuff);
       }
     }
+  }
+
+  @Listen<EventDataTreating>({ eventType: 'Treating', priority: 2 })
+  async onTreating(data: EventDataTreating): Promise<void> {
+    const target = data.target;
+    await target.battle.eventCenter.trigger(target, {
+      ...data,
+      eventType: 'Treated',
+    });
   }
 
   @Listen<EventDataTreated>({ eventType: 'Treated', priority: 2 })

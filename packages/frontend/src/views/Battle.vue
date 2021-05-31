@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-05-31 14:19:18
+ * @LastEditTime: 2021-05-31 16:27:30
  * @LastEditors: vspirit803
 -->
 <template>
@@ -30,18 +30,21 @@
       @onSelectSkill="onSelectSkill"
       @onSelectCharacter="onSelectCharacter"
     />
+
+    <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" :size="128" />
   </div>
 </template>
 
 <script lang="ts">
 import { Battle, CharacterBattle, EventDataSkillSelect, EventListenerBuilder, Game, SkillBattle } from 'sora-game-core';
-import { defineComponent, nextTick, onUnmounted, provide, Ref, ref, shallowRef } from 'vue';
+import { defineComponent, nextTick, onUnmounted, provide, Ref, ref, shallowRef, watch } from 'vue';
 
+import BattleAutoModeSwitch from '@/components/BattleAutoModeSwitch.vue';
 import BattleFaction from '@/components/BattleFaction.vue';
 
 export default defineComponent({
   name: 'Battle',
-  components: { BattleFaction },
+  components: { BattleFaction, BattleAutoModeSwitch },
   setup() {
     const game = Game.getInstance();
     const team = game.teamCenter.teams[0];
@@ -56,6 +59,7 @@ export default defineComponent({
     provide('selectedSkill', selectedSkill);
     const currActionCharacter = shallowRef<CharacterBattle | undefined>(undefined);
     provide('currActionCharacter', currActionCharacter);
+    const isAutoModeEnabled = ref(false);
 
     onUnmounted(() => {
       console.log('结束battle');
@@ -66,6 +70,7 @@ export default defineComponent({
     async function onBattleStart() {
       console.clear();
       battle.value = game.battleCenter.generateBattle('Battle00001', team);
+      isAutoModeEnabled.value = battle.value!.autoMode;
 
       new EventListenerBuilder()
         .setEventCenter(battle.value!.eventCenter)
@@ -102,7 +107,19 @@ export default defineComponent({
       selectedSkill.value = undefined;
     }
 
-    return { battle, onBattleStart, onSelectSkill, onSelectCharacter };
+    watch(isAutoModeEnabled, (newVal) => {
+      battle.value!.autoMode = newVal;
+
+      if (selectSkillPromiseResolve.value) {
+        selectSkillPromiseResolve.value?.();
+        availableSkills.value = [];
+        availableTargets.value = [];
+        selectSkillPromiseResolve.value = undefined;
+        selectedSkill.value = undefined;
+      }
+    });
+
+    return { battle, onBattleStart, onSelectSkill, onSelectCharacter, isAutoModeEnabled };
   },
 });
 </script>

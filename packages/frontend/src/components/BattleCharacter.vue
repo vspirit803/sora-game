@@ -1,5 +1,5 @@
 <template>
-  <div ref="characterElement" class="character" :class="{ target: isAvailable }" @click="onSelect">
+  <div ref="characterElement" class="character" :class="{ target: isAvailable }" @click.stop="onSelectCharacter">
     <div class="img-container">
       <q-img class="img" :src="imgUrl" />
       <!-- <div class="img" :style="`background-image: url(${imgUrl});`"></div> -->
@@ -8,13 +8,12 @@
     <div class="buffs-container row">
       <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
     </div>
-    <div class="skills-container row">
+    <div v-if="currActionCharacter === character" class="skills-container row">
       <BattleCharacterSkill
         v-for="eachSkill of availableSkills"
         :key="eachSkill.id"
         :skill="eachSkill"
-        :selected="eachSkill === selectedSkill"
-        @click="onSelectSkill(eachSkill)"
+        @click.stop="onSelectSkill(eachSkill)"
       />
     </div>
     <progress class="hp-bar" :max="hpMax" :value="currHp"></progress>
@@ -23,14 +22,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Buff,
-  CharacterBattle,
-  EventDataDamaged,
-  EventDataSkillSelect,
-  EventListenerBuilder,
-  SkillBattle,
-} from 'sora-game-core';
+import { Buff, CharacterBattle, EventDataDamaged, EventListenerBuilder, SkillBattle } from 'sora-game-core';
 import { computed, defineComponent, inject, onMounted, PropType, Ref, ref, shallowRef, toRefs, watch } from 'vue';
 
 import BattleCharacterSkill from '@/components/BattleCharacterSkill.vue';
@@ -46,25 +38,18 @@ export default defineComponent({
       type: Object as PropType<CharacterBattle>,
     },
   },
-  setup(props) {
+  emits: ['onSelectSkill', 'onSelectCharacter'],
+  setup(props, { emit }) {
     const { character } = toRefs(props);
     const currHp = ref(character.value.currHp);
     const hpMax = ref(character.value.properties.hp.battleValue);
     const characterElement: Ref<HTMLElement | undefined> = ref(undefined);
-    const selectSkillPromiseResolve = ref<((value?: unknown) => void) | undefined>(undefined);
-    const availableSkills = shallowRef<Array<SkillBattle>>([]);
-    let selectSkillData: EventDataSkillSelect | undefined = undefined;
+    const availableSkills = inject<Ref<Array<SkillBattle>>>('availableSkills')!;
+    const currActionCharacter = inject<Ref<CharacterBattle>>('currActionCharacter')!;
     const buffs = shallowRef<Array<Buff>>([]);
 
     const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;
-    const setAvailableTargets = inject<(targets: Array<CharacterBattle>) => void>('setAvailableTargets')!;
-
-    const setSelectTargetHandler =
-      inject<(handler: (target: CharacterBattle) => void) => void>('setSelectTargetHandler')!;
-    const selectTargetHandler = inject<Ref<(target: CharacterBattle) => void>>('selectTargetHandler')!;
-
     const isAvailable = computed(() => availableTargets.value.includes(character.value));
-    const selectedSkill = shallowRef<SkillBattle | undefined>(undefined);
 
     let addLabel: (damage: number, color?: string) => void;
     onMounted(() => {
@@ -74,7 +59,10 @@ export default defineComponent({
     watch(
       character,
       () => {
+        const eventCenter = character.value.battle.eventCenter;
+
         new EventListenerBuilder()
+          .setEventCenter(eventCenter)
           .setEventType('Damaged')
           .setPriority(0)
           .setFilter(character.value)
@@ -83,29 +71,20 @@ export default defineComponent({
             addLabel(finalDamage!, isCrit ? 'red' : undefined);
             currHp.value = character.value.currHp;
             hpMax.value = character.value.properties.hp.battleValue;
-          });
+          })
+          .apply();
 
         new EventListenerBuilder()
-          .setEventType('SkillSelect')
-          .setPriority(0)
-          .setFilter(character.value)
-          .setCallback(async (eventData: EventDataSkillSelect) => {
-            availableSkills.value = eventData.availableSkills;
-            selectSkillData = eventData;
-
-            return new Promise((resolve) => {
-              selectSkillPromiseResolve.value = resolve;
-            });
-          });
-
-        new EventListenerBuilder()
+          .setEventCenter(eventCenter)
           .setEventType('ActionEnd')
           .setPriority(0)
           .setCallback(async () => {
             buffs.value = character.value.buffs;
-          });
+          })
+          .apply();
 
         new EventListenerBuilder()
+          .setEventCenter(eventCenter)
           .setEventType('ActionEnd')
           .setPriority(-1)
           .setFilter(character.value)
@@ -113,31 +92,19 @@ export default defineComponent({
             return new Promise((resolve) => {
               setTimeout(resolve, 200);
             });
-          });
+          })
+          .apply();
       },
       { immediate: true },
     );
 
     function onSelectSkill(skill: SkillBattle) {
-      if (selectSkillData) {
-        selectSkillData.selectedSkill = skill;
-        selectedSkill.value = skill;
-        setAvailableTargets(selectedSkill.value.getTargets());
-
-        setSelectTargetHandler((target: CharacterBattle) => {
-          selectSkillData!.selectedTarget = target;
-          selectSkillPromiseResolve.value?.();
-          availableSkills.value = [];
-          setAvailableTargets([]);
-          selectSkillPromiseResolve.value = undefined;
-          selectedSkill.value = undefined;
-        });
-      }
+      emit('onSelectSkill', skill);
     }
 
-    function onSelect() {
+    function onSelectCharacter() {
       if (isAvailable.value) {
-        selectTargetHandler.value?.(character.value);
+        emit('onSelectCharacter', character.value);
       }
     }
 
@@ -147,15 +114,16 @@ export default defineComponent({
       characterElement,
       imgUrl: `/images/characters/${character.value.id}.png`,
       isAvailable,
-      onSelect,
+      onSelectCharacter,
       availableSkills,
       onSelectSkill,
-      selectedSkill,
       buffs,
+      currActionCharacter,
     };
   },
 });
 </script>
+
 <style lang="scss" scoped>
 .character {
   width: 12rem;

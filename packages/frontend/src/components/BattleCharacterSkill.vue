@@ -2,14 +2,14 @@
  * @Author: vspirit803
  * @Date: 2021-04-13 10:21:23
  * @Description:
- * @LastEditTime: 2021-05-13 22:07:10
+ * @LastEditTime: 2021-05-31 14:04:32
  * @LastEditors: vspirit803
 -->
 <template>
   <q-img
     class="skill"
     :src="`/images/skills/${skill.id}.png`"
-    :class="{ 'skill-selected': selected, 'skill-passive': skill.isPassive }"
+    :class="{ 'skill-selected': isSelected, 'skill-passive': skill.isPassive }"
     :alt="skill.name"
   >
     <template #error>
@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { SkillBattle } from 'sora-game-core';
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, inject, PropType, Ref } from 'vue';
 
 export default defineComponent({
   name: 'BattleCharacterSkill',
@@ -29,13 +29,16 @@ export default defineComponent({
       type: Object as PropType<SkillBattle>,
       required: true,
     },
-    selected: {
-      type: Boolean,
-      default: false,
-    },
+  },
+  setup(props) {
+    const selectedSkill: Ref<SkillBattle> = inject('selectedSkill')!;
+    const isSelected = computed(() => selectedSkill.value === props.skill);
+
+    return { isSelected };
   },
 });
 </script>
+
 <style lang="scss" scoped>
 .skill {
   width: 2rem;
@@ -45,7 +48,19 @@ export default defineComponent({
   overflow: hidden;
   border-radius: 1rem;
 
-  &-selected::after {
+  &:hover::after {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    border: 1px dashed red;
+  }
+
+  &-selected.skill::after {
     box-sizing: border-box;
     content: '';
     position: absolute;

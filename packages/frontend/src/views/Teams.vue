@@ -1,12 +1,12 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-04-14 16:48:40
- * @Description: 
- * @LastEditTime: 2021-04-21 16:36:24
+ * @Description:
+ * @LastEditTime: 2021-05-31 14:21:33
  * @LastEditors: vspirit803
 -->
 <template>
-  <QBtn style="position: absolute; right: 0; z-index: 999" @click="$router.push({ name: 'Home' })">退出</QBtn>
+  <q-btn class="absolute-top-right" style="z-index: 999" @click="$router.push({ name: 'Home' })">退出</q-btn>
   <q-card class="teams column q-pa-md items-stretch">
     <q-tab-panels v-model="selectedTeamUUID" animated class="team-tab">
       <q-tab-panel v-for="eachTeam of teams" :key="eachTeam.uuid" :name="eachTeam.uuid">
@@ -49,9 +49,9 @@
     <div class="bg-purple text-white shadow-2 rounded-borders row">
       <q-tabs
         v-model="selectedTeamUUID"
+        align="left"
         style="flex: 1 0 auto; width: 100px"
         outside-arrows
-        align="left"
         dense
         no-caps
         inline-label

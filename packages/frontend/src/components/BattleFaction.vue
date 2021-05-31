@@ -2,20 +2,27 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-05-16 19:46:28
+ * @LastEditTime: 2021-05-31 13:35:45
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="faction" :class="reverse ? 'row reverse' : 'row'">
     <div class="faction-name">{{ faction.name }}</div>
     <div class="teams column">
-      <BattleTeam v-for="eachTeam of faction.teams" :key="eachTeam.uuid" :team="eachTeam" :reverse="reverse" />
+      <BattleTeam
+        v-for="eachTeam of faction.teams"
+        :key="eachTeam.uuid"
+        :team="eachTeam"
+        :reverse="reverse"
+        @onSelectSkill="onSelectSkill"
+        @onSelectCharacter="onSelectCharacter"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { FactionBattle } from 'sora-game-core';
+import { CharacterBattle, FactionBattle, SkillBattle } from 'sora-game-core';
 import { defineComponent, PropType } from 'vue';
 
 import BattleTeam from '@/components/BattleTeam.vue';
@@ -33,6 +40,18 @@ export default defineComponent({
       required: false,
       default: false,
     },
+  },
+  emits: ['onSelectSkill', 'onSelectCharacter'],
+  setup(_props, { emit }) {
+    function onSelectSkill(skill: SkillBattle) {
+      emit('onSelectSkill', skill);
+    }
+
+    function onSelectCharacter(character: CharacterBattle) {
+      emit('onSelectCharacter', character);
+    }
+
+    return { onSelectSkill, onSelectCharacter };
   },
 });
 </script>

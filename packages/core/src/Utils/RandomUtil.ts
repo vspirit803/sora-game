@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-29 16:11:25
  * @Description:
- * @LastEditTime: 2021-05-31 14:57:27
+ * @LastEditTime: 2021-06-01 15:32:22
  * @LastEditors: vspirit803
  */
 
@@ -42,7 +42,7 @@ export class RandomGenerator {
 
   private range(min: number, max: number) {
     this.count++;
-    return min + (max - min) * this.seedRandom.quick();
+    return min + (max - min) * this.seedRandom.double();
   }
 
   get(): number;

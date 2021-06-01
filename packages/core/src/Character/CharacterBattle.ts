@@ -248,10 +248,10 @@ export class CharacterBattle implements CharacterNormal, UUID {
     }
 
     if (this.isPlayerControl && this.battle.autoMode) {
-      if (skill.isAttack && this.battle.fireTarget) {
+      if (skill.isAttack && this.battle.fireTarget && availableTargets.includes(this.battle.fireTarget)) {
         target = this.battle.fireTarget;
-      } else if (skill.isTreat) {
-        target = this.battle.protectTarget ?? this;
+      } else if (skill.isTreat && this.battle.protectTarget && availableTargets.includes(this.battle.protectTarget)) {
+        target = this.battle.protectTarget;
       }
     }
 

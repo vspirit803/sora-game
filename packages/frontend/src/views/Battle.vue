@@ -2,12 +2,12 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-05-31 17:29:47
+ * @LastEditTime: 2021-06-01 16:20:28
  * @LastEditors: vspirit803
 -->
 <template>
-  <q-btn class="absolute-top-left" @click="onBattleStart">开始战斗</q-btn>
-  <q-btn class="absolute-top-right" @click="$router.push({ name: 'Home' })">退出</q-btn>
+  <q-btn class="absolute-top-left" style="z-index: 999" @click="onBattleStart">开始战斗</q-btn>
+  <q-btn class="absolute-top-right" style="z-index: 999" @click="$router.push({ name: 'Home' })">退出</q-btn>
   <div v-if="battle" class="battle">
     {{ battle.name }}
     <BattleFaction
@@ -32,6 +32,7 @@
     />
 
     <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" />
+    <BattleStats class="absolute-top-right" :battle="battle" />
   </div>
 </template>
 
@@ -41,10 +42,11 @@ import { defineComponent, nextTick, onUnmounted, provide, Ref, ref, shallowRef, 
 
 import BattleAutoModeSwitch from '@/components/BattleAutoModeSwitch.vue';
 import BattleFaction from '@/components/BattleFaction.vue';
+import BattleStats from '@/components/BattleStats.vue';
 
 export default defineComponent({
   name: 'Battle',
-  components: { BattleFaction, BattleAutoModeSwitch },
+  components: { BattleFaction, BattleAutoModeSwitch, BattleStats },
   setup() {
     const game = Game.getInstance();
     const team = game.teamCenter.teams[0];

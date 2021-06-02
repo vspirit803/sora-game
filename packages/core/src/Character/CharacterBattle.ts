@@ -147,15 +147,6 @@ export class CharacterBattle implements CharacterNormal, UUID {
     if (target.currHp <= 0) {
       target.currHp = 0;
       await target.battle.eventCenter.trigger(target, { ...data, eventType: 'Killed' });
-    } else {
-      if (this.battle.randomDecider.prdDecider(this, 0.3)) {
-        // console.log(`${target.name}被打晕了`);
-        const stunBuff = new Buff({ name: '眩晕', source, target, duration: 1 });
-        const stunBuffItem = new StatusBuffItem(stunBuff, STUNNED);
-        stunBuff.addBuffs(stunBuffItem);
-
-        this.buffs.push(stunBuff);
-      }
     }
   }
 

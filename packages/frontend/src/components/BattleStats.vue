@@ -2,13 +2,15 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-06-01 17:23:45
+ * @LastEditTime: 2021-06-02 13:58:04
  * @LastEditors: vspirit803
 -->
 <template>
-  <div class="battle-stats">
-    <v-chart :option="option" />
-  </div>
+  <q-fab icon="mdi-chevron-down" vertical-actions-align="right" direction="down">
+    <div class="battle-stats">
+      <v-chart :option="option" />
+    </div>
+  </q-fab>
 </template>
 
 <script lang="ts">
@@ -135,5 +137,6 @@ export default defineComponent({
 .battle-stats {
   width: 400px;
   height: 300px;
+  z-index: 999;
 }
 </style>

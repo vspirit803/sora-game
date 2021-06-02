@@ -1,13 +1,12 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-03-11 14:00:45
- * @Description: 
- * @LastEditTime: 2021-03-11 16:06:52
+ * @Description:
+ * @LastEditTime: 2021-06-02 14:07:36
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="buff">
-    <!-- <img class="buff-icon" src="/images/buffs/stunned.png" :title="buff.name" /> -->
     <div
       class="buff-icon"
       style="background-image: url(/images/buffs/stunned.png); background-size: cover"

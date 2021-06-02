@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-04-14 16:48:40
  * @Description:
- * @LastEditTime: 2021-05-31 14:21:33
+ * @LastEditTime: 2021-06-02 17:54:27
  * @LastEditors: vspirit803
 -->
 <template>
@@ -112,11 +112,13 @@ export default defineComponent({
       }
 
       selectedTeamMembers.value = team.members;
+      triggerRef(selectedTeamMembers);
     }
 
     function removeMember(team: TeamNormal, character: CharacterNormal) {
       team.removeMember(character);
       selectedTeamMembers.value = team.members;
+      triggerRef(selectedTeamMembers);
     }
 
     function onAddTeam() {

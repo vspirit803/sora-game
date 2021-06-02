@@ -1,3 +1,10 @@
+/*
+ * @Author: vspirit803
+ * @Date: 2021-05-20 15:11:14
+ * @Description:
+ * @LastEditTime: 2021-06-02 16:42:00
+ * @LastEditors: vspirit803
+ */
 import { CharacterBattle } from './CharacterBattle';
 import { CharacterPropertyNormal } from './CharacterPropertyNormal';
 
@@ -27,6 +34,6 @@ export class CharacterPropertyBattle extends CharacterPropertyNormal {
    * 所有额外值均为加算,先算百分比再算固定值
    */
   get battleValue(): number {
-    return this.normalValue * (1 + this.extraPercent) + this.extraValue;
+    return Math.round(this.normalValue * (1 + this.extraPercent / 100) + this.extraValue);
   }
 }

@@ -2,9 +2,10 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:28
  * @Description:
- * @LastEditTime: 2021-05-24 13:29:47
+ * @LastEditTime: 2021-06-02 16:43:09
  * @LastEditors: vspirit803
  */
+import { Buff, PropertyBuffItem } from '@core/Buff';
 import { Condition, ConditionItem, Or } from '@core/Condition';
 import { EventDataDamaged } from '@core/Event';
 import { TeamNormal } from '@core/Team';
@@ -132,6 +133,21 @@ export class BattleCenter {
             }
           },
         });
+      });
+    }
+
+    const 风樱雪 = battle.characters.find((each) => each.id === 'C0001');
+
+    if (风樱雪) {
+      battle.eventCenter.listen({
+        eventType: 'Damaged',
+        priority: 1.9,
+        filter: 风樱雪,
+        callback: async () => {
+          const buff = new Buff({ name: '越战越勇', source: 风樱雪, target: 风樱雪, duration: 'forever' });
+          buff.addBuffs(new PropertyBuffItem(buff, { name: 'atk', percent: 10, value: 0 }));
+          风樱雪.buffs.push(buff);
+        },
       });
     }
 

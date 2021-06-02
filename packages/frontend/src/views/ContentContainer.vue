@@ -2,11 +2,11 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-05-12 17:04:45
+ * @LastEditTime: 2021-06-02 14:51:43
  * @LastEditors: vspirit803
 -->
 <template>
-  <div class="content-container bg-light-blue-3 row">
+  <div class="content-container bg-blue-grey-1 row">
     <router-view />
   </div>
 </template>

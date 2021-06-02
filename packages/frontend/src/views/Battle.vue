@@ -62,6 +62,7 @@ export default defineComponent({
     const currActionCharacter = shallowRef<CharacterBattle | undefined>(undefined);
     provide('currActionCharacter', currActionCharacter);
     const isAutoModeEnabled = ref(false);
+    provide('isAutoModeEnabled', isAutoModeEnabled);
     const fireTarget = shallowRef<CharacterBattle | undefined>(undefined);
     provide('fireTarget', fireTarget);
     const protectTarget = shallowRef<CharacterBattle | undefined>(undefined);

@@ -9,13 +9,49 @@
       <q-img class="img" :src="imgUrl" />
       <!-- <div class="img" :style="`background-image: url(${imgUrl});`"></div> -->
     </div>
-    <div class="name">
+    <div class="name text-weight-bolder">
       {{ character.name }}
+      <q-btn
+        v-if="character.isPlayerControl"
+        class="absolute-right detail-icon"
+        size="xs"
+        round
+        flat
+        color="blue"
+        icon="mdi-information-variant"
+        @mouseenter="onShowDetail(true)"
+        @mouseleave="onShowDetail(false)"
+      >
+      </q-btn>
     </div>
-    <q-icon v-if="isFireTarget" class="absolute-right text-h2" color="red" name="mdi-bullseye-arrow" />
-    <q-icon v-if="isProtectTarget" class="absolute-right text-h2" color="green" name="mdi-shield-cross-outline" />
+
+    <div v-if="showDetail && character.isPlayerControl" class="character-detail text-weight-bold">
+      <div class="row">
+        <div class="col-6 text-left"><q-icon name="mdi-sword" />攻击力</div>
+        <div class="col-6 text-right">{{ character.properties.atk.battleValue.toFixed(1) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-6 text-left"><q-icon name="mdi-shield-half-full" />防御力</div>
+        <div class="col-6 text-right">{{ character.properties.def.battleValue.toFixed(1) }}</div>
+      </div>
+    </div>
+
+    <template v-if="isAutoModeEnabled">
+      <q-icon
+        v-if="isFireTarget"
+        class="absolute-left text-h2 no-pointer-events"
+        size="md"
+        color="red"
+        name="mdi-bullseye-arrow" />
+      <q-icon
+        v-if="isProtectTarget"
+        class="absolute-left text-h2 no-pointer-events"
+        size="md"
+        color="green"
+        name="mdi-shield-cross-outline"
+    /></template>
     <div class="buffs-container row">
-      <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
+      <!-- <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" /> -->
     </div>
     <div v-if="currActionCharacter === character" class="skills-container row">
       <BattleCharacterSkill
@@ -25,12 +61,16 @@
         @click.stop="onSelectSkill(eachSkill)"
       />
     </div>
-    <progress class="hp-bar" :max="hpMax" :value="currHp"></progress>
-    <div class="hp-number">{{ currHp }} / {{ hpMax }}</div>
+    <!-- <progress class="hp-bar" :max="hpMax" :value="currHp" /> -->
+    <q-linear-progress :value="currHp / hpMax" color="primary" size="xl" class="hp-bar">
+      <div v-if="character.isPlayerControl" class="hp-number text-white">{{ currHp }} / {{ hpMax }}</div>
+    </q-linear-progress>
+    <!-- <div v-if="character.isPlayerControl" class="hp-number">{{ currHp }} / {{ hpMax }}</div> -->
   </div>
 </template>
 
 <script lang="ts">
+import { debounce } from 'quasar';
 import { Buff, CharacterBattle, EventDataDamaged, EventListenerBuilder, SkillBattle } from 'sora-game-core';
 import { computed, defineComponent, inject, onMounted, PropType, Ref, ref, shallowRef, toRefs, watch } from 'vue';
 
@@ -50,6 +90,8 @@ export default defineComponent({
   emits: ['onSelectSkill', 'onSelectCharacter'],
   setup(props, { emit }) {
     const { character } = toRefs(props);
+    const showDetail = ref(false);
+
     const currHp = ref(character.value.currHp);
     const hpMax = ref(character.value.properties.hp.battleValue);
     const characterElement: Ref<HTMLElement | undefined> = ref(undefined);
@@ -132,6 +174,13 @@ export default defineComponent({
       emit('onSelectCharacter', character.value);
     }
 
+    function onSwitchShowDetail() {
+      showDetail.value = !showDetail.value;
+    }
+
+    const onShowDetail = debounce((show: boolean) => (showDetail.value = show), 150);
+    const isAutoModeEnabled = inject<Ref<boolean>>('isAutoModeEnabled')!;
+
     return {
       currHp,
       hpMax,
@@ -145,6 +194,10 @@ export default defineComponent({
       currActionCharacter,
       isFireTarget,
       isProtectTarget,
+      onSwitchShowDetail,
+      showDetail,
+      onShowDetail,
+      isAutoModeEnabled,
     };
   },
 });
@@ -166,12 +219,17 @@ export default defineComponent({
     }
   }
 
-  &-fire-target::after {
+  &-detail {
+    position: absolute;
+    top: 1.5rem;
+    width: calc(12rem - 16px);
+    padding: 0 8px;
+    height: 9.5rem;
+    background-color: rgba(128, 128, 128, 0.05);
   }
 
   .name {
     position: relative;
-    font-weight: bold;
     background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(128, 128, 128, 0.8), rgba(255, 255, 255, 0));
   }
 
@@ -185,9 +243,8 @@ export default defineComponent({
   .hp-bar {
     position: absolute;
     left: 0;
-    bottom: -0.5rem;
+    bottom: 0;
     width: 100%;
-    height: 2rem;
   }
 
   .hp-number {
@@ -196,7 +253,6 @@ export default defineComponent({
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 1rem;
     line-height: 1rem;
   }
 
@@ -223,6 +279,7 @@ export default defineComponent({
     text-align: center;
     left: 0;
     right: 0;
+    pointer-events: none;
   }
 
   ::v-deep(img) {

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:07
  * @Description:
- * @LastEditTime: 2021-04-14 14:40:22
+ * @LastEditTime: 2021-06-04 17:24:24
  * @LastEditors: vspirit803
  */
 import { Battle } from '@core/Battle';
@@ -37,13 +37,7 @@ export class FactionBattle {
   }
 
   get characters(): Array<CharacterBattle> {
-    return this.teams
-      .map((eachTeam) => {
-        return eachTeam.members;
-      })
-      .reduce((prev, curr) => {
-        return [...prev, ...curr];
-      });
+    return this.teams.flatMap((eachTeam) => eachTeam.members);
   }
 
   addTeams(...teams: Array<TeamBattle>): void {

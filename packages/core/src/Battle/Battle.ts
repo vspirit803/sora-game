@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:40:51
  * @Description:
- * @LastEditTime: 2021-05-31 17:29:09
+ * @LastEditTime: 2021-06-04 17:22:27
  * @LastEditors: vspirit803
  */
 import { BattleActionQueueBase, BattleActionQueueMHXY } from '@core/BattleActionQueue';
@@ -75,7 +75,7 @@ export class Battle implements UUID {
   }
 
   get characters(): Array<CharacterBattle> {
-    return this.factions.map((eachFaction) => eachFaction.characters).reduce((prev, curr) => [...prev, ...curr], []);
+    return this.factions.flatMap((eachFaction) => eachFaction.characters);
   }
 
   async start(): Promise<void> {

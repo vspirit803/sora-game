@@ -2,12 +2,12 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-05-31 13:35:05
+ * @LastEditTime: 2021-06-07 17:05:07
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="team" :class="reverse ? 'row reverse' : 'row'">
-    <div class="text-left team-name">{{ team.name }}</div>
+    <div v-if="team.faction.hasMultipleTeams" class="text-left team-name">{{ team.name }}</div>
     <div class="members" :class="reverse ? 'row reverse' : 'row'">
       <BattleCharacter
         v-for="eachCharacter of team.members"

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:07
  * @Description:
- * @LastEditTime: 2021-06-04 17:24:24
+ * @LastEditTime: 2021-06-07 17:04:09
  * @LastEditors: vspirit803
  */
 import { Battle } from '@core/Battle';
@@ -17,11 +17,13 @@ import { FactionConfiguration } from './FactionConfiguration';
 export class FactionBattle {
   teams: Array<TeamBattle>;
   name: string;
+  familyPattern: string;
   /**阵营所处的战斗 */
   battle: Battle;
   constructor(factionConfiguration: FactionConfiguration, battle: Battle) {
-    this.name = factionConfiguration.name;
     this.battle = battle;
+    this.name = factionConfiguration.name;
+    this.familyPattern = factionConfiguration.familyPattern;
 
     this.teams = [];
     this.addTeams(
@@ -38,6 +40,10 @@ export class FactionBattle {
 
   get characters(): Array<CharacterBattle> {
     return this.teams.flatMap((eachTeam) => eachTeam.members);
+  }
+
+  get hasMultipleTeams(): boolean {
+    return this.teams.length > 1;
   }
 
   addTeams(...teams: Array<TeamBattle>): void {

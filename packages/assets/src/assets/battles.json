@@ -5,7 +5,8 @@
     "factions": [
       {
         "name": "织田军",
-        "teams": [{ "name": "织田信长直属部队", "members": [] }]
+        "teams": [{ "name": "织田信长直属部队", "members": [] }],
+        "familyPattern": "oda"
       },
       {
         "name": "今川义元军",
@@ -57,7 +58,8 @@
               }
             ]
           }
-        ]
+        ],
+        "familyPattern": "imagawa"
       }
     ]
   },

@@ -42,14 +42,16 @@
         class="absolute-left text-h2 no-pointer-events"
         size="md"
         color="red"
-        name="mdi-bullseye-arrow" />
+        name="mdi-bullseye-arrow"
+      />
       <q-icon
         v-if="isProtectTarget"
         class="absolute-left text-h2 no-pointer-events"
         size="md"
         color="green"
         name="mdi-shield-cross-outline"
-    /></template>
+      />
+    </template>
     <div class="buffs-container row">
       <!-- <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" /> -->
     </div>
@@ -61,11 +63,9 @@
         @click.stop="onSelectSkill(eachSkill)"
       />
     </div>
-    <!-- <progress class="hp-bar" :max="hpMax" :value="currHp" /> -->
     <q-linear-progress :value="currHp / hpMax" color="primary" size="xl" class="hp-bar">
       <div v-if="character.isPlayerControl" class="hp-number text-white">{{ currHp }} / {{ hpMax }}</div>
     </q-linear-progress>
-    <!-- <div v-if="character.isPlayerControl" class="hp-number">{{ currHp }} / {{ hpMax }}</div> -->
   </div>
 </template>
 
@@ -221,14 +221,15 @@ export default defineComponent({
 
   &-detail {
     position: absolute;
-    top: 1.5rem;
+    top: 1.7rem;
     width: calc(12rem - 16px);
     padding: 0 8px;
-    height: 9.5rem;
+    height: 9.3rem;
     background-color: rgba(128, 128, 128, 0.05);
   }
 
   .name {
+    font-size: 1.2rem;
     position: relative;
     background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(128, 128, 128, 0.8), rgba(255, 255, 255, 0));
   }

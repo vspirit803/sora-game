@@ -2,12 +2,15 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-05-31 13:35:45
+ * @LastEditTime: 2021-06-07 17:23:39
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="faction" :class="reverse ? 'row reverse' : 'row'">
-    <div class="faction-name">{{ faction.name }}</div>
+    <div class="faction-name">
+      {{ faction.name }}
+      <q-img class="family-pattern" :src="`/images/familyPatterns/${faction.familyPattern}.svg`" />
+    </div>
     <div class="teams column">
       <BattleTeam
         v-for="eachTeam of faction.teams"
@@ -62,5 +65,13 @@ export default defineComponent({
 
 .faction-name {
   writing-mode: vertical-rl;
+
+  .family-pattern {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    background-size: cover;
+    z-index: 1;
+  }
 }
 </style>

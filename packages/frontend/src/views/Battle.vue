@@ -2,12 +2,12 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-01 16:20:28
+ * @LastEditTime: 2021-06-04 15:33:07
  * @LastEditors: vspirit803
 -->
 <template>
-  <q-btn class="absolute-top-left" style="z-index: 999" @click="onBattleStart">开始战斗</q-btn>
-  <q-btn class="absolute-top-right" style="z-index: 999" @click="$router.push({ name: 'Home' })">退出</q-btn>
+  <q-btn class="absolute-top-left" style="z-index: 999; left: -100px" @click="onBattleStart">开始战斗</q-btn>
+  <q-btn class="absolute-top-left" style="z-index: 999" icon="mdi-undo" round @click="$router.push({ name: 'Home' })" />
   <div v-if="battle" class="battle">
     {{ battle.name }}
     <BattleFaction
@@ -69,9 +69,7 @@ export default defineComponent({
     provide('protectTarget', protectTarget);
 
     onUnmounted(() => {
-      console.log('结束battle');
       battle.value?.end();
-      console.log('已结束battle');
     });
 
     async function onBattleStart() {

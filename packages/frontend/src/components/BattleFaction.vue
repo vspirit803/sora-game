@@ -2,13 +2,13 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-06-07 17:23:39
+ * @LastEditTime: 2021-06-10 11:54:24
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="faction" :class="reverse ? 'row reverse' : 'row'">
-    <div class="faction-name">
-      {{ faction.name }}
+    <div class="faction-title column items-center">
+      <span class="faction-name">{{ faction.name }}</span>
       <q-img class="family-pattern" :src="`/images/familyPatterns/${faction.familyPattern}.svg`" />
     </div>
     <div class="teams column">
@@ -63,8 +63,10 @@ export default defineComponent({
   gap: 8px;
 }
 
-.faction-name {
-  writing-mode: vertical-rl;
+.faction-title {
+  .faction-name {
+    writing-mode: vertical-rl;
+  }
 
   .family-pattern {
     width: 2rem;

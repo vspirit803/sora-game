@@ -53,7 +53,7 @@
       />
     </template>
     <div class="buffs-container row">
-      <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
+      <BuffComponent v-for="eachBuff of buffs.filter((each) => each.visible)" :key="eachBuff.uuid" :buff="eachBuff" />
     </div>
     <div v-if="currActionCharacter === character" class="skills-container row">
       <BattleCharacterSkill

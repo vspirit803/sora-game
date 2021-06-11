@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:28
  * @Description:
- * @LastEditTime: 2021-06-02 16:43:09
+ * @LastEditTime: 2021-06-11 17:15:35
  * @LastEditors: vspirit803
  */
 import { Buff, PropertyBuffItem } from '@core/Buff';
@@ -144,9 +144,18 @@ export class BattleCenter {
         priority: 1.9,
         filter: 风樱雪,
         callback: async () => {
-          const buff = new Buff({ name: '越战越勇', source: 风樱雪, target: 风樱雪, duration: 'forever' });
-          buff.addBuffs(new PropertyBuffItem(buff, { name: 'atk', percent: 10, value: 0 }));
-          风樱雪.buffs.push(buff);
+          const buff = new Buff({
+            id: 'Buff1001',
+            name: '越战越勇',
+            source: 风樱雪,
+            target: 风樱雪,
+            duration: 'forever',
+            visible: false,
+            properties: [{ name: 'atk', percent: 25, value: 0 }],
+            maxOverlayTimes: 4,
+          });
+
+          buff.start();
         },
       });
     }

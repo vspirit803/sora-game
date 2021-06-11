@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-02-22 15:24:27
  * @Description:
- * @LastEditTime: 2021-03-04 16:20:50
+ * @LastEditTime: 2021-06-18 11:06:56
  * @LastEditors: vspirit803
  */
 import { EventData, EventListener, EventTypes } from '@core/Event';
@@ -20,7 +20,7 @@ export class EventBuffItem extends AbstractBuffItem {
   /**当前冷却时间 */
   currCooldown: number;
   /**事件订阅者 */
-  listener: EventListener;
+  listener?: EventListener;
   /**触发事件 */
   eventType: EventTypes;
   /**触发事件的回调函数 */
@@ -45,15 +45,17 @@ export class EventBuffItem extends AbstractBuffItem {
     this.currCooldown = currCooldown;
     this.eventType = eventType;
     this.callback = callback;
+  }
 
+  start(): void {
     this.listener = this.buff.source.battle.eventCenter.listen({
-      eventType,
-      callback,
+      eventType: this.eventType,
+      callback: this.callback,
       filter: this.buff.target,
     });
   }
 
   destroy(): void {
-    this.buff.source.battle.eventCenter.cancelListen(this.listener);
+    this.listener && this.buff.source.battle.eventCenter.cancelListen(this.listener);
   }
 }

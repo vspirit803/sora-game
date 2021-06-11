@@ -93,5 +93,15 @@
     "type": "skill_treat",
     "cooldown": 0,
     "target": 22
+  },
+  {
+    "id": "S00010",
+    "name": "刺针扫射",
+    "levels": [{ "ratio": 0.37 }, { "ratio": 0.42 }, { "ratio": 0.47 }],
+    "description": "来自Dota2刚被兽的技能",
+    "cost": 3,
+    "type": "skill_attack",
+    "cooldown": 0,
+    "target": 24
   }
 ]

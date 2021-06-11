@@ -2,12 +2,13 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:41:28
  * @Description:
- * @LastEditTime: 2021-06-02 16:43:09
+ * @LastEditTime: 2021-06-18 17:21:17
  * @LastEditors: vspirit803
  */
-import { Buff, PropertyBuffItem } from '@core/Buff';
+import { Buff } from '@core/Buff';
 import { Condition, ConditionItem, Or } from '@core/Condition';
 import { EventDataDamaged } from '@core/Event';
+import { SkillBattle } from '@core/Skill';
 import { TeamNormal } from '@core/Team';
 
 import { Battle } from './Battle';
@@ -144,11 +145,50 @@ export class BattleCenter {
         priority: 1.9,
         filter: 风樱雪,
         callback: async () => {
-          const buff = new Buff({ name: '越战越勇', source: 风樱雪, target: 风樱雪, duration: 'forever' });
-          buff.addBuffs(new PropertyBuffItem(buff, { name: 'atk', percent: 10, value: 0 }));
-          风樱雪.buffs.push(buff);
+          const buff = new Buff({
+            id: 'Buff1001',
+            name: '越战越勇',
+            source: 风樱雪,
+            target: 风樱雪,
+            visible: false,
+            properties: [{ name: 'atk', percent: 25, value: 0 }],
+            overlayType: 'REFRESH',
+            maxOverlayTimes: 4,
+          });
+
+          buff.start();
         },
       });
+
+      const 钢毛后背 = new Buff({
+        id: 'Buff1002',
+        name: '钢毛后背',
+        source: 风樱雪,
+        target: 风樱雪,
+        visible: false,
+
+        overlayType: 'NONE',
+        listeners: [
+          {
+            eventType: 'Damaged',
+            priority: 1.9,
+            callback: async function (this: Buff, data) {
+              const { actualDamage } = data as EventDataDamaged;
+              this.data.totalDamage += actualDamage!;
+
+              if (this.data.totalDamage > 300) {
+                const skill = new SkillBattle({ owner: this.target, id: 'S00010', level: 1 });
+                const target = this.source.battle.randomGenerator.selectOneRandomly(skill.getTargets());
+                await skill.trigger(target);
+                this.data.totalDamage = 0;
+              }
+            },
+          },
+        ],
+      });
+
+      钢毛后背.data.totalDamage = 0;
+      钢毛后背.start();
     }
 
     this.currBattle = battle;

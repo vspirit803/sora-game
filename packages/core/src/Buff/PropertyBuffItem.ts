@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-02-22 15:24:27
  * @Description:
- * @LastEditTime: 2021-03-04 16:17:56
+ * @LastEditTime: 2021-06-11 14:25:10
  * @LastEditors: vspirit803
  */
 import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
@@ -26,7 +26,9 @@ export class PropertyBuffItem extends AbstractBuffItem {
     this.name = name;
     this.percent = percent;
     this.value = value;
+  }
 
+  start(): void {
     this.buff.source.properties[this.name].extraPercent += this.percent;
     this.buff.source.properties[this.name].extraValue += this.value;
   }

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-27 10:36:03
  * @Description:
- * @LastEditTime: 2021-05-31 14:57:47
+ * @LastEditTime: 2021-06-18 13:30:40
  * @LastEditors: vspirit803
  */
 import 'reflect-metadata';
@@ -170,6 +170,26 @@ export class SkillStore {
       );
 
       await battle.eventCenter.trigger(source, { eventType: 'Treating', source, target: eachTarget, damage, isCrit });
+    }
+  }
+
+  //刺针扫射
+  @DefineSkill('S00010')
+  async skill00010(skillData: SkillData, source: CharacterBattle, target: CharacterBattle): Promise<void> {
+    const battle = source.battle;
+    const ratio = skillData.ratio;
+    const targets = target.team.members.filter((each) => each.isAlive);
+
+    for (const eachTarget of targets) {
+      const isCrit = battle.randomDecider.prdDecider(source, source.properties.critRate.battleValue);
+      const damage = Math.round(
+        source.properties.atk.battleValue *
+          (isCrit ? source.properties.critMultiplier.battleValue : 1) *
+          ratio *
+          battle.randomGenerator.getRandomFloat(),
+      );
+
+      await battle.eventCenter.trigger(source, { eventType: 'Damaging', source, target: eachTarget, damage, isCrit });
     }
   }
 }

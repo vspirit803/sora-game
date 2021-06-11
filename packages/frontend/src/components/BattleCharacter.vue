@@ -6,7 +6,7 @@
     @click.stop="onSelectCharacter"
   >
     <div class="img-container">
-      <q-img class="img" :src="imgUrl" />
+      <q-img v-if="showImage" class="img" :src="imgUrl" />
       <!-- <div class="img" :style="`background-image: url(${imgUrl});`"></div> -->
     </div>
     <div class="name text-weight-bolder">
@@ -53,7 +53,7 @@
       />
     </template>
     <div class="buffs-container row">
-      <!-- <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" /> -->
+      <BuffComponent v-for="eachBuff of buffs" :key="eachBuff.uuid" :buff="eachBuff" />
     </div>
     <div v-if="currActionCharacter === character" class="skills-container row">
       <BattleCharacterSkill
@@ -76,7 +76,7 @@ import { computed, defineComponent, inject, onMounted, PropType, Ref, ref, shall
 
 import BattleCharacterSkill from '@/components/BattleCharacterSkill.vue';
 import BuffComponent from '@/components/Buff.vue';
-import { useLabel } from '@/use';
+import { useLabel, useSettings } from '@/use';
 
 export default defineComponent({
   name: 'BattleCharacter',
@@ -198,6 +198,7 @@ export default defineComponent({
       showDetail,
       onShowDetail,
       isAutoModeEnabled,
+      ...useSettings(),
     };
   },
 });

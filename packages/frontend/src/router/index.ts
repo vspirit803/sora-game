@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-04-14 16:50:45
+ * @LastEditTime: 2021-06-11 13:08:14
  * @LastEditors: vspirit803
  */
 import { createRouter, createWebHistory } from 'vue-router';
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/HelloWorld.vue'),
+    component: () => import('@/views/Main.vue'),
   },
   {
     path: '/battle',
@@ -27,6 +27,11 @@ const routes = [
     path: '/test',
     name: 'Test',
     component: () => import('@/views/Test.vue'),
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('@/views/Settings.vue'),
   },
 ];
 

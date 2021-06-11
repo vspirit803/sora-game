@@ -1,8 +1,8 @@
 <!--
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
- * @Description: 
- * @LastEditTime: 2021-04-14 17:36:19
+ * @Description:
+ * @LastEditTime: 2021-06-11 13:08:01
  * @LastEditors: vspirit803
 -->
 <template>
@@ -13,6 +13,7 @@
     <div style="margin-top: 300px">
       <q-btn @click="$router.push({ name: 'Battle' })">战斗</q-btn>
       <q-btn @click="$router.push({ name: 'Teams' })">编队</q-btn>
+      <q-btn @click="$router.push({ name: 'Settings' })">设置</q-btn>
     </div>
   </div>
 </template>
@@ -23,7 +24,7 @@ import { defineComponent } from 'vue';
 import AutoBanners from '@/components/AutoBanners.vue';
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'Main',
   components: { AutoBanners },
 });
 </script>

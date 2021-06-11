@@ -2,14 +2,14 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-04 15:33:07
+ * @LastEditTime: 2021-06-11 13:18:18
  * @LastEditors: vspirit803
 -->
 <template>
   <q-btn class="absolute-top-left" style="z-index: 999; left: -100px" @click="onBattleStart">开始战斗</q-btn>
   <q-btn class="absolute-top-left" style="z-index: 999" icon="mdi-undo" round @click="$router.push({ name: 'Home' })" />
   <div v-if="battle" class="battle">
-    {{ battle.name }}
+    <span class="text-h2 battle-name absolute-top-right">{{ battle.name }}</span>
     <BattleFaction
       class="faction faction1"
       :faction="battle.factions[0]"
@@ -32,7 +32,7 @@
     />
 
     <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" />
-    <BattleStats class="absolute-top-right" :battle="battle" />
+    <BattleStats class="battle-status absolute-top-right" :battle="battle" />
   </div>
 </template>
 
@@ -151,6 +151,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 .battle {
   width: 100%;
+
+  &-name {
+    font-family: 'STXingkai';
+  }
+
+  &-status {
+    top: 4rem;
+  }
 
   .faction {
     position: absolute;

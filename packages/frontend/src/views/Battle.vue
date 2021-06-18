@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-11 13:18:18
+ * @LastEditTime: 2021-06-18 17:28:26
  * @LastEditors: vspirit803
 -->
 <template>
@@ -92,16 +92,7 @@ export default defineComponent({
         })
         .apply();
 
-      new EventListenerBuilder()
-        .setEventCenter(battle.value!.eventCenter)
-        .setEventType('BattleSuccess')
-        .setPriority(0)
-        .setCallback(async () => {
-          isAutoModeEnabled.value = false;
-        })
-        .apply();
-
-      nextTick(() => battle.value!.start());
+      nextTick(() => battle.value!.start().then(() => (isAutoModeEnabled.value = false)));
     }
 
     function onSelectSkill(skill: SkillBattle) {

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:40:51
  * @Description:
- * @LastEditTime: 2021-06-04 17:22:27
+ * @LastEditTime: 2021-06-21 17:02:42
  * @LastEditors: vspirit803
  */
 import { BattleActionQueueBase, BattleActionQueueMHXY } from '@core/BattleActionQueue';
@@ -78,7 +78,8 @@ export class Battle implements UUID {
     return this.factions.flatMap((eachFaction) => eachFaction.characters);
   }
 
-  async start(): Promise<void> {
+  async start(): Promise<boolean> {
+    let result = false;
     await this.eventCenter.trigger(this, { eventType: 'BattleStart' });
 
     while (!this.endFlag) {
@@ -96,6 +97,7 @@ export class Battle implements UUID {
             .filter((eachCharacter) => eachCharacter.faction !== this.factions[0])
             .filter((eachCharacter) => !eachCharacter.isAlive),
         });
+        result = true;
         break;
       }
 
@@ -105,7 +107,9 @@ export class Battle implements UUID {
         break;
       }
     }
+
     this.cancelAllListeners();
+    return result;
   }
 
   end(): void {

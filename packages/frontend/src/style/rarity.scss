@@ -1,0 +1,35 @@
+@property --color-common {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #b0c3d9;
+}
+
+@property --color-rare {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #5e98d9;
+}
+
+@property --color-mythical {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #8847ff;
+}
+
+@property --color-legendary {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #d32ce6;
+}
+
+@property --color-ancient {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #eb4b4b;
+}
+
+@property --color-immortal {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #e4ae33;
+}

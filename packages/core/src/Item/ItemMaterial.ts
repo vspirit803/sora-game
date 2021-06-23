@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
  * @Description:
- * @LastEditTime: 2021-04-14 15:04:04
+ * @LastEditTime: 2021-06-23 13:25:31
  * @LastEditors: vspirit803
  */
 import { Rarity } from '@core/Common';
@@ -31,10 +31,10 @@ export class ItemMaterial extends ItemBase {
       materialConfiguration = material;
     }
 
-    const { id, name, rarity } = materialConfiguration;
+    const { id, name, rarity, description, isStackable } = materialConfiguration;
     const uuid = isItemMaterialSave(material) ? material.uuid : undefined;
     const count = isItemMaterialSave(material) ? material.count : undefined;
-    super({ uuid, id, name, isStackable: true, type: Material, rarity: rarity as Rarity, count });
+    super({ uuid, id, name, isStackable, type: Material, rarity: rarity as Rarity, count, description });
   }
 
   generateSave(): ItemMaterialSave {

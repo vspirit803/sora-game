@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
  * @Description: 装备
- * @LastEditTime: 2021-04-14 14:32:29
+ * @LastEditTime: 2021-06-23 13:25:48
  * @LastEditors: vspirit803
  */
 import { CharacterNormal } from '@core/Character';
@@ -64,9 +64,8 @@ export class ItemEquipment extends ItemBase {
     const properties: { [propName in CharacterPropertyType]?: ItemEquipmentProperty } = {};
 
     for (const eachEquipmentPropertyConfiguration in equipmentConfiguration.properties) {
-      const { min, max } = equipmentConfiguration.properties[
-        eachEquipmentPropertyConfiguration as CharacterPropertyType
-      ]!;
+      const { min, max } =
+        equipmentConfiguration.properties[eachEquipmentPropertyConfiguration as CharacterPropertyType]!;
       let value: number;
       if (!isEquipmentSave(equipment)) {
         //范围内随机取值
@@ -82,9 +81,9 @@ export class ItemEquipment extends ItemBase {
       properties[eachEquipmentPropertyConfiguration as CharacterPropertyType] = { min, max, value };
     }
 
-    const { id, name, level } = equipmentConfiguration;
+    const { id, name, level, description, isStackable } = equipmentConfiguration;
     const uuid = isEquipmentSave(equipment) ? equipment.uuid : new ObjectId().toHexString();
-    super({ uuid, id, name, isStackable: false, rarity, type: Equipment });
+    super({ uuid, id, name, isStackable, rarity, type: Equipment, description });
     this.level = level;
     this.equipmentType = equipmentType;
     this.properties = properties;

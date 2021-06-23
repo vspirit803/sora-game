@@ -927,6 +927,62 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@intlify/core-base@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.nlark.com/@intlify/core-base/download/@intlify/core-base-9.1.6.tgz#887fbeafe37d955bac50318f30ac589839f0d9fb"
+  integrity sha1-iH++r+N9lVusUDGPMKxYmDnw2fs=
+  dependencies:
+    "@intlify/devtools-if" "9.1.6"
+    "@intlify/message-compiler" "9.1.6"
+    "@intlify/message-resolver" "9.1.6"
+    "@intlify/runtime" "9.1.6"
+    "@intlify/shared" "9.1.6"
+    "@intlify/vue-devtools" "9.1.6"
+
+"@intlify/devtools-if@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.nlark.com/@intlify/devtools-if/download/@intlify/devtools-if-9.1.6.tgz?cache=0&sync_timestamp=1623517106693&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40intlify%2Fdevtools-if%2Fdownload%2F%40intlify%2Fdevtools-if-9.1.6.tgz#739b195e430e24fbf8f864ec8a51e243e3347385"
+  integrity sha1-c5sZXkMOJPv4+GTsilHiQ+M0c4U=
+  dependencies:
+    "@intlify/shared" "9.1.6"
+
+"@intlify/message-compiler@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.nlark.com/@intlify/message-compiler/download/@intlify/message-compiler-9.1.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40intlify%2Fmessage-compiler%2Fdownload%2F%40intlify%2Fmessage-compiler-9.1.6.tgz#e3e99165c1e6ecc496211017799ae59e15b05a18"
+  integrity sha1-4+mRZcHm7MSWIRAXeZrlnhWwWhg=
+  dependencies:
+    "@intlify/message-resolver" "9.1.6"
+    "@intlify/shared" "9.1.6"
+    source-map "0.6.1"
+
+"@intlify/message-resolver@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.nlark.com/@intlify/message-resolver/download/@intlify/message-resolver-9.1.6.tgz?cache=0&sync_timestamp=1623517105734&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40intlify%2Fmessage-resolver%2Fdownload%2F%40intlify%2Fmessage-resolver-9.1.6.tgz#d7493c9f326d5feb0cd8538a6735b648a91d8f2f"
+  integrity sha1-10k8nzJtX+sM2FOKZzW2SKkdjy8=
+
+"@intlify/runtime@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.nlark.com/@intlify/runtime/download/@intlify/runtime-9.1.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40intlify%2Fruntime%2Fdownload%2F%40intlify%2Fruntime-9.1.6.tgz#bf1548d9034c80eef92b06b240cb347effb41f71"
+  integrity sha1-vxVI2QNMgO75KwayQMs0fv+0H3E=
+  dependencies:
+    "@intlify/message-compiler" "9.1.6"
+    "@intlify/message-resolver" "9.1.6"
+    "@intlify/shared" "9.1.6"
+
+"@intlify/shared@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.nlark.com/@intlify/shared/download/@intlify/shared-9.1.6.tgz?cache=0&sync_timestamp=1623517105358&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40intlify%2Fshared%2Fdownload%2F%40intlify%2Fshared-9.1.6.tgz#d03c9301898d6ddffe2a54c03e7664174fbcdfd9"
+  integrity sha1-0DyTAYmNbd/+KlTAPnZkF0+839k=
+
+"@intlify/vue-devtools@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.nlark.com/@intlify/vue-devtools/download/@intlify/vue-devtools-9.1.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40intlify%2Fvue-devtools%2Fdownload%2F%40intlify%2Fvue-devtools-9.1.6.tgz#88faadf203951a2a10107440fa99b58f4637d40d"
+  integrity sha1-iPqt8gOVGioQEHRA+pm1j0Y31A0=
+  dependencies:
+    "@intlify/message-resolver" "9.1.6"
+    "@intlify/runtime" "9.1.6"
+    "@intlify/shared" "9.1.6"
+
 "@lerna/add@4.0.0":
   version "4.0.0"
   resolved "https://registry.npm.taobao.org/@lerna/add/download/@lerna/add-4.0.0.tgz#c36f57d132502a57b9e7058d1548b7a565ef183f"
@@ -1993,7 +2049,7 @@
     "@vue/compiler-dom" "3.1.1"
     "@vue/shared" "3.1.1"
 
-"@vue/devtools-api@^6.0.0-beta.14":
+"@vue/devtools-api@^6.0.0-beta.14", "@vue/devtools-api@^6.0.0-beta.7":
   version "6.0.0-beta.14"
   resolved "https://registry.nlark.com/@vue/devtools-api/download/@vue/devtools-api-6.0.0-beta.14.tgz#6ed2d6f8d66a9256c9ad04bfff08309ba87b9723"
   integrity sha1-btLW+NZqklbJrQS//wgwm6h7lyM=
@@ -6397,15 +6453,15 @@ source-map-support@^0.5.17, source-map-support@~0.5.19:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
 
+source-map@0.6.1, source-map@^0.6.0, source-map@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz?cache=0&sync_timestamp=1593529658602&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsource-map%2Fdownload%2Fsource-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
+  integrity sha1-dHIq8y6WFOnCh6jQu95IteLxomM=
+
 source-map@^0.5.0:
   version "0.5.7"
   resolved "https://registry.npm.taobao.org/source-map/download/source-map-0.5.7.tgz?cache=0&sync_timestamp=1593529658602&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsource-map%2Fdownload%2Fsource-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
-
-source-map@^0.6.0, source-map@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz?cache=0&sync_timestamp=1593529658602&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsource-map%2Fdownload%2Fsource-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
-  integrity sha1-dHIq8y6WFOnCh6jQu95IteLxomM=
 
 source-map@~0.7.2:
   version "0.7.3"
@@ -7092,6 +7148,16 @@ vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.6.0:
     espree "^6.2.1"
     esquery "^1.4.0"
     lodash "^4.17.15"
+
+vue-i18n@^9.1.6:
+  version "9.1.6"
+  resolved "https://registry.nlark.com/vue-i18n/download/vue-i18n-9.1.6.tgz#4cf992e2aec5458bc19369973c96ea7d0f560321"
+  integrity sha1-TPmS4q7FRYvBk2mXPJbqfQ9WAyE=
+  dependencies:
+    "@intlify/core-base" "9.1.6"
+    "@intlify/shared" "9.1.6"
+    "@intlify/vue-devtools" "9.1.6"
+    "@vue/devtools-api" "^6.0.0-beta.7"
 
 vue-router@^4.0.4:
   version "4.0.9"

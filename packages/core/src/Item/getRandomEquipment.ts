@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-04-14 14:39:38
  * @LastEditors: vspirit803
  */
-import { Common, Immortal, Legendary, Mythical, Rare, Rarity } from '@core/Common';
+import { Normal, Immortal, Legendary, Mythical, Rare, Rarity } from '@core/Common';
 import { Game } from '@core/Game';
 import { ItemRarityRate as rarityRate } from 'sora-game-assets';
 
@@ -40,7 +40,7 @@ export function generateEquipment({
     } else if (r < rarityRate.Rare.stackRate) {
       rarity = Rare;
     } else {
-      rarity = Common;
+      rarity = Normal;
     }
   }
 
@@ -86,7 +86,7 @@ export class ItemEquipmentBuilder {
     } else if (r < rarityRate.Rare.stackRate) {
       this.rarity = Rare;
     } else {
-      this.rarity = Common;
+      this.rarity = Normal;
     }
   }
 

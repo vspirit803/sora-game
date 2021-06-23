@@ -86,11 +86,19 @@
         "id": "equipment00002",
         "properties": { "atk": 18 },
         "count": 1
+      },
+      {
+        "uuid": "5f6c55c4f5ebdebb142dd606",
+        "id": "equipment00005",
+        "properties": { "atk": 1000 },
+        "count": 1
       }
     ],
     "materials": [
+      { "uuid": "507f191e810c19729de860f1", "id": "material0001", "count": 5 },
       { "uuid": "507f191e810c19729de860ef", "id": "material0002", "count": 15 },
-      { "uuid": "507f191e810c19729de860f0", "id": "material0003", "count": 5 }
+      { "uuid": "507f191e810c19729de860f0", "id": "material0003", "count": 5 },
+      { "uuid": "507f191e810c19729de860f2", "id": "material0004", "count": 5 }
     ],
     "systemItems": [
       {

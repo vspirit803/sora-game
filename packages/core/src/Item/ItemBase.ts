@@ -2,10 +2,10 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
  * @Description: 物品基类
- * @LastEditTime: 2021-04-14 15:03:40
+ * @LastEditTime: 2021-06-23 16:19:39
  * @LastEditors: vspirit803
  */
-import { Common, Rarity, UUID } from '@core/Common';
+import { Normal, Rarity, UUID } from '@core/Common';
 import { ObjectId } from 'bson';
 
 import { ItemType, Material } from './ItemType';
@@ -14,20 +14,14 @@ import { ItemType, Material } from './ItemType';
  * 物品基类
  */
 export abstract class ItemBase implements UUID {
-  /**uuid */
-  uuid: string;
-  /**配置id */
-  id: string;
-  /**名称 */
-  name: string;
-  /**类别 */
-  type: ItemType;
-  /**能否堆叠 */
-  isStackable: boolean;
-  /**稀有度 */
-  rarity: Rarity;
-  /**数量 */
-  count: number;
+  uuid: string; // uuid
+  id: string; // 配置id
+  name: string; // 名称
+  type: ItemType; // 类别
+  isStackable: boolean; // 能否堆叠
+  rarity: Rarity; // 稀有度
+  count: number; // 数量
+  description: string; // 描述
 
   constructor({
     uuid = new ObjectId().toHexString(),
@@ -35,8 +29,9 @@ export abstract class ItemBase implements UUID {
     name,
     isStackable = false,
     type = Material,
-    rarity = Common,
+    rarity = Normal,
     count = 1,
+    description = '',
   }: {
     uuid?: string;
     id: string;
@@ -45,6 +40,7 @@ export abstract class ItemBase implements UUID {
     type?: ItemType;
     rarity?: Rarity;
     count?: number;
+    description?: string;
   }) {
     this.uuid = uuid;
     this.type = type;
@@ -53,5 +49,6 @@ export abstract class ItemBase implements UUID {
     this.isStackable = isStackable;
     this.rarity = rarity;
     this.count = count;
+    this.description = description;
   }
 }

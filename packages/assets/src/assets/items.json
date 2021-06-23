@@ -5,14 +5,16 @@
       "name": "铜钱",
       "type": "System",
       "rarity": "Rare",
-      "isStackable": true
+      "isStackable": true,
+      "description": "沾有油污的铜钱,人们经常用来交易"
     },
     {
       "id": "system0002",
       "name": "白银",
       "type": "System",
       "rarity": "Mythical",
-      "isStackable": true
+      "isStackable": true,
+      "description": "做成元宝的形状,常在大宗交易中使用"
     }
   ],
   "materials": [
@@ -21,28 +23,32 @@
       "name": "铁块",
       "type": "Material",
       "rarity": "Rare",
-      "isStackable": true
+      "isStackable": true,
+      "description": "未经处理的铁块,可以打造兵器"
     },
     {
       "id": "material0002",
       "name": "铜块",
       "type": "Material",
       "rarity": "Rare",
-      "isStackable": true
+      "isStackable": true,
+      "description": "未经处理的铜块,可以打造兵器"
     },
     {
       "id": "material0003",
       "name": "银块",
       "type": "Material",
       "rarity": "Mythical",
-      "isStackable": true
+      "isStackable": true,
+      "description": "泛着银白的光泽,想要拥有它"
     },
     {
       "id": "material0004",
       "name": "金块",
       "type": "Material",
       "rarity": "Legendary",
-      "isStackable": true
+      "isStackable": true,
+      "description": "闪闪发光,散发着土豪的气息"
     }
   ],
   "equipments": [
@@ -53,7 +59,8 @@
       "equipmentType": "Weapon",
       "level": 1,
       "properties": { "atk": { "min": 5, "max": 8 } },
-      "rarity": "Common"
+      "rarity": "Normal",
+      "description": "树杈加上细绳做成的弓,常见于小孩子玩闹"
     },
     {
       "id": "equipment00002",
@@ -62,7 +69,8 @@
       "equipmentType": "Weapon",
       "level": 10,
       "properties": { "atk": { "min": 15, "max": 20 } },
-      "rarity": "Rare"
+      "rarity": "Rare",
+      "description": "简单制作的弓,常用于猎人打猎"
     },
     {
       "id": "equipment00003",
@@ -71,7 +79,8 @@
       "equipmentType": "Weapon",
       "level": 15,
       "properties": { "atk": { "min": 25, "max": 28 } },
-      "rarity": "Legendary"
+      "rarity": "Legendary",
+      "description": "华丽的弓箭,可能是某个贵族的收藏品"
     },
     {
       "id": "equipment00004",
@@ -80,7 +89,18 @@
       "equipmentType": "Weapon",
       "level": 20,
       "properties": { "atk": { "min": 100, "max": 100 } },
-      "rarity": "Immortal"
+      "rarity": "Ancient",
+      "description": "杨是一位来自仙塞的可怕的猎魔人，他足智多谋、从未失手，多重射击的技艺更是精湛无比，本人也因此威名远播。"
+    },
+    {
+      "id": "equipment00005",
+      "name": "代达罗斯之殇",
+      "type": "Equipment",
+      "equipmentType": "Weapon",
+      "level": 100,
+      "properties": { "atk": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "这件武器有着惊人的力量，即使是最强的战士也难以掌控它。<br><br><span style=\"font-size: small\">neta希腊神话代达罗斯杀死弟子塔洛斯，儿子伊卡洛斯坠海而死的故事，是icefrog对暴雪的无情嘲讽。</span>"
     }
   ]
 }

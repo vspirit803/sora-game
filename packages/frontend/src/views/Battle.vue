@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-18 17:28:26
+ * @LastEditTime: 2021-06-21 14:50:19
  * @LastEditors: vspirit803
 -->
 <template>
@@ -33,6 +33,17 @@
 
     <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" />
     <BattleStats class="battle-status absolute-top-right" :battle="battle" />
+
+    <q-dialog v-model="showResultDialog" persistent transition-show="scale" transition-hide="scale">
+      <q-card class="bg-teal text-white" style="width: 300px">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">{{ result ? '胜利' : '失败' }}</div>
+          <q-space />
+          <q-btn v-close-popup icon="mdi-check" flat round dense @click="$router.push({ name: 'Home' })" />
+        </q-card-section>
+        <q-card-section class="q-pt-none">123 </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -68,6 +79,9 @@ export default defineComponent({
     const protectTarget = shallowRef<CharacterBattle | undefined>(undefined);
     provide('protectTarget', protectTarget);
 
+    const showResultDialog = ref(false);
+    const result = ref(false);
+
     onUnmounted(() => {
       battle.value?.end();
     });
@@ -92,7 +106,13 @@ export default defineComponent({
         })
         .apply();
 
-      nextTick(() => battle.value!.start().then(() => (isAutoModeEnabled.value = false)));
+      nextTick(() =>
+        battle.value!.start().then((isSucceed) => {
+          isAutoModeEnabled.value = false;
+          showResultDialog.value = true;
+          result.value = isSucceed;
+        }),
+      );
     }
 
     function onSelectSkill(skill: SkillBattle) {
@@ -134,7 +154,7 @@ export default defineComponent({
       }
     });
 
-    return { battle, onBattleStart, onSelectSkill, onSelectCharacter, isAutoModeEnabled };
+    return { battle, onBattleStart, onSelectSkill, onSelectCharacter, isAutoModeEnabled, showResultDialog, result };
   },
 });
 </script>

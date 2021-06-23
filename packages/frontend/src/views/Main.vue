@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-18 09:47:18
+ * @LastEditTime: 2021-06-21 15:06:11
  * @LastEditors: vspirit803
 -->
 <template>
@@ -10,6 +10,7 @@
     <div style="margin-top: 300px">
       <q-btn @click="$router.push({ name: 'Battle' })">战斗</q-btn>
       <q-btn @click="$router.push({ name: 'Teams' })">编队</q-btn>
+      <q-btn @click="$router.push({ name: 'Items' })">背包</q-btn>
       <q-btn @click="$router.push({ name: 'Settings' })">设置</q-btn>
     </div>
   </div>

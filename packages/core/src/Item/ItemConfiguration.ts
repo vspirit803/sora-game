@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
  * @Description:
- * @LastEditTime: 2020-09-24 15:02:52
+ * @LastEditTime: 2021-06-23 11:49:46
  * @LastEditors: vspirit803
  */
 
@@ -22,4 +22,5 @@ export interface ItemConfiguration {
   isStackable?: boolean;
   /**稀有度 */
   rarity: string;
+  description: string;
 }

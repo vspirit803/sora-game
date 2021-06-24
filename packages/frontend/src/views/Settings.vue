@@ -2,13 +2,14 @@
  * @Author: vspirit803
  * @Date: 2021-06-11 11:01:05
  * @Description:
- * @LastEditTime: 2021-06-11 11:05:10
+ * @LastEditTime: 2021-06-24 10:28:16
  * @LastEditors: vspirit803
 -->
 <template>
   <div>
-    <q-btn class="absolute-top-right" style="z-index: 999" @click="$router.push({ name: 'Home' })">退出</q-btn>
+    <HomeButton />
     <q-toggle v-model="showImage" label="显示图片" />
+    <q-toggle v-model="showBattleStats" label="显示战斗数据统计" />
   </div>
 </template>
 

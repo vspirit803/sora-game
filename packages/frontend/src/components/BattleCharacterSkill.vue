@@ -2,11 +2,12 @@
  * @Author: vspirit803
  * @Date: 2021-04-13 10:21:23
  * @Description:
- * @LastEditTime: 2021-05-31 14:04:32
+ * @LastEditTime: 2021-06-24 11:49:49
  * @LastEditors: vspirit803
 -->
 <template>
-  <q-img
+  <component
+    :is="showImage ? 'q-img' : 'div'"
     class="skill"
     :src="`/images/skills/${skill.id}.png`"
     :class="{ 'skill-selected': isSelected, 'skill-passive': skill.isPassive }"
@@ -15,12 +16,15 @@
     <template #error>
       {{ skill.name }}
     </template>
-  </q-img>
+    <template v-if="!showImage">{{ skill.name }}</template>
+  </component>
 </template>
 
 <script lang="ts">
 import { SkillBattle } from 'sora-game-core';
 import { computed, defineComponent, inject, PropType, Ref } from 'vue';
+
+import { useSettings } from '@/use';
 
 export default defineComponent({
   name: 'BattleCharacterSkill',
@@ -34,7 +38,7 @@ export default defineComponent({
     const selectedSkill: Ref<SkillBattle> = inject('selectedSkill')!;
     const isSelected = computed(() => selectedSkill.value === props.skill);
 
-    return { isSelected };
+    return { isSelected, ...useSettings() };
   },
 });
 </script>

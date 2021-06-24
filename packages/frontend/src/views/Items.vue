@@ -2,12 +2,13 @@
  * @Author: vspirit803
  * @Date: 2021-04-14 16:48:40
  * @Description:
- * @LastEditTime: 2021-06-23 16:33:10
+ * @LastEditTime: 2021-06-24 11:31:37
  * @LastEditors: vspirit803
 -->
 <template>
-  <q-btn class="absolute-top-right" style="z-index: 999" @click="$router.push({ name: 'Home' })">退出</q-btn>
-  <q-card class="items column q-pa-md items-stretch">
+  <q-card v-bind="$attrs" class="items column q-pa-md items-stretch">
+    <HomeButton />
+
     <q-tabs
       v-model="tab"
       dense
@@ -69,9 +70,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .items {
-  width: 100%;
-  height: 100%;
-
   &-background {
     padding: 1px;
     width: calc(4rem * 16 + 15px + 2px);

@@ -2,62 +2,78 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-21 14:50:19
+ * @LastEditTime: 2021-06-24 11:33:45
  * @LastEditors: vspirit803
 -->
 <template>
-  <q-btn class="absolute-top-left" style="z-index: 999; left: -100px" @click="onBattleStart">开始战斗</q-btn>
-  <q-btn class="absolute-top-left" style="z-index: 999" icon="mdi-undo" round @click="$router.push({ name: 'Home' })" />
-  <div v-if="battle" class="battle">
-    <span class="text-h2 battle-name absolute-top-right">{{ battle.name }}</span>
-    <BattleFaction
-      class="faction faction1"
-      :faction="battle.factions[0]"
-      reverse
-      @onSelectSkill="onSelectSkill"
-      @onSelectCharacter="onSelectCharacter"
-    />
-    <BattleFaction
-      class="faction faction2"
-      :faction="battle.factions[1]"
-      @onSelectSkill="onSelectSkill"
-      @onSelectCharacter="onSelectCharacter"
-    />
-    <BattleFaction
-      v-if="battle.factions[2]"
-      class="faction faction3"
-      :faction="battle.factions[2]"
-      @onSelectSkill="onSelectSkill"
-      @onSelectCharacter="onSelectCharacter"
-    />
+  <div class="battle">
+    <q-btn class="absolute-top-left" style="z-index: 999; left: -100px" @click="onBattleStart">开始战斗</q-btn>
+    <HomeButton class="absolute-top-left" />
+    <template v-if="battle">
+      <span class="text-h2 battle-name absolute-top-right">{{ battle.name }}</span>
+      <BattleFaction
+        class="faction faction1"
+        :faction="battle.factions[0]"
+        reverse
+        @onSelectSkill="onSelectSkill"
+        @onSelectCharacter="onSelectCharacter"
+      />
+      <BattleFaction
+        class="faction faction2"
+        :faction="battle.factions[1]"
+        @onSelectSkill="onSelectSkill"
+        @onSelectCharacter="onSelectCharacter"
+      />
+      <BattleFaction
+        v-if="battle.factions[2]"
+        class="faction faction3"
+        :faction="battle.factions[2]"
+        @onSelectSkill="onSelectSkill"
+        @onSelectCharacter="onSelectCharacter"
+      />
 
-    <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" />
-    <BattleStats class="battle-status absolute-top-right" :battle="battle" />
+      <BattleAutoModeSwitch v-model:enabled="isAutoModeEnabled" class="absolute-bottom-left" />
+      <BattleStats v-if="showBattleStats" class="battle-status absolute-top-right" :battle="battle" />
 
-    <q-dialog v-model="showResultDialog" persistent transition-show="scale" transition-hide="scale">
-      <q-card class="bg-teal text-white" style="width: 300px">
-        <q-card-section class="row items-center q-pb-none">
-          <div class="text-h6">{{ result ? '胜利' : '失败' }}</div>
-          <q-space />
-          <q-btn v-close-popup icon="mdi-check" flat round dense @click="$router.push({ name: 'Home' })" />
-        </q-card-section>
-        <q-card-section class="q-pt-none">123 </q-card-section>
-      </q-card>
-    </q-dialog>
+      <q-dialog v-model="showResultDialog" persistent transition-show="scale" transition-hide="scale">
+        <q-card class="bg-teal text-white" style="width: 300px">
+          <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">{{ result ? '胜利' : '失败' }}</div>
+            <q-space />
+            <q-btn v-close-popup icon="mdi-check" flat round dense @click="$router.push({ name: 'Home' })" />
+          </q-card-section>
+          <q-card-section class="q-pt-none">123 </q-card-section>
+        </q-card>
+      </q-dialog>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import { Battle, CharacterBattle, EventDataSkillSelect, EventListenerBuilder, Game, SkillBattle } from 'sora-game-core';
-import { defineComponent, nextTick, onUnmounted, provide, Ref, ref, shallowRef, watch } from 'vue';
+import {
+  defineAsyncComponent,
+  defineComponent,
+  nextTick,
+  onUnmounted,
+  provide,
+  Ref,
+  ref,
+  shallowRef,
+  watch,
+} from 'vue';
 
 import BattleAutoModeSwitch from '@/components/BattleAutoModeSwitch.vue';
 import BattleFaction from '@/components/BattleFaction.vue';
-import BattleStats from '@/components/BattleStats.vue';
+import { useSettings } from '@/use';
 
 export default defineComponent({
   name: 'Battle',
-  components: { BattleFaction, BattleAutoModeSwitch, BattleStats },
+  components: {
+    BattleFaction,
+    BattleAutoModeSwitch,
+    BattleStats: defineAsyncComponent(() => import('@/components/BattleStats.vue')),
+  },
   setup() {
     const game = Game.getInstance();
     const team = game.teamCenter.teams[0];
@@ -154,15 +170,22 @@ export default defineComponent({
       }
     });
 
-    return { battle, onBattleStart, onSelectSkill, onSelectCharacter, isAutoModeEnabled, showResultDialog, result };
+    return {
+      battle,
+      onBattleStart,
+      onSelectSkill,
+      onSelectCharacter,
+      isAutoModeEnabled,
+      showResultDialog,
+      result,
+      ...useSettings(),
+    };
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .battle {
-  width: 100%;
-
   &-name {
     font-family: 'STXingkai';
   }

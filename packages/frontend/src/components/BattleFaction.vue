@@ -2,14 +2,14 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-06-10 11:54:24
+ * @LastEditTime: 2021-06-24 11:39:33
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="faction" :class="reverse ? 'row reverse' : 'row'">
     <div class="faction-title column items-center">
       <span class="faction-name">{{ faction.name }}</span>
-      <q-img class="family-pattern" :src="`/images/familyPatterns/${faction.familyPattern}.svg`" />
+      <q-img v-if="showImage" class="family-pattern" :src="`/images/familyPatterns/${faction.familyPattern}.svg`" />
     </div>
     <div class="teams column">
       <BattleTeam
@@ -29,6 +29,7 @@ import { CharacterBattle, FactionBattle, SkillBattle } from 'sora-game-core';
 import { defineComponent, PropType } from 'vue';
 
 import BattleTeam from '@/components/BattleTeam.vue';
+import { useSettings } from '@/use';
 
 export default defineComponent({
   name: 'BattleFaction',
@@ -54,7 +55,7 @@ export default defineComponent({
       emit('onSelectCharacter', character);
     }
 
-    return { onSelectSkill, onSelectCharacter };
+    return { onSelectSkill, onSelectCharacter, ...useSettings() };
   },
 });
 </script>

@@ -2,12 +2,12 @@
  * @Author: vspirit803
  * @Date: 2021-04-14 16:48:40
  * @Description:
- * @LastEditTime: 2021-06-02 17:54:27
+ * @LastEditTime: 2021-06-24 11:32:31
  * @LastEditors: vspirit803
 -->
 <template>
-  <q-btn class="absolute-top-right" style="z-index: 999" @click="$router.push({ name: 'Home' })">退出</q-btn>
   <q-card class="teams column q-pa-md items-stretch">
+    <HomeButton />
     <q-tab-panels v-model="selectedTeamUUID" animated class="team-tab">
       <q-tab-panel v-for="eachTeam of teams" :key="eachTeam.uuid" :name="eachTeam.uuid">
         <q-card class="row justify-between">
@@ -152,8 +152,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .teams {
   padding-top: 120px;
-  width: 100%;
-  height: 100%;
 }
 
 .team-tab {

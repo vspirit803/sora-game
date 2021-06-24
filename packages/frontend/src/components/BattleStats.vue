@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-06-02 13:58:04
+ * @LastEditTime: 2021-06-24 10:24:17
  * @LastEditors: vspirit803
 -->
 <template>
@@ -21,6 +21,7 @@ import { CanvasRenderer } from 'echarts/renderers';
 import { throttle } from 'quasar';
 import { Battle, CharacterBattle, EventDataDamaging, EventListenerBuilder } from 'sora-game-core';
 import { defineComponent, PropType, ref } from 'vue';
+import ECharts from 'vue-echarts';
 
 use([CanvasRenderer, BarChart, GridComponent, TooltipComponent, PieChart, TitleComponent, LegendComponent]);
 
@@ -30,9 +31,9 @@ interface StatsItem {
   actualTreat: number;
   finalTreat: number;
 }
-
 export default defineComponent({
   name: 'BattleStats',
+  components: { 'v-chart': ECharts },
   props: {
     battle: {
       required: true,

@@ -100,7 +100,7 @@
       "level": 100,
       "properties": { "atk": { "min": 1000, "max": 1000 } },
       "rarity": "Immortal",
-      "description": "这件武器有着惊人的力量，即使是最强的战士也难以掌控它。<br><br><span style=\"font-size: small\">neta希腊神话代达罗斯杀死弟子塔洛斯，儿子伊卡洛斯坠海而死的故事，是icefrog对暴雪的无情嘲讽。</span>"
+      "description": "这件武器有着惊人的力量，即使是最强的战士也难以掌控它。<p style=\"font-size: small; margin-top: 0.5rem;\">neta希腊神话<strong style=\"color: red\">代达罗斯</strong>杀死弟子<strong style=\"color: red\">塔洛斯</strong>，儿子伊卡洛斯坠海而死的故事，是icefrog对暴雪的无情嘲讽。</p>"
     }
   ]
 }

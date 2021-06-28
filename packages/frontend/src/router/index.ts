@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-21 15:05:55
+ * @LastEditTime: 2021-06-28 17:30:04
  * @LastEditors: vspirit803
  */
 import { createRouter, createWebHistory } from 'vue-router';
@@ -27,6 +27,11 @@ const routes = [
     path: '/items',
     name: 'Items',
     component: () => import('@/views/Items.vue'),
+  },
+  {
+    path: '/characters',
+    name: 'Characters',
+    component: () => import('@/views/Characters.vue'),
   },
   {
     path: '/test',

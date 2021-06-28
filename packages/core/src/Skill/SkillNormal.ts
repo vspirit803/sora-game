@@ -2,13 +2,15 @@
  * @Author: vspirit803
  * @Date: 2020-09-25 10:47:53
  * @Description: 技能(普通状态)
- * @LastEditTime: 2020-09-27 11:48:03
+ * @LastEditTime: 2021-06-29 09:58:06
  * @LastEditors: vspirit803
  */
 import { CharacterNormal } from '@core/Character';
 
 import { SkillCenter } from './SkillCenter';
 import { SkillData } from './SkillData';
+import * as SkillTarget from './SkillTarget';
+import { SkillTargetType } from './SkillTarget';
 import { SkillType } from './SkillType';
 
 /**
@@ -31,6 +33,8 @@ export class SkillNormal {
   cooldown: number;
   /**技能拥有者 */
   owner: CharacterNormal;
+  /**可选目标 */
+  target: SkillTargetType;
 
   constructor({ owner, id, level = 1 }: { owner: CharacterNormal; id: string; level?: number }) {
     const skillConfigration = SkillCenter.getInstance().skillConfigurationMap.get(id);
@@ -47,7 +51,24 @@ export class SkillNormal {
     this.description = skillConfigration.description;
     this.data = skillConfigration.levels[this.level - 1];
     this.cooldown = skillConfigration.cooldown ?? 0;
+    this.target = skillConfigration.target ?? SkillTarget.NON_TARGET;
 
     this.owner = owner;
+  }
+
+  get isNonTarget(): boolean {
+    return Boolean(this.target & SkillTarget.NON_TARGET);
+  }
+
+  get isPassive(): boolean {
+    return this.type === 'passive';
+  }
+
+  get isAttack(): boolean {
+    return this.type === 'skill_attack' || this.type === 'attack';
+  }
+
+  get isTreat(): boolean {
+    return this.type === 'skill_treat';
   }
 }

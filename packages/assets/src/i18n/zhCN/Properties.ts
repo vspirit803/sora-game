@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-06-22 16:08:10
  * @Description:
- * @LastEditTime: 2021-06-22 16:09:49
+ * @LastEditTime: 2021-06-29 10:01:33
  * @LastEditors: vspirit803
  */
 export const Properties = {
@@ -12,4 +12,5 @@ export const Properties = {
   speed: "速度",
   critRate: "暴击率",
   critMultiplier: "暴击伤害",
+  missRate: "闪避",
 };

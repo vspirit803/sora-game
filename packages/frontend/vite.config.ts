@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-29 13:51:50
  * @Description:
- * @LastEditTime: 2021-04-12 17:57:11
+ * @LastEditTime: 2021-06-28 17:17:17
  * @LastEditors: vspirit803
  */
 import vue from '@vitejs/plugin-vue';
@@ -19,5 +19,8 @@ export default defineConfig({
   plugins: [vue()],
   define: {
     'process.env': {},
+  },
+  server: {
+    port: 3005,
   },
 });

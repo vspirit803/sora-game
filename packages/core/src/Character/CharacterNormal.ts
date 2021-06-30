@@ -2,10 +2,12 @@
  * @Author: vspirit803
  * @Date: 2020-09-23 16:57:06
  * @Description:
- * @LastEditTime: 2020-09-27 10:42:15
+ * @LastEditTime: 2021-06-30 18:05:45
  * @LastEditors: vspirit803
  */
 import { UUID } from '@core/Common';
+import { ItemEquipment } from '@core/Item';
+import { ItemEquipmentSlot } from '@core/Item/ItemEquipmentSlot';
 import { SkillNormal } from '@core/Skill';
 import { ObjectId } from 'bson';
 
@@ -29,6 +31,7 @@ export class CharacterNormal implements UUID {
   level: number;
   properties: { [propName in CharacterPropertyType]: CharacterPropertyNormal };
   skills: Array<SkillNormal>;
+  equipments: Array<ItemEquipmentSlot>;
 
   constructor(characterConfiguration: CharacterConfiguration);
   constructor(characterSave: CharacterSave);
@@ -57,37 +60,39 @@ export class CharacterNormal implements UUID {
 
     // this.skills = characterConfiguration.skills.map((eachId) => SkillFactory.getSkill(eachId));
     this.skills = characterConfiguration.skills.map((eachId) => new SkillNormal({ owner: this, id: eachId }));
+    this.equipments = [];
+
+    this.equipments.push(new ItemEquipmentSlot({ name: '武器', availableEquipmentTypes: ['Weapon'] }));
   }
 
-  // putOnEquipment(slot: EquipmentSlot, equipment: ItemEquipment): void {
-  //   if (!slot.validEquipmentTypes.has(equipment.equipmentType)) {
-  //     throw new Error(
-  //       `try to put on Equipment[${equipment.equipmentType}] to Slot[${Array.from(slot.validEquipmentTypes).join(
-  //         ',',
-  //       )}]`,
-  //     );
-  //   }
-  //   this.takeOffEquipment(slot);
-  //   equipment.setWearer(this);
-  //   for (const eachPropName in equipment.properties) {
-  //     const eachProperty = equipment.properties[eachPropName];
-  //     if (eachPropName in this.properties) {
-  //       this.properties[eachPropName as CharacterPropertyType].equipmentValue += eachProperty.value;
-  //     }
-  //   }
-  // }
+  putOnEquipment(slot: ItemEquipmentSlot, equipment: ItemEquipment): void {
+    if (!slot.availableEquipmentTypes.includes(equipment.equipmentType)) {
+      throw new Error(
+        `try to put on Equipment[${equipment.equipmentType}] to Slot[${Array.from(slot.availableEquipmentTypes).join(
+          ',',
+        )}]`,
+      );
+    }
 
-  // takeOffEquipment(slot: EquipmentSlot): void {
-  //   if (!slot.equipment) {
-  //     return;
-  //   }
-  //   const equipment = slot.equipment;
-  //   equipment.setWearer(undefined);
-  //   for (const eachPropName in equipment.properties) {
-  //     const eachProperty = equipment.properties[eachPropName];
-  //     if (eachPropName in this.properties) {
-  //       this.properties[eachPropName as CharacterPropertyType].equipmentValue -= eachProperty.value;
-  //     }
-  //   }
-  // }
+    this.takeOffEquipment(slot);
+    slot.equipment = equipment;
+    equipment.setWearer(this);
+
+    for (const [eachPropName, eachProperty] of Object.entries(equipment.properties)) {
+      console.log(eachPropName, eachProperty);
+      this.properties[eachPropName as CharacterPropertyType].equipmentValue += eachProperty!.value;
+    }
+  }
+
+  takeOffEquipment(slot: ItemEquipmentSlot): void {
+    if (!slot.equipment) {
+      return;
+    }
+
+    const equipment = slot.equipment;
+    equipment.setWearer(undefined);
+    for (const [eachPropName, eachProperty] of Object.entries(equipment.properties)) {
+      this.properties[eachPropName as CharacterPropertyType].equipmentValue -= eachProperty!.value;
+    }
+  }
 }

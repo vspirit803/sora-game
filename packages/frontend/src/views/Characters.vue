@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-06-28 17:27:09
  * @Description:
- * @LastEditTime: 2021-06-30 16:51:36
+ * @LastEditTime: 2021-07-01 16:13:49
  * @LastEditors: vspirit803
 -->
 
@@ -79,8 +79,7 @@ const filteredCharacters = computed(() =>
 }
 
 .characters-container {
-  background-color: cyan;
-  width: 33rem;
+  flex: 0 0 33rem;
 
   .characters {
     gap: 0.333rem;

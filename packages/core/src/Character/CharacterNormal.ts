@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-23 16:57:06
  * @Description:
- * @LastEditTime: 2021-06-30 18:05:45
+ * @LastEditTime: 2021-07-01 10:15:56
  * @LastEditors: vspirit803
  */
 import { UUID } from '@core/Common';
@@ -63,10 +63,19 @@ export class CharacterNormal implements UUID {
     this.equipments = [];
 
     this.equipments.push(new ItemEquipmentSlot({ name: '武器', availableEquipmentTypes: ['Weapon'] }));
+    this.equipments.push(new ItemEquipmentSlot({ name: '上衣', availableEquipmentTypes: ['Coat'] }));
+    this.equipments.push(new ItemEquipmentSlot({ name: '下装', availableEquipmentTypes: ['Pants'] }));
+    this.equipments.push(new ItemEquipmentSlot({ name: '鞋子', availableEquipmentTypes: ['Shoes'] }));
+    this.equipments.push(new ItemEquipmentSlot({ name: '腰带', availableEquipmentTypes: ['Belt'] }));
+    this.equipments.push(new ItemEquipmentSlot({ name: '护肩', availableEquipmentTypes: ['Shoulders'] }));
+    this.equipments.push(new ItemEquipmentSlot({ name: '护膝', availableEquipmentTypes: ['Kneecap'] }));
+    this.equipments.push(
+      new ItemEquipmentSlot({ name: '通用', availableEquipmentTypes: ['Weapon', 'Shoulders', 'Kneecap'] }),
+    );
   }
 
   putOnEquipment(slot: ItemEquipmentSlot, equipment: ItemEquipment): void {
-    if (!slot.availableEquipmentTypes.includes(equipment.equipmentType)) {
+    if (!slot.isEquipmentAvailable(equipment)) {
       throw new Error(
         `try to put on Equipment[${equipment.equipmentType}] to Slot[${Array.from(slot.availableEquipmentTypes).join(
           ',',
@@ -79,7 +88,6 @@ export class CharacterNormal implements UUID {
     equipment.setWearer(this);
 
     for (const [eachPropName, eachProperty] of Object.entries(equipment.properties)) {
-      console.log(eachPropName, eachProperty);
       this.properties[eachPropName as CharacterPropertyType].equipmentValue += eachProperty!.value;
     }
   }
@@ -90,6 +98,7 @@ export class CharacterNormal implements UUID {
     }
 
     const equipment = slot.equipment;
+    slot.equipment = undefined;
     equipment.setWearer(undefined);
     for (const [eachPropName, eachProperty] of Object.entries(equipment.properties)) {
       this.properties[eachPropName as CharacterPropertyType].equipmentValue -= eachProperty!.value;

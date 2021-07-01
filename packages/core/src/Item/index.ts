@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
  * @Description:
- * @LastEditTime: 2020-09-24 14:49:04
+ * @LastEditTime: 2021-07-01 10:23:37
  * @LastEditors: vspirit803
  */
 export * from './BackpackSave';
@@ -12,6 +12,7 @@ export * from './ItemCenter';
 export * from './ItemConfiguration';
 export * from './ItemConsumable';
 export * from './ItemEquipment';
+export * from './ItemEquipmentSlot';
 export * from './ItemEquipmentType';
 export * from './ItemMaterial';
 export * from './ItemSave';

@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-06-29 09:47:07
  * @Description:
- * @LastEditTime: 2021-07-01 17:51:26
+ * @LastEditTime: 2021-07-02 18:14:02
  * @LastEditors: vspirit803
 -->
 
@@ -30,8 +30,35 @@
         @drop="(e) => onDragDrop(e, each)"
         @click.right.prevent="() => onTakeOffEquipment(each)"
       >
-        {{ each.name }} {{ each.equipment?.name }}
+        <template v-if="each.equipment">{{ each.equipment.name }}</template>
+        <template v-else>{{ each.name }}</template>
       </div>
+    </div>
+    <div class="equipments-container row justify-center">
+      <template v-for="each of equipments" :key="each.uuid">
+        <div
+          v-if="each.equipment"
+          class="equipment-slot"
+          :class="{
+            'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment),
+            [`equipment-${each.equipment.rarity}`]: true,
+          }"
+          @dragover="(e) => onDragOver(e, each)"
+          @drop="(e) => onDragDrop(e, each)"
+          @click.right.prevent="() => onTakeOffEquipment(each)"
+        >
+          {{ each.equipment.name }}
+        </div>
+        <div
+          v-else
+          class="equipment-slot"
+          :class="{ 'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment) }"
+          @dragover="(e) => onDragOver(e, each)"
+          @drop="(e) => onDragDrop(e, each)"
+        >
+          {{ each.name }}
+        </div>
+      </template>
     </div>
     <div class="skills-container row justify-center">
       <CharacterDetailSkill v-for="each of skills" :key="each.id" :skill="each" />
@@ -165,5 +192,12 @@ export default defineComponent({
 .items-background {
   width: calc(4rem * 8 + 7px + 2px);
   height: calc(4rem * 5 + 4px + 2px);
+}
+
+$rarityList: 'Normal' 'Rare' 'Mythical' 'Legendary' 'Ancient' 'Immortal';
+@each $rarity in $rarityList {
+  .equipment-#{$rarity} {
+    border: 2px var(--color-#{to-lower-case($rarity)}) solid !important;
+  }
 }
 </style>

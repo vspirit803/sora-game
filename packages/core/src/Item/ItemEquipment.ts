@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-24 09:39:24
  * @Description: 装备
- * @LastEditTime: 2021-06-23 13:25:48
+ * @LastEditTime: 2021-07-02 16:06:21
  * @LastEditors: vspirit803
  */
 import { CharacterNormal } from '@core/Character';
@@ -28,7 +28,7 @@ function isEquipmentSave(equipment: ItemEquipmentConfiguration | ItemEquipmentSa
  */
 export class ItemEquipment extends ItemBase {
   /**穿戴装备的角色 */
-  wearer?: CharacterNormal;
+  wearer: CharacterNormal | null;
   /**装备部位 */
   equipmentType: ItemEquipmentType;
   /**装备属性 */
@@ -87,6 +87,7 @@ export class ItemEquipment extends ItemBase {
     this.level = level;
     this.equipmentType = equipmentType;
     this.properties = properties;
+    this.wearer = null;
 
     //存档,且有人佩戴
     if (isEquipmentSave(equipment) && equipment.wearerId) {
@@ -96,7 +97,7 @@ export class ItemEquipment extends ItemBase {
   }
 
   /**设置wearer */
-  setWearer(wearer: CharacterNormal | undefined): void {
+  setWearer(wearer: CharacterNormal | null): void {
     this.wearer = wearer;
   }
 

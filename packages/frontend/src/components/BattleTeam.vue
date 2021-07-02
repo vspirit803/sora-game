@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-26 17:05:53
  * @Description:
- * @LastEditTime: 2021-06-07 17:05:07
+ * @LastEditTime: 2021-07-02 16:23:27
  * @LastEditors: vspirit803
 -->
 <template>
@@ -40,7 +40,10 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['onSelectSkill', 'onSelectCharacter'],
+  emits: {
+    onSelectSkill: (skill: SkillBattle) => skill,
+    onSelectCharacter: (character: CharacterBattle) => character,
+  },
   setup(_props, { emit }) {
     function onSelectSkill(skill: SkillBattle) {
       emit('onSelectSkill', skill);

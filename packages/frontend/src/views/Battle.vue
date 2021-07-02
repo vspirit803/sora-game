@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-06-24 11:33:45
+ * @LastEditTime: 2021-07-02 16:22:38
  * @LastEditors: vspirit803
 -->
 <template>
@@ -14,7 +14,7 @@
       <BattleFaction
         class="faction faction1"
         :faction="battle.factions[0]"
-        reverse
+        :reverse="true"
         @onSelectSkill="onSelectSkill"
         @onSelectCharacter="onSelectCharacter"
       />
@@ -77,22 +77,22 @@ export default defineComponent({
   setup() {
     const game = Game.getInstance();
     const team = game.teamCenter.teams[0];
-    const battle: Ref<Battle | undefined> = shallowRef();
+    const battle: Ref<Battle | null> = shallowRef(null);
     const availableTargets = shallowRef<Array<CharacterBattle>>([]);
     provide('availableTargets', availableTargets);
-    let selectSkillData: EventDataSkillSelect | undefined = undefined;
-    const selectSkillPromiseResolve = ref<((value?: unknown) => void) | undefined>(undefined);
+    let selectSkillData: EventDataSkillSelect | null = null;
+    const selectSkillPromiseResolve = ref<((value?: unknown) => void) | null>(null);
     const availableSkills = shallowRef<Array<SkillBattle>>([]);
     provide('availableSkills', availableSkills);
-    const selectedSkill = shallowRef<SkillBattle | undefined>(undefined);
+    const selectedSkill = shallowRef<SkillBattle | null>(null);
     provide('selectedSkill', selectedSkill);
-    const currActionCharacter = shallowRef<CharacterBattle | undefined>(undefined);
+    const currActionCharacter = shallowRef<CharacterBattle | null>(null);
     provide('currActionCharacter', currActionCharacter);
     const isAutoModeEnabled = ref(false);
     provide('isAutoModeEnabled', isAutoModeEnabled);
-    const fireTarget = shallowRef<CharacterBattle | undefined>(undefined);
+    const fireTarget = shallowRef<CharacterBattle | null>(null);
     provide('fireTarget', fireTarget);
-    const protectTarget = shallowRef<CharacterBattle | undefined>(undefined);
+    const protectTarget = shallowRef<CharacterBattle | null>(null);
     provide('protectTarget', protectTarget);
 
     const showResultDialog = ref(false);
@@ -153,8 +153,8 @@ export default defineComponent({
         selectSkillPromiseResolve.value?.();
         availableSkills.value = [];
         availableTargets.value = [];
-        selectSkillPromiseResolve.value = undefined;
-        selectedSkill.value = undefined;
+        selectSkillPromiseResolve.value = null;
+        selectedSkill.value = null;
       }
     }
 
@@ -165,8 +165,8 @@ export default defineComponent({
         selectSkillPromiseResolve.value?.();
         availableSkills.value = [];
         availableTargets.value = [];
-        selectSkillPromiseResolve.value = undefined;
-        selectedSkill.value = undefined;
+        selectSkillPromiseResolve.value = null;
+        selectedSkill.value = null;
       }
     });
 

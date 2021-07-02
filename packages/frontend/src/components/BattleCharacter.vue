@@ -87,20 +87,23 @@ export default defineComponent({
       type: Object as PropType<CharacterBattle>,
     },
   },
-  emits: ['onSelectSkill', 'onSelectCharacter'],
+  emits: {
+    onSelectSkill: (skill: SkillBattle) => skill,
+    onSelectCharacter: (character: CharacterBattle) => character,
+  },
   setup(props, { emit }) {
     const { character } = toRefs(props);
     const showDetail = ref(false);
 
     const currHp = ref(character.value.currHp);
     const hpMax = ref(character.value.properties.hp.battleValue);
-    const characterElement: Ref<HTMLElement | undefined> = ref(undefined);
+    const characterElement: Ref<HTMLElement | null> = ref(null);
     const availableSkills = inject<Ref<Array<SkillBattle>>>('availableSkills')!;
     const currActionCharacter = inject<Ref<CharacterBattle>>('currActionCharacter')!;
     const buffs = shallowRef<Array<Buff>>([]);
-    const fireTarget = inject<Ref<CharacterBattle | undefined>>('fireTarget')!;
+    const fireTarget = inject<Ref<CharacterBattle | null>>('fireTarget')!;
     const isFireTarget = computed(() => fireTarget.value === character.value);
-    const protectTarget = inject<Ref<CharacterBattle | undefined>>('protectTarget')!;
+    const protectTarget = inject<Ref<CharacterBattle | null>>('protectTarget')!;
     const isProtectTarget = computed(() => protectTarget.value === character.value);
 
     const availableTargets = inject<Ref<Array<CharacterBattle>>>('availableTargets')!;

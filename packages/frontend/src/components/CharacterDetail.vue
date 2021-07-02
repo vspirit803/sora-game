@@ -86,7 +86,7 @@ export default defineComponent({
       (game.backpack as ItemCenter).equipments.filter((each) => !each.wearer),
     );
 
-    const draggingEquipment = ref<ItemEquipment | undefined>();
+    const draggingEquipment = ref<ItemEquipment | null>(null);
 
     function onDragStart(e: DragEvent, equipment: ItemEquipment) {
       e.dataTransfer?.setData('text/plain', equipment.name);
@@ -105,7 +105,7 @@ export default defineComponent({
     }
 
     function onDragEnd() {
-      draggingEquipment.value = undefined;
+      draggingEquipment.value = null;
     }
 
     function onDragDrop(e: DragEvent, equipmentSlot: ItemEquipmentSlot) {

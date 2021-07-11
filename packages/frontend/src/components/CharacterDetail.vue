@@ -2,77 +2,77 @@
  * @Author: vspirit803
  * @Date: 2021-06-29 09:47:07
  * @Description:
- * @LastEditTime: 2021-07-02 18:14:02
+ * @LastEditTime: 2021-07-11 20:49:46
  * @LastEditors: vspirit803
 -->
 
 <template>
-  <div>
-    {{ character.name }} Lv.{{ character.level }}
+  <div class="character-detail">
+    <span class="text-h2">
+      <span class="character-name">{{ character.name }}</span>
+      <span class="character-level q-ml-md">Lv.{{ character.level }}</span>
+    </span>
     <div class="row">
-      <template v-for="(eachProperty, key) of character.properties" :key="key">
-        <template v-if="eachProperty">
-          <span class="col-4">{{ t(`Properties.${key}`) }}</span>
-          <span class="col-2 offset-4 text-right">
-            {{ eachProperty.normalValue }}
-          </span>
-          <span v-if="eachProperty.increaseValue" class="col-2 text-left"> (+{{ eachProperty.increaseValue }}) </span>
-        </template>
-      </template>
-    </div>
-    <div class="equipments-container row justify-center">
-      <div
-        v-for="each of equipments"
-        :key="each.uuid"
-        class="equipment-slot"
-        :class="{ 'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment) }"
-        @dragover="(e) => onDragOver(e, each)"
-        @drop="(e) => onDragDrop(e, each)"
-        @click.right.prevent="() => onTakeOffEquipment(each)"
-      >
-        <template v-if="each.equipment">{{ each.equipment.name }}</template>
-        <template v-else>{{ each.name }}</template>
+      <div class="character-detail-left">
+        <div class="equipments-container">
+          <q-icon name="mdi-human-handsdown" size="48rem" style="color: rgba(22, 22, 22, 0.1)"></q-icon>
+          <template v-for="each of equipments" :key="each.uuid">
+            <Item
+              v-if="each.equipment"
+              :key="each.uuid"
+              :class="{
+                'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment),
+                [`equipment-slot-${each.name}`]: true,
+              }"
+              :item="each.equipment"
+              @dragover="(e) => onDragOver(e, each)"
+              @drop="(e) => onDragDrop(e, each)"
+              @click.right.prevent="() => onTakeOffEquipment(each)"
+            />
+            <div
+              v-else
+              class="equipment-slot"
+              :class="{
+                'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment),
+                [`equipment-slot-${each.name}`]: true,
+              }"
+              @dragover="(e) => onDragOver(e, each)"
+              @drop="(e) => onDragDrop(e, each)"
+            >
+              {{ each.name }}
+            </div>
+          </template>
+        </div>
       </div>
-    </div>
-    <div class="equipments-container row justify-center">
-      <template v-for="each of equipments" :key="each.uuid">
-        <div
-          v-if="each.equipment"
-          class="equipment-slot"
-          :class="{
-            'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment),
-            [`equipment-${each.equipment.rarity}`]: true,
-          }"
-          @dragover="(e) => onDragOver(e, each)"
-          @drop="(e) => onDragDrop(e, each)"
-          @click.right.prevent="() => onTakeOffEquipment(each)"
-        >
-          {{ each.equipment.name }}
+      <div class="character-detail-right column content-center">
+        <div class="row">
+          <template v-for="(eachProperty, key) of character.properties" :key="key">
+            <template v-if="eachProperty">
+              <span class="col-4">{{ t(`Properties.${key}`) }}</span>
+              <span class="col-2 offset-4 text-right text-green">
+                {{ eachProperty.characterValue }}
+              </span>
+              <span v-if="eachProperty.equipmentValue" class="col-2 text-left">
+                +{{ eachProperty.equipmentValue }}
+              </span>
+            </template>
+          </template>
         </div>
-        <div
-          v-else
-          class="equipment-slot"
-          :class="{ 'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment) }"
-          @dragover="(e) => onDragOver(e, each)"
-          @drop="(e) => onDragDrop(e, each)"
-        >
-          {{ each.name }}
+        <div class="skills-container row justify-center">
+          <CharacterDetailSkill v-for="each of skills" :key="each.id" :skill="each" />
         </div>
-      </template>
-    </div>
-    <div class="skills-container row justify-center">
-      <CharacterDetailSkill v-for="each of skills" :key="each.id" :skill="each" />
-    </div>
-    <div class="items-background row content-start">
-      <Item
-        v-for="each of availableEquipments"
-        :key="each.uuid"
-        :item="each"
-        draggable="true"
-        @dragstart="(e) => onDragStart(e, each)"
-        @dragend="onDragEnd"
-      />
-      <Item v-for="index of 40 - availableEquipments.length" :key="index" class="item" />
+        <div class="items-background row content-start">
+          <Item
+            v-for="each of availableEquipments"
+            :key="each.uuid"
+            :item="each"
+            draggable="true"
+            @dragstart="(e) => onDragStart(e, each)"
+            @dragend="onDragEnd"
+          />
+          <Item v-for="index of 40 - availableEquipments.length" :key="index" class="item" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -175,8 +175,9 @@ export default defineComponent({
 }
 
 .equipments-container {
-  gap: 1rem;
-
+  width: 48rem;
+  position: relative;
+  margin-left: -8rem;
   .equipment-slot {
     width: 4rem;
     height: 4rem;
@@ -184,14 +185,83 @@ export default defineComponent({
     border: 1px purple dashed;
 
     &-available {
-      border: 2px red solid;
+      border: 2px red dashed !important;
     }
+
+    &-武器 {
+      position: absolute;
+      top: 22rem;
+      left: 8rem;
+    }
+
+    &-上衣 {
+      position: absolute;
+      top: 18rem;
+      left: 22rem;
+    }
+
+    &-下装 {
+      position: absolute;
+      top: 32rem;
+      left: 18rem;
+    }
+
+    &-鞋子 {
+      position: absolute;
+      top: 40rem;
+      left: 22rem;
+    }
+
+    &-腰带 {
+      position: absolute;
+      top: 24rem;
+      left: 22rem;
+    }
+
+    &-护肩 {
+      position: absolute;
+      top: 12rem;
+      left: 28rem;
+    }
+
+    &-护膝 {
+      position: absolute;
+      top: 32rem;
+      left: 26rem;
+    }
+
+    &-通用 {
+      position: absolute;
+      top: 4rem;
+      left: 36rem;
+    }
+  }
+}
+
+.character-name {
+  font-family: 'STXingkai';
+}
+
+.character-detail {
+  &-left {
+    overflow: hidden;
+    width: 32rem;
+    flex-grow: 0;
+  }
+
+  &-right {
+    flex-grow: 1;
+
+    gap: 2rem;
   }
 }
 
 .items-background {
   width: calc(4rem * 8 + 7px + 2px);
   height: calc(4rem * 5 + 4px + 2px);
+  padding: 1px;
+  background-color: rgba(240, 255, 255, 0.3);
+  gap: 1px;
 }
 
 $rarityList: 'Normal' 'Rare' 'Mythical' 'Legendary' 'Ancient' 'Immortal';

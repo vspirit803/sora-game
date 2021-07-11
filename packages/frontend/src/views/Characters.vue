@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-06-28 17:27:09
  * @Description:
- * @LastEditTime: 2021-07-01 16:13:49
+ * @LastEditTime: 2021-07-11 20:05:19
  * @LastEditors: vspirit803
 -->
 
@@ -33,12 +33,19 @@
         </q-toolbar>
       </div>
       <div class="characters row content-start q-mt-sm">
-        <div v-for="each of filteredCharacters" :key="each.uuid" class="character" @click="selectedCharacter = each">
-          {{ each.name }}
+        <div
+          v-for="each of filteredCharacters"
+          :key="each.uuid"
+          class="character img-container"
+          :class="{ 'character-selected': each.uuid === selectedCharacter.uuid }"
+          @click="selectedCharacter = each"
+        >
+          <q-img class="img" :src="`/images/characters/${each.id}.png`" />
+          <!-- {{ each.name }} -->
         </div>
       </div>
     </div>
-    <CharacterDetail class="character-selected" :character="selectedCharacter" />
+    <CharacterDetail class="character-detail" :character="selectedCharacter" />
   </div>
 </template>
 
@@ -94,10 +101,27 @@ const filteredCharacters = computed(() =>
     width: 8rem;
     outline: 1px red dashed;
     outline-offset: -1px;
+
+    &-selected {
+      outline: 2px red solid;
+      outline-offset: -2px;
+    }
   }
 }
 
-.character-selected {
+.img-container {
+  width: 100%;
+  height: 100%;
+
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-size: cover;
+  }
+}
+
+.character-detail {
   flex-grow: 1;
 }
 </style>

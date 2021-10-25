@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2021-06-29 09:47:07
  * @Description:
- * @LastEditTime: 2021-07-11 20:49:46
+ * @LastEditTime: 2021-10-07 09:15:16
  * @LastEditors: vspirit803
 -->
 
@@ -69,6 +69,7 @@
             draggable="true"
             @dragstart="(e) => onDragStart(e, each)"
             @dragend="onDragEnd"
+            @click.right="(e) => e.preventDefault()"
           />
           <Item v-for="index of 40 - availableEquipments.length" :key="index" class="item" />
         </div>

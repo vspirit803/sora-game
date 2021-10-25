@@ -2,13 +2,13 @@
  * @Author: vspirit803
  * @Date: 2021-03-04 09:50:15
  * @Description:
- * @LastEditTime: 2021-07-02 16:22:38
+ * @LastEditTime: 2021-10-07 09:42:24
  * @LastEditors: vspirit803
 -->
 <template>
   <div class="battle">
-    <q-btn class="absolute-top-left" style="z-index: 999; left: -100px" @click="onBattleStart">开始战斗</q-btn>
     <HomeButton class="absolute-top-left" />
+    <q-btn v-if="!battle" class="absolute-center" @click="onBattleStart">开始战斗</q-btn>
     <template v-if="battle">
       <span class="text-h2 battle-name absolute-top-right">{{ battle.name }}</span>
       <BattleFaction

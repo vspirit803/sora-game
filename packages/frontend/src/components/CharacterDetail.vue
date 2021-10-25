@@ -2,67 +2,76 @@
  * @Author: vspirit803
  * @Date: 2021-06-29 09:47:07
  * @Description:
- * @LastEditTime: 2021-07-01 17:51:26
+ * @LastEditTime: 2021-11-01 18:07:04
  * @LastEditors: vspirit803
 -->
 
 <template>
-  <div>
-    {{ character.name }} Lv.{{ character.level }}
-    <div class="row">
-      <template v-for="(eachProperty, key) of character.properties" :key="key">
-        <template v-if="eachProperty">
-          <span class="col-4">{{ t(`Properties.${key}`) }}</span>
-          <span class="col-2 offset-4 text-right">
-            {{ eachProperty.normalValue }}
-          </span>
-          <span v-if="eachProperty.increaseValue" class="col-2 text-left"> (+{{ eachProperty.increaseValue }}) </span>
-        </template>
-      </template>
-    </div>
-    <div class="equipments-container row justify-center">
-      <div
-        v-for="each of equipments"
-        :key="each.uuid"
-        class="equipment-slot"
-        :class="{ 'equipment-slot-available': draggingEquipment && each.isEquipmentAvailable(draggingEquipment) }"
-        @dragover="(e) => onDragOver(e, each)"
-        @drop="(e) => onDragDrop(e, each)"
-        @click.right.prevent="() => onTakeOffEquipment(each)"
-      >
-        {{ each.name }} {{ each.equipment?.name }}
+  <div class="character-detail">
+    <div class="row items-start">
+      <div class="character-detail-left relative-position">
+        <div class="equipments-container">
+          <CharacterDetailEquipmentSlot
+            v-for="each of equipmentSlots"
+            :key="each.uuid"
+            :class="`equipment-slot equipment-slot-${each.name.toLowerCase()}`"
+            :equipment-slot="each"
+            :available="(draggingEquipment && each.isEquipmentAvailable(draggingEquipment)) || false"
+            :dragging-equipment="draggingEquipment"
+            @dragover.prevent="(e: DragEvent) => onDragOver(e, each)"
+            @drop="(e: DragEvent) => onDragDrop(e, each)"
+            @take-off-equipment="() => onTakeOffEquipment(each)"
+          />
+        </div>
+        <div class="character-name-container text-subtitle2">
+          <span class="character-level q-mr-md">lv.{{ character.level }}</span>
+          <span class="character-name">{{ character.name }}</span>
+        </div>
       </div>
-    </div>
-    <div class="skills-container row justify-center">
-      <CharacterDetailSkill v-for="each of skills" :key="each.id" :skill="each" />
-    </div>
-    <div class="items-background row content-start">
-      <Item
-        v-for="each of availableEquipments"
-        :key="each.uuid"
-        :item="each"
-        draggable="true"
-        @dragstart="(e) => onDragStart(e, each)"
-        @dragend="onDragEnd"
-      />
-      <Item v-for="index of 40 - availableEquipments.length" :key="index" class="item" />
+      <div class="character-detail-right column content-center">
+        <div class="row">
+          <template v-for="(eachProperty, key) of character.properties" :key="key">
+            <template v-if="eachProperty">
+              <span class="col-4">{{ t(`Properties.${key}`) }}</span>
+              <span class="col-2 offset-4 text-right text-green">{{ eachProperty.characterValue }}</span>
+              <span v-if="eachProperty.equipmentValue" class="col-2 text-left">+{{ eachProperty.equipmentValue }}</span>
+            </template>
+          </template>
+        </div>
+        <div class="skills-container row justify-center">
+          <CharacterDetailSkill v-for="each of skills" :key="each.id" :skill="each" />
+        </div>
+        <div class="items-background row content-start">
+          <Item
+            v-for="each of availableEquipments"
+            :key="each.uuid"
+            :item="each"
+            draggable="true"
+            @dragstart="(e: DragEvent) => onDragStart(e, each)"
+            @dragend="onDragEnd"
+            @click.right.prevent="() => onPutOnEquipment(each)"
+          />
+          <Item v-for="index of 40 - availableEquipments.length" :key="index" class="item" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { CharacterNormal, ItemCenter, ItemEquipment, ItemEquipmentSlot, SkillNormal } from 'sora-game-core';
-import { computed, defineComponent, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import Item from '@/components/Item.vue';
 import { useGame } from '@/use';
 
+import CharacterDetailEquipmentSlot from './CharacterDetailEquipmentSlot.vue';
 import CharacterDetailSkill from './CharacterDetailSkill.vue';
 
 export default defineComponent({
   name: 'CharacterDetail',
-  components: { CharacterDetailSkill, Item },
+  components: { CharacterDetailSkill, Item, CharacterDetailEquipmentSlot },
   props: {
     character: {
       type: Object as PropType<CharacterNormal>,
@@ -73,30 +82,17 @@ export default defineComponent({
     const { character } = toRefs(props);
     const game = useGame();
     const skills = computed(() => character.value.skills) as Ref<Array<SkillNormal>>;
-    const equipments = ref<Array<ItemEquipmentSlot>>(character.value.equipments);
-
-    watch(character, () => refreshEquipments());
-
-    function refreshEquipments() {
-      equipments.value = character.value.equipments;
-      availableEquipments.value = (game.backpack as ItemCenter).equipments.filter((each) => !each.wearer);
-    }
-
-    const availableEquipments = ref<Array<ItemEquipment>>(
-      (game.backpack as ItemCenter).equipments.filter((each) => !each.wearer),
-    );
+    const equipmentSlots = ref<Array<ItemEquipmentSlot>>(character.value.equipments);
+    const availableEquipments = computed(() => (game.backpack as ItemCenter).equipments.filter((each) => !each.wearer));
 
     const draggingEquipment = ref<ItemEquipment | null>(null);
 
     function onDragStart(e: DragEvent, equipment: ItemEquipment) {
       e.dataTransfer?.setData('text/plain', equipment.name);
       draggingEquipment.value = equipment;
-      // e.dataTransfer && (e.dataTransfer.dropEffect = 'copy');
     }
 
     function onDragOver(e: DragEvent, equipmentSlot: ItemEquipmentSlot) {
-      e.preventDefault();
-
       if (draggingEquipment.value && equipmentSlot.isEquipmentAvailable(draggingEquipment.value)) {
         e.dataTransfer && (e.dataTransfer.dropEffect = 'move');
       } else {
@@ -109,33 +105,35 @@ export default defineComponent({
     }
 
     function onDragDrop(e: DragEvent, equipmentSlot: ItemEquipmentSlot) {
-      e.preventDefault();
-
       if (!draggingEquipment.value) {
         return;
       }
 
       character.value.putOnEquipment(equipmentSlot, draggingEquipment.value);
-      refreshEquipments();
-
-      // console.log(`将装备${draggingEquipment.value!.name}放到装备槽${equipmentSlot.name}`);
     }
 
     function onTakeOffEquipment(equipmentSlot: ItemEquipmentSlot) {
       character.value.takeOffEquipment(equipmentSlot);
-      refreshEquipments();
+    }
+
+    function onPutOnEquipment(equipment: ItemEquipment) {
+      const availableEquipmentSlot = equipmentSlots.value.find((eachSlot) => eachSlot.isEquipmentAvailable(equipment));
+
+      if (availableEquipmentSlot) {
+        character.value.putOnEquipment(availableEquipmentSlot, equipment);
+      }
     }
 
     return {
       skills,
-      equipments,
-      refreshEquipments,
+      equipmentSlots,
       availableEquipments,
       onDragStart,
       onDragOver,
       onDragEnd,
       onDragDrop,
       onTakeOffEquipment,
+      onPutOnEquipment,
       draggingEquipment,
       ...useI18n(),
     };
@@ -148,22 +146,88 @@ export default defineComponent({
 }
 
 .equipments-container {
-  gap: 1rem;
+  position: relative;
+  height: 16rem;
 
   .equipment-slot {
-    width: 4rem;
-    height: 4rem;
+    position: absolute;
 
-    border: 1px purple dashed;
-
-    &-available {
-      border: 2px red solid;
+    &-coat {
+      top: 1rem;
+      left: calc(5rem + 4px);
     }
+
+    &-pants {
+      top: calc(5rem + 4px);
+      left: calc(5rem + 4px);
+    }
+
+    &-shoulders {
+      top: 1rem;
+      left: 1rem;
+    }
+
+    &-belt {
+      top: calc(5rem + 4px);
+      left: 1rem;
+    }
+
+    &-shoes {
+      top: calc(9rem + 8px);
+      left: 1rem;
+    }
+
+    &-weapon {
+      top: 1rem;
+      right: calc(5rem + 4px);
+    }
+
+    &-necklace {
+      top: calc(5rem + 4px);
+      right: 1rem;
+    }
+
+    &-bracelet {
+      top: calc(5rem + 4px);
+      right: calc(5rem + 4px);
+    }
+
+    &-ring {
+      top: calc(9rem + 8px);
+      right: 1rem;
+    }
+
+    &-universal {
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+}
+
+.character-detail {
+  &-left {
+    overflow: hidden;
+    width: 32rem;
+    flex-grow: 0;
+
+    .character-name-container {
+      position: absolute;
+      bottom: 1rem;
+      width: 100%;
+    }
+  }
+
+  &-right {
+    flex-grow: 1;
+    gap: 2rem;
   }
 }
 
 .items-background {
   width: calc(4rem * 8 + 7px + 2px);
   height: calc(4rem * 5 + 4px + 2px);
+  padding: 1px;
+  background-color: rgba(240, 255, 255, 0.3);
+  gap: 1px;
 }
 </style>

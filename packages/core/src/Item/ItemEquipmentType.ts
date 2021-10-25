@@ -12,15 +12,35 @@ const Shoes = 'Shoes'; //鞋子
 const Belt = 'Belt'; //腰带
 const Shoulders = 'Shoulders'; //护肩
 const Kneecap = 'Kneecap'; //护膝
+const Necklace = 'Necklace'; //项链
+const Bracelet = 'Bracelet'; //手镯
+const Ring = 'Ring'; //戒指
 
-const ItemEquipmentTypes = [Belt, Coat, Kneecap, Pants, Shoes, Shoulders, Weapon];
-type ItemEquipmentType =
-  | typeof Weapon
-  | typeof Coat
-  | typeof Pants
-  | typeof Shoes
-  | typeof Belt
-  | typeof Shoulders
-  | typeof Kneecap;
+const ItemEquipmentTypes = [
+  Belt,
+  Coat,
+  // Kneecap,
+  Pants,
+  Shoes,
+  Shoulders,
+  Weapon,
+  Necklace,
+  Bracelet,
+  Ring,
+] as const;
+type ItemEquipmentType = typeof ItemEquipmentTypes[number];
 
-export { Belt, Coat, ItemEquipmentType, ItemEquipmentTypes, Kneecap, Pants, Shoes, Shoulders, Weapon };
+export {
+  Belt,
+  Bracelet,
+  Coat,
+  ItemEquipmentType,
+  ItemEquipmentTypes,
+  Kneecap,
+  Necklace,
+  Pants,
+  Ring,
+  Shoes,
+  Shoulders,
+  Weapon,
+};

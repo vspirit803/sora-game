@@ -5,66 +5,66 @@
  * @LastEditTime: 2021-04-14 14:39:38
  * @LastEditors: vspirit803
  */
-import { Normal, Immortal, Legendary, Mythical, Rare, Rarity } from '@core/Common';
+import { Immortal, Legendary, Mythical, Normal, Rare, Rarity } from '@core/Common';
 import { Game } from '@core/Game';
 import { ItemRarityRate as rarityRate } from 'sora-game-assets';
 
 import { ItemEquipment } from './ItemEquipment';
-import { ItemEquipmentType, Weapon } from './ItemEquipmentType';
+import { ItemEquipmentType } from './ItemEquipmentType';
 import { Equipment } from './ItemType';
 
-export function generateEquipment({
-  id,
-  name,
-  equipmentType,
-  rarity,
-  level,
-}: {
-  id: string;
-  name: string;
-  equipmentType: ItemEquipmentType;
-  rarity?: Rarity;
-  level?: number;
-}): ItemEquipment {
-  const randomGenerator = Game.getInstance().randomGenerator;
+// export function generateEquipment({
+//   id,
+//   name,
+//   equipmentType,
+//   rarity,
+//   level,
+// }: {
+//   id: string;
+//   name: string;
+//   equipmentType: ItemEquipmentType;
+//   rarity?: Rarity;
+//   level?: number;
+// }): ItemEquipment {
+//   const randomGenerator = Game.getInstance().randomGenerator;
 
-  if (rarity === undefined) {
-    const r = randomGenerator.get();
+//   if (rarity === undefined) {
+//     const r = randomGenerator.get();
 
-    if (r < rarityRate.Immortal.stackRate) {
-      rarity = Immortal;
-    } else if (r < rarityRate.Legendary.stackRate) {
-      rarity = Legendary;
-    } else if (r < rarityRate.Mythical.stackRate) {
-      rarity = Mythical;
-    } else if (r < rarityRate.Rare.stackRate) {
-      rarity = Rare;
-    } else {
-      rarity = Normal;
-    }
-  }
+//     if (r < rarityRate.Immortal.stackRate) {
+//       rarity = Immortal;
+//     } else if (r < rarityRate.Legendary.stackRate) {
+//       rarity = Legendary;
+//     } else if (r < rarityRate.Mythical.stackRate) {
+//       rarity = Mythical;
+//     } else if (r < rarityRate.Rare.stackRate) {
+//       rarity = Rare;
+//     } else {
+//       rarity = Normal;
+//     }
+//   }
 
-  if (level === undefined) {
-    level = randomGenerator.getInt(20) * 5;
-  }
-  const rarityRange = rarityRate as { [rarity: string]: { min: number; max: number } };
-  equipmentType = Weapon;
-  const { min: minRatio, max: maxRatio } = { ...rarityRange[rarity] };
-  const min = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * minRatio);
-  const max = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * maxRatio);
-  const value = randomGenerator.getInt(min, max);
-  const properties = { atk: { min, max, value } };
+//   if (level === undefined) {
+//     level = randomGenerator.getInt(20) * 5;
+//   }
+//   const rarityRange = rarityRate as { [rarity: string]: { min: number; max: number } };
+//   equipmentType = Weapon;
+//   const { min: minRatio, max: maxRatio } = { ...rarityRange[rarity] };
+//   const min = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * minRatio);
+//   const max = Math.round(Math.sin((0.01 * level - 0.5) * Math.PI + 1) * 500 * maxRatio);
+//   const value = randomGenerator.getInt(min, max);
+//   const properties = { atk: { min, max, value } };
 
-  return new ItemEquipment({
-    id,
-    name,
-    rarity,
-    equipmentType,
-    level,
-    properties,
-    type: Equipment,
-  });
-}
+//   return new ItemEquipment({
+//     id,
+//     name,
+//     rarity,
+//     equipmentType,
+//     level,
+//     properties,
+//     type: Equipment,
+//   });
+// }
 
 export class ItemEquipmentBuilder {
   private id?: string;
@@ -72,6 +72,7 @@ export class ItemEquipmentBuilder {
   private equipmentType?: ItemEquipmentType;
   private rarity?: Rarity;
   private level?: number;
+  private description?: string;
 
   constructor() {
     const randomGenerator = Game.getInstance().randomGenerator;
@@ -115,6 +116,11 @@ export class ItemEquipmentBuilder {
     return this;
   }
 
+  setDescription(description: string): ItemEquipmentBuilder {
+    this.description = description;
+    return this;
+  }
+
   getResult(): ItemEquipment {
     if (this.id === undefined) {
       throw new Error('The id of ItemEquipment cannot be undefined.');
@@ -136,6 +142,10 @@ export class ItemEquipmentBuilder {
       throw new Error('The level of ItemEquipment cannot be undefined.');
     }
 
+    if (this.description === undefined) {
+      throw new Error('The description of ItemEquipment cannot be undefined.');
+    }
+
     return new ItemEquipment({
       id: this.id,
       name: this.name,
@@ -144,6 +154,7 @@ export class ItemEquipmentBuilder {
       level: this.level,
       properties: {},
       type: Equipment,
+      description: this.description,
     });
   }
 }

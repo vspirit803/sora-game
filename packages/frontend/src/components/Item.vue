@@ -35,6 +35,7 @@
 
         <div v-if="item.description">
           <q-separator dark />
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <span class="item-description" v-html="item.description" />
         </div>
       </div>
@@ -80,7 +81,7 @@ $rarityList: 'Normal' 'Rare' 'Mythical' 'Legendary' 'Ancient' 'Immortal';
   }
 
   @each $rarity in $rarityList {
-    &-#{$rarity} {
+    &.item-#{$rarity} {
       border-color: var(--color-#{to-lower-case($rarity)});
     }
   }

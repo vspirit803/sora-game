@@ -2,7 +2,7 @@
  * @Author: vspirit803
  * @Date: 2020-09-23 16:57:06
  * @Description:
- * @LastEditTime: 2020-09-25 13:47:17
+ * @LastEditTime: 2021-07-11 09:28:33
  * @LastEditors: vspirit803
  */
 import { CharacterNormal } from './CharacterNormal';
@@ -32,5 +32,12 @@ export class CharacterPropertyNormal implements CharacterPropertyConfiguration {
    */
   get normalValue(): number {
     return this.character.level * this.increaseValue + this.baseValue + this.equipmentValue;
+  }
+
+  /**
+   * 获得不含装备的属性值
+   */
+  get characterValue(): number {
+    return this.character.level * this.increaseValue + this.baseValue;
   }
 }

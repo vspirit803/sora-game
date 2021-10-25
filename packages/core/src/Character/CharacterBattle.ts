@@ -22,6 +22,7 @@ import { TeamBattle } from '@core/Team';
 import { RandomGenerator } from '@core/Utils';
 import { ObjectId } from 'bson';
 
+import { CharacterCenter } from './CharacterCenter';
 import { CharacterNormal } from './CharacterNormal';
 import { CharacterPropertyBattle } from './CharacterPropertyBattle';
 import { CharacterPropertyType } from './CharacterPropertyType';
@@ -30,7 +31,7 @@ import { CharacterPropertyType } from './CharacterPropertyType';
  * 角色类(战斗状态)
  */
 @Listener()
-export class CharacterBattle implements CharacterNormal, UUID {
+export class CharacterBattle extends CharacterNormal implements UUID {
   uuid: string;
   id: string;
   name: string;
@@ -55,6 +56,7 @@ export class CharacterBattle implements CharacterNormal, UUID {
   skills: Array<SkillBattle>;
 
   constructor(character: CharacterNormal, team: TeamBattle) {
+    super(CharacterCenter.getInstance().charactersConfigurationMap.get(character.id)!);
     this.id = character.id;
     this.name = character.name;
     this.level = character.level;

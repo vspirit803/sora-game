@@ -14,16 +14,16 @@ export class ItemEquipmentSlot {
   uuid: string;
   name: string; // 槽位名称
   availableEquipmentTypes: Array<ItemEquipmentType>; // 允许的装备类型
-  equipment?: ItemEquipment; // 装备
+  equipment: ItemEquipment | null; // 装备
 
   constructor({
     name,
     availableEquipmentTypes,
-    equipment,
+    equipment = null,
   }: {
     name: string;
     availableEquipmentTypes: Array<ItemEquipmentType>;
-    equipment?: ItemEquipment;
+    equipment?: ItemEquipment | null;
   }) {
     this.name = name;
     this.availableEquipmentTypes = availableEquipmentTypes;

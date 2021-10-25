@@ -11,7 +11,7 @@ const Consumable = 'Consumable'; //消耗品
 const Task = 'Task'; //任务物品
 const Material = 'Material'; //材料
 
-const ItemTypes = [System, Equipment, Consumable, Task, Material];
-type ItemType = typeof System | typeof Equipment | typeof Consumable | typeof Task | typeof Material;
+const ItemTypes = [System, Equipment, Consumable, Task, Material] as const;
+type ItemType = typeof ItemTypes[number];
 
 export { Consumable, Equipment, ItemType, ItemTypes, Material, System, Task };

@@ -9,7 +9,7 @@ import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
 
 import { ItemConfiguration } from './ItemConfiguration';
 import { ItemEquipmentPropertyConfiguration } from './ItemEquipmentPropertyConfiguration';
-import { ItemEquipmentTypes } from './ItemEquipmentType';
+import { ItemEquipmentType } from './ItemEquipmentType';
 
 /**
  * 装备配置接口
@@ -17,7 +17,7 @@ import { ItemEquipmentTypes } from './ItemEquipmentType';
 export interface ItemEquipmentConfiguration extends ItemConfiguration {
   type: 'Equipment';
   /**装备类别 */
-  equipmentType: ItemEquipmentTypes;
+  equipmentType: ItemEquipmentType;
   /**装备等级 */
   level: number;
   /**装备属性 */

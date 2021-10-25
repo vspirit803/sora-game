@@ -6,8 +6,7 @@
  * @LastEditors: vspirit803
  */
 import { UUID } from '@core/Common';
-import { ItemEquipment } from '@core/Item';
-import { ItemEquipmentSlot } from '@core/Item/ItemEquipmentSlot';
+import { ItemEquipment, ItemEquipmentSlot, ItemEquipmentTypes } from '@core/Item';
 import { SkillNormal } from '@core/Skill';
 import { ObjectId } from 'bson';
 
@@ -62,15 +61,12 @@ export class CharacterNormal implements UUID {
     this.skills = characterConfiguration.skills.map((eachId) => new SkillNormal({ owner: this, id: eachId }));
     this.equipments = [];
 
-    this.equipments.push(new ItemEquipmentSlot({ name: '武器', availableEquipmentTypes: ['Weapon'] }));
-    this.equipments.push(new ItemEquipmentSlot({ name: '上衣', availableEquipmentTypes: ['Coat'] }));
-    this.equipments.push(new ItemEquipmentSlot({ name: '下装', availableEquipmentTypes: ['Pants'] }));
-    this.equipments.push(new ItemEquipmentSlot({ name: '鞋子', availableEquipmentTypes: ['Shoes'] }));
-    this.equipments.push(new ItemEquipmentSlot({ name: '腰带', availableEquipmentTypes: ['Belt'] }));
-    this.equipments.push(new ItemEquipmentSlot({ name: '护肩', availableEquipmentTypes: ['Shoulders'] }));
-    this.equipments.push(new ItemEquipmentSlot({ name: '护膝', availableEquipmentTypes: ['Kneecap'] }));
+    ItemEquipmentTypes.forEach((each) =>
+      this.equipments.push(new ItemEquipmentSlot({ name: each, availableEquipmentTypes: [each] })),
+    );
+
     this.equipments.push(
-      new ItemEquipmentSlot({ name: '通用', availableEquipmentTypes: ['Weapon', 'Shoulders', 'Kneecap'] }),
+      new ItemEquipmentSlot({ name: 'Universal', availableEquipmentTypes: [...ItemEquipmentTypes] }),
     );
   }
 
@@ -98,8 +94,8 @@ export class CharacterNormal implements UUID {
     }
 
     const equipment = slot.equipment;
-    slot.equipment = undefined;
-    equipment.setWearer(undefined);
+    slot.equipment = null;
+    equipment.setWearer(null);
     for (const [eachPropName, eachProperty] of Object.entries(equipment.properties)) {
       this.properties[eachPropName as CharacterPropertyType].equipmentValue -= eachProperty!.value;
     }

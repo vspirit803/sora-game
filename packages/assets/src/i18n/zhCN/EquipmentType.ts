@@ -14,4 +14,7 @@ export const EquipmentType = {
   Belt: "腰带",
   Shoulders: "护肩",
   Kneecap: "护膝",
+  Necklace: "项链",
+  Bracelet: "手镯",
+  Ring: "戒指",
 };

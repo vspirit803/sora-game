@@ -6,7 +6,7 @@
  * @LastEditors: vspirit803
  */
 
-import { ItemTypes } from './ItemType';
+import { ItemType } from './ItemType';
 
 /**
  * 物品配置接口
@@ -17,7 +17,7 @@ export interface ItemConfiguration {
   /**名称 */
   name: string;
   /**类别 */
-  type: ItemTypes;
+  type: ItemType;
   /**能否堆叠 */
   isStackable?: boolean;
   /**稀有度 */

@@ -29,6 +29,10 @@ export class StatusBuffItem extends AbstractBuffItem {
     this.status = status;
   }
 
+  /**buff的生效 */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  start(): void {}
+
   /**buff的取消 */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   destroy(): void {}

@@ -7,6 +7,7 @@
  */
 import { IPersistent } from '@core/Game';
 
+import { Equipment, Material, System } from '.';
 import { BackpackSave } from './BackpackSave';
 import { ItemConfiguration } from './ItemConfiguration';
 import { ItemEquipment } from './ItemEquipment';
@@ -17,15 +18,15 @@ import { ItemSystem } from './ItemSystem';
 import { ItemSystemConfiguration } from './ItemSystemConfiguration';
 
 function isMaterialConfiguration(item: ItemConfiguration): item is ItemMaterialConfiguration {
-  return item.type === 'Material';
+  return item.type === Material;
 }
 
 function isSystemConfiguration(item: ItemConfiguration): item is ItemSystemConfiguration {
-  return item.type === 'System';
+  return item.type === System;
 }
 
 function isEquipmentConfiguration(item: ItemConfiguration): item is ItemEquipmentConfiguration {
-  return item.type === 'Equipment';
+  return item.type === Equipment;
 }
 
 export type ItemConfigurations = {
@@ -103,36 +104,36 @@ export class ItemCenter implements IPersistent<BackpackSave> {
   addItem(item: ItemConfiguration, count = 1): void {
     if (isMaterialConfiguration(item)) {
       if (item.isStackable) {
-        //可叠加
-        const existItem = this.materials.find((currItem) => {
-          return currItem.id === item.id;
-        });
+        // 可叠加
+        const existItem = this.materials.find((each) => each.id === item.id);
         if (existItem) {
-          //已经有该物品,增加数量
+          // 已经有该物品,增加数量
           existItem.count += count;
         } else {
-          //没有该物品
-          this.materials.push(new ItemMaterial(item));
+          // 没有该物品
+          const newItem = new ItemMaterial(item);
+          newItem.count = count;
+          this.materials.push(newItem);
         }
       } else {
-        //没有该物品
+        // 不可叠加
         this.materials.push(new ItemMaterial(item));
       }
     } else if (isSystemConfiguration(item)) {
       if (item.isStackable) {
-        //可叠加
-        const existItem = this.systemItems.find((currItem) => {
-          return currItem.id === item.id;
-        });
+        // 可叠加
+        const existItem = this.systemItems.find((each) => each.id === item.id);
         if (existItem) {
-          //已经有该物品,增加数量
+          // 已经有该物品,增加数量
           existItem.count += count;
         } else {
-          //没有该物品
-          this.systemItems.push(new ItemSystem(item));
+          // 没有该物品
+          const newItem = new ItemSystem(item);
+          newItem.count = count;
+          this.systemItems.push(newItem);
         }
       } else {
-        //没有该物品
+        // 不可叠加
         this.systemItems.push(new ItemSystem(item));
       }
     } else if (isEquipmentConfiguration(item)) {

@@ -6,35 +6,54 @@
  * @LastEditors: vspirit803
  */
 import { Rarity } from '@core/Common';
+import { ObjectID } from 'bson';
 
-import { ItemBase } from './ItemBase';
+import { IItemBase } from './IItemBase';
 import { ItemCenter } from './ItemCenter';
 import { ItemMaterialConfiguration } from './ItemMaterialConfiguration';
 import { ItemMaterialSave } from './ItemMaterialSave';
 import { Material } from './ItemType';
 
-function isItemMaterialSave(material: ItemMaterialConfiguration | ItemMaterialSave): material is ItemMaterialSave {
-  return 'uuid' in material;
+function isItemMaterialSave(
+  materialItem: ItemMaterialConfiguration | ItemMaterialSave,
+): materialItem is ItemMaterialSave {
+  return 'uuid' in materialItem;
 }
 
 /**
  * 材料类物品
  */
-export class ItemMaterial extends ItemBase {
+export class ItemMaterial implements IItemBase {
+  id: string;
+  name: string;
+  type: typeof Material;
+  isStackable: boolean;
+  rarity: Rarity;
+  description: string;
+  count: number;
+  uuid: string;
+
   constructor(materialConfiguration: ItemMaterialConfiguration);
   constructor(materialSave: ItemMaterialSave);
-  constructor(material: ItemMaterialConfiguration | ItemMaterialSave) {
+  constructor(materialItem: ItemMaterialConfiguration | ItemMaterialSave) {
     let materialConfiguration: ItemMaterialConfiguration;
-    if (isItemMaterialSave(material)) {
-      materialConfiguration = ItemCenter.getInstance().materialsConfigurationMap.get(material.id)!;
+
+    if (isItemMaterialSave(materialItem)) {
+      materialConfiguration = ItemCenter.getInstance().materialsConfigurationMap.get(materialItem.id)!;
     } else {
-      materialConfiguration = material;
+      materialConfiguration = materialItem;
     }
 
     const { id, name, rarity, description, isStackable } = materialConfiguration;
-    const uuid = isItemMaterialSave(material) ? material.uuid : undefined;
-    const count = isItemMaterialSave(material) ? material.count : undefined;
-    super({ uuid, id, name, isStackable, type: Material, rarity: rarity as Rarity, count, description });
+
+    this.uuid = isItemMaterialSave(materialItem) ? materialItem.uuid : new ObjectID().toString();
+    this.id = id;
+    this.name = name;
+    this.type = Material;
+    this.rarity = rarity;
+    this.isStackable = isStackable;
+    this.description = description;
+    this.count = isItemMaterialSave(materialItem) ? materialItem.count : 1;
   }
 
   generateSave(): ItemMaterialSave {

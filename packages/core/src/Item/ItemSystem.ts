@@ -6,25 +6,36 @@
  * @LastEditors: vspirit803
  */
 import { Rarity } from '@core/Common';
+import { ObjectID } from 'bson';
 
-import { ItemBase } from './ItemBase';
+import { IItemBase } from './IItemBase';
 import { ItemCenter } from './ItemCenter';
 import { ItemSystemConfiguration } from './ItemSystemConfiguration';
 import { ItemSystemSave } from './ItemSystemSave';
 import { System } from './ItemType';
 
-function isItemSystemSave(system: ItemSystemConfiguration | ItemSystemSave): system is ItemSystemSave {
-  return 'uuid' in system;
+function isItemSystemSave(systemItem: ItemSystemConfiguration | ItemSystemSave): systemItem is ItemSystemSave {
+  return 'uuid' in systemItem;
 }
 
 /**
  * 系统物品
  */
-export class ItemSystem extends ItemBase {
+export class ItemSystem implements IItemBase {
+  uuid: string;
+  id: string;
+  name: string;
+  type: typeof System;
+  isStackable: boolean;
+  rarity: Rarity;
+  count: number;
+  description: string;
+
   constructor(systemConfiguration: ItemSystemConfiguration);
   constructor(systemSave: ItemSystemSave);
   constructor(systemItem: ItemSystemConfiguration | ItemSystemSave) {
     let systemConfiguration: ItemSystemConfiguration;
+
     if (isItemSystemSave(systemItem)) {
       systemConfiguration = ItemCenter.getInstance().systemsConfigurationMap.get(systemItem.id)!;
     } else {
@@ -32,9 +43,15 @@ export class ItemSystem extends ItemBase {
     }
 
     const { id, name, rarity, description, isStackable } = systemConfiguration;
-    const uuid = isItemSystemSave(systemItem) ? systemItem.uuid : undefined;
-    const count = isItemSystemSave(systemItem) ? systemItem.count : undefined;
-    super({ uuid, id, name, isStackable, type: System, rarity: rarity as Rarity, count, description });
+
+    this.uuid = isItemSystemSave(systemItem) ? systemItem.uuid : new ObjectID().toString();
+    this.id = id;
+    this.name = name;
+    this.type = System;
+    this.rarity = rarity;
+    this.isStackable = isStackable;
+    this.description = description;
+    this.count = isItemSystemSave(systemItem) ? systemItem.count : 1;
   }
 
   generateSave(): ItemSystemSave {

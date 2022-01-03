@@ -7,10 +7,9 @@
  */
 export * from './BackpackSave';
 export * from './getRandomEquipment';
-export * from './ItemBase';
+export * from './IItemBase';
 export * from './ItemCenter';
 export * from './ItemConfiguration';
-export * from './ItemConsumable';
 export * from './ItemEquipment';
 export * from './ItemEquipmentSlot';
 export * from './ItemEquipmentType';

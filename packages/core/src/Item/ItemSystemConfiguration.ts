@@ -6,11 +6,12 @@
  * @LastEditors: vspirit803
  */
 import { ItemConfiguration } from './ItemConfiguration';
+import { System } from './ItemType';
 
 /**
  * 系统物品配置接口
  */
 export interface ItemSystemConfiguration extends ItemConfiguration {
   isStackable: boolean;
-  type: 'System';
+  type: typeof System;
 }

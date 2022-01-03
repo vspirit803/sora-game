@@ -6,6 +6,8 @@
  * @LastEditors: vspirit803
  */
 
+import { Rarity } from '@core/Common';
+
 import { ItemType } from './ItemType';
 
 /**
@@ -21,6 +23,6 @@ export interface ItemConfiguration {
   /**能否堆叠 */
   isStackable?: boolean;
   /**稀有度 */
-  rarity: string;
+  rarity: Rarity;
   description: string;
 }

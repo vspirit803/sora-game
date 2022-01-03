@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { ItemBase, ItemEquipment } from 'sora-game-core';
+import { IItemBase, ItemEquipment } from 'sora-game-core';
 import { defineComponent, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -53,12 +53,12 @@ export default defineComponent({
   name: 'Item',
   props: {
     item: {
-      type: Object as PropType<ItemBase>,
+      type: Object as PropType<IItemBase>,
       default: null,
     },
   },
   setup() {
-    function isEquipment(item: ItemBase): item is ItemEquipment {
+    function isEquipment(item: IItemBase): item is ItemEquipment {
       return item instanceof ItemEquipment;
     }
 

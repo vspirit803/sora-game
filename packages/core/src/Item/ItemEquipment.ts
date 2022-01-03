@@ -9,9 +9,9 @@ import { CharacterNormal } from '@core/Character';
 import { CharacterPropertyType } from '@core/Character/CharacterPropertyType';
 import { Rarity } from '@core/Common';
 import { Game } from '@core/Game';
-import { ObjectId } from 'bson';
+import { ObjectID } from 'bson';
 
-import { ItemBase } from './ItemBase';
+import { IItemBase } from './IItemBase';
 import { ItemCenter } from './ItemCenter';
 import { ItemEquipmentConfiguration } from './ItemEquipmentConfiguration';
 import { ItemEquipmentProperty } from './ItemEquipmentProperty';
@@ -19,14 +19,25 @@ import { ItemEquipmentSave } from './ItemEquipmentSave';
 import { ItemEquipmentType } from './ItemEquipmentType';
 import { Equipment } from './ItemType';
 
-function isEquipmentSave(equipment: ItemEquipmentConfiguration | ItemEquipmentSave): equipment is ItemEquipmentSave {
-  return 'uuid' in equipment;
+function isEquipmentSave(
+  equipmentItem: ItemEquipmentConfiguration | ItemEquipmentSave,
+): equipmentItem is ItemEquipmentSave {
+  return 'uuid' in equipmentItem;
 }
 
 /**
  * 装备类物品
  */
-export class ItemEquipment extends ItemBase {
+export class ItemEquipment implements IItemBase {
+  id: string;
+  name: string;
+  type: typeof Equipment;
+  isStackable: false;
+  rarity: Rarity;
+  description: string;
+  count: number;
+  uuid: string;
+
   /**穿戴装备的角色 */
   wearer: CharacterNormal | null;
   /**装备部位 */
@@ -45,29 +56,31 @@ export class ItemEquipment extends ItemBase {
 
   constructor(equipmentConfiguration: ItemEquipmentConfiguration);
   constructor(equipmentSave: ItemEquipmentSave);
-  constructor(equipment: ItemEquipmentConfiguration | ItemEquipmentSave) {
+  constructor(equipmentItem: ItemEquipmentConfiguration | ItemEquipmentSave) {
     let equipmentConfiguration: ItemEquipmentConfiguration;
-    if (!isEquipmentSave(equipment)) {
-      //参数为EquipmentConfiguration
-      equipmentConfiguration = equipment;
-    } else {
+
+    if (isEquipmentSave(equipmentItem)) {
       //参数为EquipmentSave
-      const id = equipment.id;
+      const id = equipmentItem.id;
       const tempEquipmentConfiguration = ItemCenter.getInstance().equipmentsConfigurationMap.get(id);
+
       if (tempEquipmentConfiguration === undefined) {
         throw new Error(`装备[${id}]的配置不存在`);
       }
+
       equipmentConfiguration = tempEquipmentConfiguration;
+    } else {
+      //参数为EquipmentConfiguration
+      equipmentConfiguration = equipmentItem;
     }
-    const rarity = equipmentConfiguration.rarity as Rarity;
-    const equipmentType = equipmentConfiguration.equipmentType;
+
     const properties: { [propName in CharacterPropertyType]?: ItemEquipmentProperty } = {};
 
     for (const eachEquipmentPropertyConfiguration in equipmentConfiguration.properties) {
       const { min, max } =
         equipmentConfiguration.properties[eachEquipmentPropertyConfiguration as CharacterPropertyType]!;
       let value: number;
-      if (!isEquipmentSave(equipment)) {
+      if (!isEquipmentSave(equipmentItem)) {
         //范围内随机取值
         value = Game.getInstance().randomGenerator.get(min, max);
         //若为整数则取整
@@ -76,21 +89,29 @@ export class ItemEquipment extends ItemBase {
         }
       } else {
         //从存档读取数值
-        value = equipment.properties[eachEquipmentPropertyConfiguration as CharacterPropertyType]!;
+        value = equipmentItem.properties[eachEquipmentPropertyConfiguration as CharacterPropertyType]!;
       }
       properties[eachEquipmentPropertyConfiguration as CharacterPropertyType] = { min, max, value };
     }
 
-    const { id, name, level, description, isStackable } = equipmentConfiguration;
-    const uuid = isEquipmentSave(equipment) ? equipment.uuid : new ObjectId().toHexString();
-    super({ uuid, id, name, isStackable, rarity, type: Equipment, description });
+    const { id, name, rarity, equipmentType, level, description } = equipmentConfiguration;
+
+    this.uuid = isEquipmentSave(equipmentItem) ? equipmentItem.uuid : new ObjectID().toString();
+    this.id = id;
+    this.name = name;
+    this.type = Equipment;
+    this.rarity = rarity;
+    this.isStackable = false;
+    this.description = description;
+    this.count = 1;
+
     this.level = level;
     this.equipmentType = equipmentType;
     this.properties = properties;
     this.wearer = null;
 
     //存档,且有人佩戴
-    if (isEquipmentSave(equipment) && equipment.wearerId) {
+    if (isEquipmentSave(equipmentItem) && equipmentItem.wearerId) {
       // const wearer: CharacterNormal;
       // wearer.putOnEquipment(thisEquipment);
     }

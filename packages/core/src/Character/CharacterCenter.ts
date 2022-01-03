@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-04-15 13:30:08
  * @LastEditors: vspirit803
  */
-import { SaveInterface } from '@core/Game';
+import { IPersistent } from '@core/Game';
 
 import { CharacterConfiguration } from './CharacterConfiguration';
 import { CharacterNormal } from './CharacterNormal';
@@ -14,7 +14,7 @@ import { CharacterSave } from './CharacterSave';
 /**
  * 角色中心
  */
-export class CharacterCenter implements SaveInterface<Array<CharacterSave>> {
+export class CharacterCenter implements IPersistent<Array<CharacterSave>> {
   private static instance: CharacterCenter;
   static getInstance(): CharacterCenter {
     if (!CharacterCenter.instance) {

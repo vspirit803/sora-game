@@ -6,7 +6,7 @@
  * @LastEditors: vspirit803
  */
 import { MAX_TEAMS_NUM } from '@core/Common';
-import { SaveInterface } from '@core/Game';
+import { IPersistent } from '@core/Game';
 
 import { TeamNormal } from './TeamNormal';
 import { TeamSave } from './TeamSave';
@@ -14,7 +14,7 @@ import { TeamSave } from './TeamSave';
 /**
  * 队伍中心
  */
-export class TeamCenter implements SaveInterface<Array<TeamSave>> {
+export class TeamCenter implements IPersistent<Array<TeamSave>> {
   private static instance: TeamCenter;
   static getInstance(): TeamCenter {
     if (!TeamCenter.instance) {

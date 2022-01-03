@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-09-24 16:11:21
  * @LastEditors: vspirit803
  */
-import { SaveInterface } from '@core/Game';
+import { IPersistent } from '@core/Game';
 
 import { BackpackSave } from './BackpackSave';
 import { ItemConfiguration } from './ItemConfiguration';
@@ -37,7 +37,7 @@ export type ItemConfigurations = {
 /**
  * 物品中心(背包)
  */
-export class ItemCenter implements SaveInterface<BackpackSave> {
+export class ItemCenter implements IPersistent<BackpackSave> {
   private static instance: ItemCenter;
   static getInstance(): ItemCenter {
     if (!ItemCenter.instance) {

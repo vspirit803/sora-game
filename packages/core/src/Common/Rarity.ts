@@ -12,7 +12,7 @@ const Legendary = 'Legendary'; //传说
 const Ancient = 'Ancient'; //远古
 const Immortal = 'Immortal'; //不朽
 
-const Rarities = [Normal, Rare, Mythical, Legendary, Ancient, Immortal];
-type Rarity = typeof Normal | typeof Rare | typeof Mythical | typeof Legendary | typeof Ancient | typeof Immortal;
+const Rarities = [Normal, Rare, Mythical, Legendary, Ancient, Immortal] as const;
+type Rarity = typeof Rarities[number];
 
 export { Ancient, Immortal, Legendary, Mythical, Normal, Rare, Rarities, Rarity };

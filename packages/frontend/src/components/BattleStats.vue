@@ -18,7 +18,7 @@ import { BarChart, PieChart } from 'echarts/charts';
 import { GridComponent, LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
 import { use } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import { throttle } from 'quasar';
+import { debounce } from 'quasar';
 import { Battle, CharacterBattle, EventDataDamaging, EventListenerBuilder } from 'sora-game-core';
 import { defineComponent, PropType, ref } from 'vue';
 import ECharts from 'vue-echarts';
@@ -87,7 +87,9 @@ export default defineComponent({
       })
       .apply();
 
-    const updateOption = throttle(() => {
+    const updateOption = debounce(() => {
+      console.log('updateOption');
+
       option.value.series = [
         {
           name: '伤害',

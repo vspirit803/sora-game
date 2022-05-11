@@ -73,8 +73,8 @@ $rarityList: 'Normal' 'Rare' 'Mythical' 'Legendary' 'Ancient' 'Immortal';
 .item {
   width: 4rem;
   height: 4rem;
-  border: 4px silver solid;
   border-radius: 8px;
+  box-shadow: inset 0 0 4px 4px silver;
 
   &-count {
     font-size: 0.75rem;
@@ -82,7 +82,7 @@ $rarityList: 'Normal' 'Rare' 'Mythical' 'Legendary' 'Ancient' 'Immortal';
 
   @each $rarity in $rarityList {
     &.item-#{$rarity} {
-      border-color: var(--color-#{to-lower-case($rarity)});
+      box-shadow: inset 0 0 4px 4px var(--color-#{to-lower-case($rarity)});
     }
   }
 }

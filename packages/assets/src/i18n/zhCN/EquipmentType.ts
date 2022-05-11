@@ -17,4 +17,5 @@ export const EquipmentType = {
   Necklace: "项链",
   Bracelet: "手镯",
   Ring: "戒指",
+  Universal: "通用",
 };

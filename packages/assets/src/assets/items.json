@@ -101,6 +101,76 @@
       "properties": { "atk": { "min": 1000, "max": 1000 } },
       "rarity": "Immortal",
       "description": "这件武器有着惊人的力量，即使是最强的战士也难以掌控它。<p style=\"font-size: small; margin-top: 0.5rem;\">neta希腊神话<strong style=\"color: red\">代达罗斯</strong>杀死弟子<strong style=\"color: red\">塔洛斯</strong>，儿子伊卡洛斯坠海而死的故事，是icefrog对暴雪的无情嘲讽。</p>"
+    },
+    {
+      "id": "equipment00006",
+      "name": "金甲圣衣",
+      "type": "Equipment",
+      "equipmentType": "Coat",
+      "level": 100,
+      "properties": { "def": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "金甲圣衣"
+    },
+    {
+      "id": "equipment00006",
+      "name": "金甲圣衣",
+      "type": "Equipment",
+      "equipmentType": "Coat",
+      "level": 100,
+      "properties": { "def": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "金甲圣衣"
+    },
+    {
+      "id": "equipment00007",
+      "name": "霸域英豪胸甲",
+      "type": "Equipment",
+      "equipmentType": "Coat",
+      "level": 100,
+      "properties": { "def": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "霸域英豪胸甲"
+    },
+    {
+      "id": "equipment00008",
+      "name": "霸域英豪护腿",
+      "type": "Equipment",
+      "equipmentType": "Pants",
+      "level": 100,
+      "properties": { "def": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "霸域英豪护腿"
+    },
+    {
+      "id": "equipment00009",
+      "name": "霸域英豪护肩",
+      "type": "Equipment",
+      "equipmentType": "Shoulders",
+      "level": 100,
+      "properties": { "def": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "霸域英豪护肩"
+    },
+    {
+      "id": "equipment00010",
+      "name": "霸域英豪腰带",
+      "type": "Equipment",
+      "equipmentType": "Belt",
+      "level": 100,
+      "properties": { "def": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "霸域英豪腰带"
+    },
+    {
+      "id": "equipment00011",
+      "name": "霸域英豪战靴",
+      "type": "Equipment",
+      "equipmentType": "Shoes",
+      "level": 100,
+      "properties": { "def": { "min": 1000, "max": 1000 } },
+      "rarity": "Immortal",
+      "description": "霸域英豪战靴"
     }
   ]
 }

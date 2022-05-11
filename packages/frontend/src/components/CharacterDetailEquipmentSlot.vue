@@ -22,8 +22,9 @@
     :class="{
       'equipment-slot-available': available,
     }"
+    @click.right.prevent
   >
-    {{ equipmentSlot.name }}
+    {{ t(`EquipmentType.${equipmentSlot.name}`) }}
   </div>
 </template>
 
@@ -64,6 +65,7 @@ export default defineComponent({
   },
 });
 </script>
+
 <style lang="scss">
 .equipment-slot {
   width: 4rem;
@@ -71,13 +73,16 @@ export default defineComponent({
   border-radius: 8px;
 
   &-empty {
-    border: 1px grey dashed;
+    outline: 1px grey dashed;
+    outline-offset: -1px;
     font-size: 0.75rem;
   }
 
   &-available {
-    border-style: dashed !important;
-    border-width: 4px !important;
+    outline-style: dashed;
+    outline-width: 4px;
+    outline-offset: -4px;
+    box-shadow: none !important;
   }
 }
 </style>

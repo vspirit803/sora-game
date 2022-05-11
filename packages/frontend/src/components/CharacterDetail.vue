@@ -8,8 +8,8 @@
 
 <template>
   <div class="character-detail">
-    <div class="row items-start">
-      <div class="character-detail-left relative-position">
+    <div class="column items-center">
+      <div class="character-detail-top relative-position shadow-1">
         <div class="equipments-container">
           <CharacterDetailEquipmentSlot
             v-for="each of equipmentSlots"
@@ -27,21 +27,32 @@
           <span class="character-level q-mr-md">lv.{{ character.level }}</span>
           <span class="character-name">{{ character.name }}</span>
         </div>
+        <div class="character-image-container">
+          <q-img class="character-image" :src="`/images/characters/${character.id}.png`" fit="contain" />
+        </div>
       </div>
-      <div class="character-detail-right column content-center">
-        <div class="row">
+      <div class="character-detail-bottom column content-center q-mt-sm">
+        <div class="character-properties row shadow-1">
           <template v-for="(eachProperty, key) of character.properties" :key="key">
             <template v-if="eachProperty">
-              <span class="col-4">{{ t(`Properties.${key}`) }}</span>
-              <span class="col-2 offset-4 text-right text-green">{{ eachProperty.characterValue }}</span>
-              <span v-if="eachProperty.equipmentValue" class="col-2 text-left">+{{ eachProperty.equipmentValue }}</span>
+              <span class="col-2">{{ t(`Properties.${key}`) }}</span>
+              <span class="col-2 text-right text-green">
+                {{ eachProperty.characterValue }}
+              </span>
+              <span v-if="eachProperty.equipmentValue > 0" class="col-2 text-left q-pl-sm">
+                +{{ eachProperty.equipmentValue }}
+              </span>
+              <span v-else-if="eachProperty.equipmentValue < 0" class="col-2 text-left q-pl-sm">
+                {{ eachProperty.equipmentValue }}
+              </span>
+              <span v-else class="col-2 text-left q-pl-sm"></span>
             </template>
           </template>
         </div>
         <div class="skills-container row justify-center">
           <CharacterDetailSkill v-for="each of skills" :key="each.id" :skill="each" />
         </div>
-        <div class="items-background row content-start">
+        <div class="items-background row content-start shadow-4">
           <Item
             v-for="each of availableEquipments"
             :key="each.uuid"
@@ -51,7 +62,7 @@
             @dragend="onDragEnd"
             @click.right.prevent="() => onPutOnEquipment(each)"
           />
-          <Item v-for="index of 40 - availableEquipments.length" :key="index" class="item" />
+          <Item v-for="index of 32 - availableEquipments.length" :key="index" class="item" />
         </div>
       </div>
     </div>
@@ -82,7 +93,7 @@ export default defineComponent({
     const { character } = toRefs(props);
     const game = useGame();
     const skills = computed(() => character.value.skills) as Ref<Array<SkillNormal>>;
-    const equipmentSlots = ref<Array<ItemEquipmentSlot>>(character.value.equipments);
+    const equipmentSlots = computed(() => character.value.equipments) as Ref<Array<ItemEquipmentSlot>>;
     const availableEquipments = computed(() => (game.backpack as ItemCenter).equipments.filter((each) => !each.wearer));
 
     const draggingEquipment = ref<ItemEquipment | null>(null);
@@ -90,9 +101,12 @@ export default defineComponent({
     function onDragStart(e: DragEvent, equipment: ItemEquipment) {
       e.dataTransfer?.setData('text/plain', equipment.name);
       draggingEquipment.value = equipment;
+      console.log(e.dataTransfer?.getData('text/plain'), draggingEquipment.value);
     }
 
     function onDragOver(e: DragEvent, equipmentSlot: ItemEquipmentSlot) {
+      console.log(e.dataTransfer?.getData('text/plain'), equipmentSlot.name, draggingEquipment.value);
+
       if (draggingEquipment.value && equipmentSlot.isEquipmentAvailable(draggingEquipment.value)) {
         e.dataTransfer && (e.dataTransfer.dropEffect = 'move');
       } else {
@@ -147,7 +161,6 @@ export default defineComponent({
 
 .equipments-container {
   position: relative;
-  height: 16rem;
 
   .equipment-slot {
     position: absolute;
@@ -205,28 +218,45 @@ export default defineComponent({
 }
 
 .character-detail {
-  &-left {
+  &-top {
     overflow: hidden;
     width: 32rem;
+    height: calc(14rem + 8px);
     flex-grow: 0;
 
     .character-name-container {
       position: absolute;
-      bottom: 1rem;
+      bottom: 0;
       width: 100%;
+    }
+
+    .character-image-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+
+      .character-image {
+        max-height: 12rem;
+      }
     }
   }
 
-  &-right {
+  &-bottom {
+    width: 32rem;
     flex-grow: 1;
-    gap: 2rem;
+    gap: 1rem;
   }
 }
 
 .items-background {
-  width: calc(4rem * 8 + 7px + 2px);
-  height: calc(4rem * 5 + 4px + 2px);
-  padding: 1px;
+  width: calc(4rem * 8 + 7px);
+  height: calc(4rem * 4 + 3px);
   background-color: rgba(240, 255, 255, 0.3);
   gap: 1px;
 }

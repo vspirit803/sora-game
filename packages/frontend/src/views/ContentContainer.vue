@@ -15,6 +15,7 @@
 .content-container {
   margin: auto;
   aspect-ratio: 16 / 9;
+  width: 1366px;
   max-height: 100vh;
   max-width: 100vw;
   position: relative;

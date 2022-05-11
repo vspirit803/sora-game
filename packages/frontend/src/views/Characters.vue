@@ -9,7 +9,7 @@
 <template>
   <div class="container">
     <HomeButton />
-    <div class="characters-container column">
+    <div class="characters-container column shadow-4">
       <div class="toolbar row shadow-1">
         <q-toolbar class="col-4">
           <q-input v-model="characterName" label="姓名" dense>
@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-    <CharacterDetail class="character-detail" :character="selectedCharacter" />
+    <CharacterDetail class="character-detail shadow-4" :character="selectedCharacter" />
   </div>
 </template>
 
@@ -86,7 +86,9 @@ const filteredCharacters = computed(() =>
 }
 
 .characters-container {
-  flex: 0 0 33rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  flex: 0 0 34rem;
 
   .characters {
     gap: 0.333rem;
@@ -97,8 +99,8 @@ const filteredCharacters = computed(() =>
   }
 
   .character {
-    height: 12rem;
-    width: 8rem;
+    height: 6rem;
+    width: 6rem;
     outline: 1px red dashed;
     outline-offset: -1px;
 
@@ -123,5 +125,7 @@ const filteredCharacters = computed(() =>
 
 .character-detail {
   flex-grow: 1;
+  margin: 0.5rem;
+  padding: 0.5rem;
 }
 </style>
